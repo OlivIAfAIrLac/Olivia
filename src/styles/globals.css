@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Outfit;
+  src: url("/fonts/Outfit-Medium.ttf") format("truetype");
+}
+
+.login-bg {
+  /* UI Properties */
+  background: transparent linear-gradient(180deg, #e8f6ff 0%, #beb2fb 100%) 0%
+    0% no-repeat padding-box;
+  opacity: 1;
+}
+.footer {
+  background: #d0c8f6 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+.no-bg-btn {
+  width: 183px;
+  height: 23px;
+  text-align: center;
+  font: normal normal normal 18px/23px Outfit;
+  letter-spacing: 0px;
+  color: #33347e;
+  opacity: 1;
+}
