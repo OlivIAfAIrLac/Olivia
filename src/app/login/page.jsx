@@ -1,12 +1,13 @@
 'use client'
-import React, { useState } from 'react'
-import Login from '@/components/Login';
+import Footer from '@/components/Footer';
+import LoginForm from '@/components/LoginForm';
 import Logo from '@/components/Logo';
+import { useState } from 'react';
 
-const Home = () => {
+const HomeLogin = () => {
     const [isLoged, setIsLoged] = useState(false)
     return (
-        <div className="h-screen">
+        <div className='h-screen'>
             {!isLoged && <div className="grid justify-end">
                 <button className="mt-5 no-bg-btn outfit-font"
                     onClick={() => setIsLoged(true)}
@@ -21,7 +22,7 @@ const Home = () => {
                 />
             </div>
                 : <div className="relative flex justify-center top-1/4">
-                    <Login
+                    <LoginForm
                         onClose={() => setIsLoged(false)}
                     />
                 </div>
@@ -30,4 +31,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default HomeLogin;

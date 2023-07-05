@@ -1,8 +1,10 @@
 import Image from "next/image";
 
-const Footer = () => {
+const Footer = ({
+    className
+}) => {
     return (
-        <footer className="absolute w-screen bottom-0 footer">
+        <footer className={className ?? "bottom-0 footer"}>
             <div className="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
                 <Image
                     className="flex items-center md:justify-start "

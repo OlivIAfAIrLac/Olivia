@@ -3,7 +3,7 @@ import Link from "next/link";
 import CloseBtn from "./CloseBtn";
 import Input from "./Input";
 
-const Login = ({
+const LoginForm = ({
     onClose
 }) => {
     return (
@@ -34,4 +34,4 @@ const Login = ({
     );
 }
 
-export default Login;
+export default LoginForm;

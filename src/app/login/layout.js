@@ -9,9 +9,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="es-MX">
-            <body className="welcome-bg h-screen">
+            <body className="welcome-bg h-fit">
                 {children}
-                <Footer />
+                <Footer className="fixed footer bottom-0 w-screen" />
             </body>
         </html>
     )
