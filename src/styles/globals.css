@@ -7,7 +7,7 @@
   src: url("/fonts/Outfit-Medium.ttf") format("truetype");
 }
 
-.login-bg {
+.welcome-bg {
   /* UI Properties */
   background: transparent linear-gradient(180deg, #e8f6ff 0%, #beb2fb 100%) 0%
     0% no-repeat padding-box;
@@ -25,4 +25,18 @@
   letter-spacing: 0px;
   color: #33347e;
   opacity: 1;
+}
+.login-bg {
+  background: #f3f1ff 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+.input {
+  background: #f3f1ff 0% 0% no-repeat padding-box;
+  border: 1px solid #b0a2f9;
+  opacity: 1;
+  height: 35px;
+}
+.primary-btn {
+  background: #d0c8f6 0% 0% no-repeat padding-box;
+  color: #000000;
 }

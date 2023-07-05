@@ -1,11 +1,12 @@
 'use client'
 import React, { useState } from 'react'
 import Image from "next/image";
+import Login from '@/components/Login';
 
 const Home = () => {
     const [isLoged, setIsLoged] = useState(false)
     return (
-        <div className="login-bg h-screen">
+        <div className="h-screen">
             {!isLoged && <div className="grid justify-end">
                 <button className="mt-5 no-bg-btn outfit-font"
                     onClick={() => setIsLoged(true)}
@@ -13,16 +14,20 @@ const Home = () => {
                     Ingresar
                 </button>
             </div>}
-            <div className="absolute left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4">
-                {!isLoged ? <Image
+            {!isLoged ? <div className="relative flex justify-center top-1/3">
+                <Image
                     src="/Logo_OLIVIA.png"
                     alt="logo"
                     width={501}
                     height={156}
                 />
-                    : <h1>Login form!</h1>
-                }
             </div>
+                : <div className="relative flex justify-center top-1/4">
+                    <Login
+                        onClose={() => setIsLoged(false)}
+                    />
+                </div>
+            }
         </div>
     );
 }

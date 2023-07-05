@@ -6,7 +6,7 @@ const Input = (props) => {
     } = props;
     return (
         <input
-            className="input mb-4 py-2 px-3"
+            className="input py-2 px-3"
             name={name}
             placeholder={placeholder}
             type={type}

@@ -3,7 +3,7 @@ import Image from "next/image";
 const Footer = () => {
     return (
         <footer className="absolute w-screen bottom-0 footer">
-            <div class="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
+            <div className="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
                 <Image
                     className="flex items-center md:justify-start "
                     src="/Logo_FAIR_LAC.png"
