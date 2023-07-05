@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: Outfit;
-  src: url("/fonts/Outfit-Medium.ttf") format("truetype");
+  src: url("/fonts/Outfit-Bold.ttf") format("truetype");
 }
 
 .welcome-bg {
@@ -39,4 +39,32 @@
 .primary-btn {
   background: #d0c8f6 0% 0% no-repeat padding-box;
   color: #000000;
+}
+.main-bg {
+  background: #e0dbfa 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+.navbar-bg {
+  background: #d4eefe 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+.primary-color {
+  color: #33347e;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width: 219px;
+  padding: 12px 16px;
+  z-index: 1;
+}
+.dropdown:hover .dropdown-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

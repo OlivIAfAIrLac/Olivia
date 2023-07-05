@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
-import Image from "next/image";
 import Login from '@/components/Login';
+import Logo from '@/components/Logo';
 
 const Home = () => {
     const [isLoged, setIsLoged] = useState(false)
@@ -15,9 +15,7 @@ const Home = () => {
                 </button>
             </div>}
             {!isLoged ? <div className="relative flex justify-center top-1/3">
-                <Image
-                    src="/Logo_OLIVIA.png"
-                    alt="logo"
+                <Logo
                     width={501}
                     height={156}
                 />

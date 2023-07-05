@@ -1,3 +1,6 @@
+
+import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation";
 import "../styles/globals.css";
 export const metadata = {
     title: 'Olivia',
@@ -7,7 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="es-MX">
-            {children}
+            <body className="main-bg">
+                <Navigation />
+                {children}
+                <Footer />
+            </body>
         </html>
     )
 }
