@@ -1,3 +1,5 @@
+import { getFecha } from "@/helpers/getDate";
+
 const CardRecord = ({
     data
 }) => {
@@ -9,7 +11,7 @@ const CardRecord = ({
                     {/* date */}
                     <div className="flex flex-col">
                         <span className="ml-auto mt-0">
-                            {fecha}
+                            {getFecha(fecha)}
                         </span>
                     </div>
                     {/*  */}

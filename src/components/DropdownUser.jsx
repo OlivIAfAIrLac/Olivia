@@ -4,10 +4,10 @@ const DropdownUser = () => {
     return (
         <div className="ml-auto float-right dropdown">
             <BiUserCircle className="primary-color" size={50} />
-            <div className="dropdown-content navbar-bg right-auto">
+            <div className="container dropdown-content navbar-bg right-0">
                 {/*  */}
-                <h1 href="my_account" className="font-bold primary-color">Mi cuenta</h1>
-                <h1 className="font-bold primary-color p-2">Salir</h1>
+                <Link href="my_account" className="font-bold primary-color p-3">Mi cuenta</Link>
+                <h1 className="font-bold primary-color p-3">Salir</h1>
             </div>
         </div>
 

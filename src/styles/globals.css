@@ -7,7 +7,7 @@
   src: url("/fonts/Outfit-VariableFont_wght.ttf") format("truetype");
 }
 
-.outfit-font{
+.outfit-font {
   font-family: Outfit;
 }
 
@@ -76,10 +76,26 @@
   justify-content: center;
   align-items: center;
 }
-.footer{
+.footer {
   background: #d0c8f6 0% 0% no-repeat padding-box;
   opacity: 1;
 }
-.h-81vh{
+.h-81vh {
   max-height: 81vh;
+}
+.bg-riesgo-eventual {
+  background: #87f195 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+.bg-riesgo-acrecentado {
+  background: #ffcc67 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+.bg-riesgo-severo {
+  background: #ff6767 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+.bg-riesgo-extremo {
+  background: #E767FF 0% 0% no-repeat padding-box;
+  opacity: 1;
 }
