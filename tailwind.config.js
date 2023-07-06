@@ -16,6 +16,9 @@ module.exports = {
         primary: "Outfit",
       },
     },
+    container: {
+      center: true,
+    },
   },
   plugins: [],
 }
