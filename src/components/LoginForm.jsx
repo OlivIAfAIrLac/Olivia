@@ -2,6 +2,7 @@
 import Link from "next/link";
 import CloseBtn from "./CloseBtn";
 import Input from "./Input";
+import { routes } from "@/helpers/routes";
 
 const LoginForm = ({
     onClose
@@ -18,7 +19,7 @@ const LoginForm = ({
                         <Input placeholder="Contraseña..." type="password" />
                         {/* Add functions to recover pass */}
                         <Link className="ml-auto"
-                            href="/login/recovery"
+                            href={routes.login.recuperarPass}
                         >
                             Olvide mi contraseña
                         </Link>

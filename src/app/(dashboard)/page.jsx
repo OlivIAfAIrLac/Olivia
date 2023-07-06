@@ -3,6 +3,7 @@ import ExpedientesGrid from '@/components/ExpedientesGrid'
 import Link from 'next/link'
 import { FaClipboardUser } from 'react-icons/fa6'
 import { dataExpedientes } from '../../mock/apiResponse'
+import { routes } from '../../helpers/routes'
 
 
 export default function Home() {
@@ -14,7 +15,7 @@ export default function Home() {
           <h1 className="text-3xl font-semibold">¡Buen dia!</h1>
           <h1 className="font-bold text-5xl">Lorem Ipsum</h1>
         </div>
-        <Link href="/new_record" className='flex primary-bg py-4 pr-8 pl-16 '>
+        <Link href={routes.dashboard.nuevoExpediente} className='flex primary-bg py-4 pr-8 pl-16 '>
           <FaClipboardUser className='flex-initial' size={59} />
           <span className='ml-5 flex-initial mr-24 mt-5'>
             Nuevo Expediente

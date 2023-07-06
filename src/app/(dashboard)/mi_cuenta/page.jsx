@@ -24,7 +24,7 @@ const HomeProfile = () => {
     return (
         <section className="mt-4">
             <Container>
-                <div className="container flex flex-col login-bg p-3">
+                <div className="container flex flex-col login-bg p-8">
                     <span className="font-bold">{nombre}</span>
                     <span>{profesion}</span>
                     <span>{unidad}</span>
@@ -33,7 +33,7 @@ const HomeProfile = () => {
                     <span>{tipoUsuario}</span>
                 </div>
 
-                <div className="container login-bg mt-4 flex flex-col p-3">
+                <div className="container login-bg mt-4 flex flex-col p-8">
                     <span className="font-bold">
                         Estadisticas</span>
                     <span>
