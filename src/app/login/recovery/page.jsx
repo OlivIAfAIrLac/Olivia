@@ -4,8 +4,7 @@ const page = () => {
     return (
         <div className="h-screen">
             <div className="relative flex justify-center top-1/4">
-                <RecoverForm
-                />
+                <RecoverForm />
             </div>
 
         </div>
