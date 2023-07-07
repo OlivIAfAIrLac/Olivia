@@ -38,7 +38,10 @@ const HomeNuevoExpediente = () => {
 
                                 : <div className="mt-4 mb-2 w-full">
                                     <div className="mb-4 flex flex-col">
-                                        <DateTimeDisplayer />
+                                        <DateTimeDisplayer
+                                            fecha="12/09/2023"
+                                            hora="13:00"
+                                        />
                                         <h1 className="mt-0 font-bold">
                                             Folio 321
                                         </h1>
@@ -47,8 +50,9 @@ const HomeNuevoExpediente = () => {
                                         </h1>
                                     </div>
                                     <div className="grid grid-flow-col gap-3 text-center">
+                                        {/* TODO: add folio after created */}
                                         <Link className="primary-btn capitalize py-3 w-full mt-5"
-                                            href="#"
+                                            href={`${routes.dashboard.expediente}/1111427`}
                                         >
                                             ver expediente
                                         </Link>
