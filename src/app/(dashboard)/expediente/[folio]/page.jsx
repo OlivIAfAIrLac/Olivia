@@ -68,6 +68,13 @@ const HomeFolio = ({ params }) => {
                         folio={folio}
                     />
                 </div>
+                <div className="flex flex-col text-center justify-center items-center">
+                    <Link className="font-bold primary-bg capitalize py-3 px-12 mt-5"
+                        href={routes.dashboard.main}
+                    >
+                        más expedientes
+                    </Link>
+                </div>
             </Container>
         </div>
     );
