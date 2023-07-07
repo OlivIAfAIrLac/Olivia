@@ -96,6 +96,9 @@
   opacity: 1;
 }
 .bg-riesgo-extremo {
-  background: #E767FF 0% 0% no-repeat padding-box;
+  background: #e767ff 0% 0% no-repeat padding-box;
   opacity: 1;
+}
+.border-color-primary {
+  border-color: #B0A2F9;
 }

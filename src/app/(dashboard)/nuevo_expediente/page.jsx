@@ -1,9 +1,10 @@
 'use client'
 
+import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import Input from "@/components/Input";
 import { routes } from "@/helpers/routes";
 import Link from "next/link";
-import { useState } from 'react'
+import { useState } from 'react';
 
 const HomeNuevoExpediente = () => {
     /* TODO: remover comportamiento mocked */
@@ -37,8 +38,7 @@ const HomeNuevoExpediente = () => {
 
                                 : <div className="mt-4 mb-2 w-full">
                                     <div className="mb-4 flex flex-col">
-                                        <h1 className="text-sm ml-auto">hora:13:55</h1>
-                                        <h1 className="text-sm ml-auto">fecha: 12/09/2023</h1>
+                                        <DateTimeDisplayer />
                                         <h1 className="mt-0 font-bold">
                                             Folio 321
                                         </h1>
