@@ -3,8 +3,9 @@ export const routes = {
         main: "/",
         miCuenta: "/mi_cuenta",
         nuevoExpediente: "/nuevo_expediente",
-        expediente:"/expediente",
-        cedula:"/cedula",
+        expediente: "/expediente",
+        cedula: "/cedula",
+        sabana: "/sabana",
     },
     login: {
         signIn: "/login",

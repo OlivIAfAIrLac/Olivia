@@ -2,6 +2,7 @@
 
 import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import Input from "@/components/Input";
+import PrimaryLinkButton from "@/components/PrimaryLinkButton";
 import { routes } from "@/helpers/routes";
 import Link from "next/link";
 import { useState } from 'react';
@@ -51,16 +52,16 @@ const HomeNuevoExpediente = () => {
                                     </div>
                                     <div className="grid grid-flow-col gap-3 text-center">
                                         {/* TODO: add folio after created */}
-                                        <Link className="primary-btn capitalize py-3 w-full mt-5"
+                                        <PrimaryLinkButton
                                             href={`${routes.dashboard.expediente}/1111427`}
                                         >
                                             ver expediente
-                                        </Link>
-                                        <Link className="primary-btn capitalize py-3 w-full mt-5"
+                                        </PrimaryLinkButton>
+                                        <PrimaryLinkButton
                                             href={routes.dashboard.main}
                                         >
                                             más expedientes
-                                        </Link>
+                                        </PrimaryLinkButton>
                                     </div>
                                 </div>
                         }
