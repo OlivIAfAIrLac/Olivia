@@ -1,8 +1,11 @@
 import Container from "@/components/Container";
 import ExpedientesGrid from "@/components/ExpedientesGrid";
+import { getUserInfo } from "@/helpers/auth";
 import { dataExpedientes, dataEstadisticasPerfil } from "@/mock/apiResponse";
+import { cookies } from "next/headers";
 
-const HomeProfile = () => {
+const HomeProfile = async () => {
+    const token = cookies().get('auth').value;
     const {
         nombre,
         profesion,
@@ -10,7 +13,10 @@ const HomeProfile = () => {
         correo,
         telefono,
         extension,
-        tipoUsuario,
+        rol
+    } = await getUserInfo(token);
+    /* TODO: get this data from fetch*/
+    const {
         totalPersonasAtendidas,
         riesgo,
     } = dataEstadisticasPerfil;
@@ -30,7 +36,7 @@ const HomeProfile = () => {
                     <span>{unidad}</span>
                     <span>{correo}</span>
                     <span>{telefono} Ext.{extension}</span>
-                    <span>{tipoUsuario}</span>
+                    <span>{rol}</span>
                 </div>
 
                 <div className="container login-bg mt-4 flex flex-col p-8">
