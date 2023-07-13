@@ -1,14 +1,12 @@
-import { jwtVerify } from 'jose';
 import { NextResponse } from 'next/server';
 import { routes } from './helpers/routes';
+import { getUserInfo } from './helpers/auth';
 
-// This function can be marked `async` if using `await` inside
 export async function middleware(request) {
   try {
     if (!request.nextUrl.pathname.startsWith('/login')) {
       const cookie = request.cookies.get("auth");
-      const { payload } = await jwtVerify(cookie.value, new TextEncoder().encode(process.env.jwtSecret));
-      
+      const payload = await getUserInfo(cookie.value);
       return NextResponse.next();
 
     }
