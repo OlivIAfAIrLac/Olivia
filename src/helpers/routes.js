@@ -1,14 +1,14 @@
 export const routes = {
     dashboard: {
         admin: {
-            adminUsuarios: "/admin/usuarios"
+            adminUsuarios: "/dashboard/admin/usuarios"
         },
-        main: "/",
-        miCuenta: "/mi_cuenta",
-        nuevoExpediente: "/nuevo_expediente",
-        expediente: "/expediente",
-        cedula: "/cedula",
-        sabana: "/sabana",
+        main: "/dashboard",
+        miCuenta: "/dashboard/mi_cuenta",
+        nuevoExpediente: "/dashboard/nuevo_expediente",
+        expediente: "/dashboard/expediente",
+        cedula: "/dashboard/cedula",
+        sabana: "/dashboard/sabana",
     },
     login: {
         signIn: "/login",
