@@ -1,20 +1,13 @@
+'use client'
 import Container from "@/components/Container";
 import ExpedientesGrid from "@/components/ExpedientesGrid";
-import { getUserInfo } from "@/helpers/auth";
 import { dataExpedientes, dataEstadisticasPerfil } from "@/mock/apiResponse";
-import { cookies } from "next/headers";
+import { useSession } from "next-auth/react";
 
-const HomeProfile = async () => {
-    const token = cookies().get('auth').value;
-    const {
-        nombre,
-        profesion,
-        unidad,
-        correo,
-        telefono,
-        extension,
-        rol
-    } = await getUserInfo(token);
+
+const HomeProfile = () => {
+    const { data } = useSession()
+
     /* TODO: get this data from fetch*/
     const {
         totalPersonasAtendidas,
@@ -31,12 +24,12 @@ const HomeProfile = async () => {
         <section className="mt-4">
             <Container>
                 <div className="container flex flex-col login-bg p-8">
-                    <span className="font-bold">{nombre}</span>
-                    <span>{profesion}</span>
-                    <span>{unidad}</span>
-                    <span>{correo}</span>
-                    <span>{telefono} Ext.{extension}</span>
-                    <span>{rol}</span>
+                    <span className="font-bold">{data?.user.nombre}</span>
+                    <span>{data?.user.profesion}</span>
+                    <span>{data?.user.unidad}</span>
+                    <span>{data?.user.correo}</span>
+                    <span>{data?.user.telefono} Ext.{data?.user.extension}</span>
+                    <span>{data?.user.rol}</span>
                 </div>
 
                 <div className="container login-bg mt-4 flex flex-col p-8">

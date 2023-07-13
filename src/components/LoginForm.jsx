@@ -4,10 +4,14 @@ import CloseBtn from "./CloseBtn";
 import Input from "./Input";
 import { routes } from "@/helpers/routes";
 import { apiRoutes } from '@/helpers/apiRoutes';
+import { signIn } from 'next-auth/react'
+import { useRouter } from "next/navigation";
+
 
 const LoginForm = ({
     onClose
 }) => {
+    const router = useRouter();
     const handleOnSubmit = async (ev) => {
         ev.preventDefault()
         const formData = new FormData(ev.currentTarget);
@@ -16,12 +20,37 @@ const LoginForm = ({
         try {
             const res = await axios.post(apiRoutes.LOGIN, { email, password });
             if (res.status === 200) {
-                cookies().set("auth", res.data.token);
+                const {
+                    nombre,
+                    email,
+                    unidad,
+                    profesion,
+                    token,
+                    telefono,
+                    extension,
+                    rol
+                } = res.data;
+                const resAuth = await signIn('credentials', {
+                    nombre,
+                    email,
+                    unidad,
+                    profesion,
+                    token,
+                    telefono,
+                    extension,
+                    rol,
+                    redirect: false
+                });
+                if (resAuth.ok) {
+                    console.log("OKA!");
+                    router.push(routes.dashboard.main)
+                }
             }
         } catch (error) {
             console.error(error);
         }
     }
+
     return (
         <div className="px-4 py-3 login-bg outfit-font login-form rounded-none">
             <div className="container flex flex-col items-center justify-center">
