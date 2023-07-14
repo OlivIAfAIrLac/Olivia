@@ -1,21 +1,48 @@
 'use client'
-
 import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import Input from "@/components/Input";
 import PrimaryLinkButton from "@/components/PrimaryLinkButton";
+import { apiRoutes } from "@/helpers/apiRoutes";
 import { routes } from "@/helpers/routes";
-import Link from "next/link";
+import { dataExpedientes } from "@/mock/apiResponse";
+import axios from "axios";
 import { useState } from 'react';
 
 const HomeNuevoExpediente = () => {
-    /* TODO: remover comportamiento mocked */
-    const [expedienteCreated, setExpedienteCreated] = useState(false)
+    const [expedienteData, setExpedienteData] = useState({
+        nombre: '',
+        curp: ''
+    })
+    const [expedienteIsCreated, setExpedienteIsCreated] = useState(false)
+    const [expedienteCreated, setExpedienteCreated] = useState()
+
+    const handleCrearExpediente = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.post(apiRoutes.EXPEDIENTE, { ...expedienteData })
+            if (res.status === 200) {
+                setExpedienteCreated(res.data)
+                setExpedienteIsCreated(true)
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleChange = (e) => {
+        e.preventDefault()
+        setExpedienteData({
+            ...expedienteData,
+            [e.target.name]: e.target.value
+        })
+    }
+
     return (
         <section className="h-screen h-81vh ">
             <div className="container max-w-2xl relative flex flex-col top-14">
                 <span className="left-0 mb-4">
                     {
-                        !expedienteCreated
+                        !expedienteIsCreated
                             ? "Ingresa CURP o nombre"
                             : "Has creado un nuevo expediente"
                     }
@@ -23,37 +50,48 @@ const HomeNuevoExpediente = () => {
                 <div className="px-4 py-3 login-bg ">
                     <div className="flex flex-col items-center justify-center">
                         {
-                            !expedienteCreated
+                            !expedienteIsCreated
                                 ? <form className="mt-4 mb-2 w-full">
                                     <div className="mb-4 flex flex-col">
-                                        <h1 >
+                                        <h1>
                                             CURP
                                         </h1>
-                                        <Input placeholder="CURP..." />
+                                        <Input
+                                            className='uppercase'
+                                            name='curp'
+                                            value={dataExpedientes.curp}
+                                            onChange={handleChange}
+                                            placeholder="CURP..."
+                                        />
                                         <h1 className="mt-3">
                                             Nombre
                                         </h1>
-                                        <Input placeholder="Nombre..." />
+                                        <Input
+                                            className='capitalize'
+                                            name='nombre'
+                                            value={dataExpedientes.nombre}
+                                            onChange={handleChange}
+                                            placeholder="Nombre..."
+                                        />
                                     </div>
                                 </form>
 
                                 : <div className="mt-4 mb-2 w-full">
                                     <div className="mb-4 flex flex-col">
                                         <DateTimeDisplayer
-                                            fecha="12/09/2023"
-                                            hora="13:00"
+                                            timeStamp={expedienteCreated.createdAt}
                                         />
                                         <h1 className="mt-0 font-bold">
-                                            Folio 321
+                                            Folio {expedienteCreated.folio}
                                         </h1>
                                         <h1 className="mt-3 capitalize">
-                                            maria fernanda lopez chavez
+                                            {expedienteCreated.nombre}
                                         </h1>
                                     </div>
                                     <div className="grid grid-flow-col gap-3 text-center">
                                         {/* TODO: add folio after created */}
                                         <PrimaryLinkButton
-                                            href={`${routes.dashboard.expediente}/1111427`}
+                                            href={`${routes.dashboard.expediente}/${expedienteCreated._id}`}
                                         >
                                             ver expediente
                                         </PrimaryLinkButton>
@@ -69,10 +107,10 @@ const HomeNuevoExpediente = () => {
                 </div>
                 <div className="flex flex-col justify-center items-center mt-4">
                     <button className="primary-btn capitalize py-3 w-1/2 mt-5"
-                        onClick={() => setExpedienteCreated(!expedienteCreated)}
+                        onClick={handleCrearExpediente}
                     >
                         {
-                            !expedienteCreated
+                            !expedienteIsCreated
                                 ? "crear expediente"
                                 : "nuevo expediente"
 

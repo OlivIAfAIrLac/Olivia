@@ -1,12 +1,14 @@
 'use client'
 import Container from "@/components/Container";
 import ExpedientesGrid from "@/components/ExpedientesGrid";
+import LoaderSkeleton from "@/components/LoaderSkeleton";
+import { userRole } from "@/helpers/usersRole";
 import { dataExpedientes, dataEstadisticasPerfil } from "@/mock/apiResponse";
 import { useSession } from "next-auth/react";
 
 
 const HomeProfile = () => {
-    const { data } = useSession()
+    const { data, status } = useSession()
 
     /* TODO: get this data from fetch*/
     const {
@@ -24,12 +26,17 @@ const HomeProfile = () => {
         <section className="mt-4">
             <Container>
                 <div className="container flex flex-col login-bg p-8">
-                    <span className="font-bold">{data?.user.nombre}</span>
-                    <span>{data?.user.profesion}</span>
-                    <span>{data?.user.unidad}</span>
-                    <span>{data?.user.correo}</span>
-                    <span>{data?.user.telefono} Ext.{data?.user.extension}</span>
-                    <span>{data?.user.rol}</span>
+                    {status === 'loading'
+                        ? <LoaderSkeleton />
+                        : <>
+                            <span className="font-bold mb-2">{data?.user.nombre}</span>
+                            <span className="capitalize">{data?.user.profesion}</span>
+                            <span>{data?.user.unidad}</span>
+                            <span>{data?.user.email}</span>
+                            <span>{data?.user.telefono} Ext.{data?.user.extension}</span>
+                            <span className="capitalize">{userRole[data?.user.rol]}</span>
+                        </>
+                    }
                 </div>
 
                 <div className="container login-bg mt-4 flex flex-col p-8">
@@ -60,7 +67,7 @@ const HomeProfile = () => {
             </Container>
             {/* cards */}
             <ExpedientesGrid data={dataExpedientes} />
-        </section>
+        </section >
     );
 }
 

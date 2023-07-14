@@ -1,38 +1,36 @@
 'use client'
 
 import ExpedientesGrid from '@/components/ExpedientesGrid'
-import Link from 'next/link'
-import { FaClipboardUser } from 'react-icons/fa6'
-import { dataExpedientes } from '../../mock/apiResponse'
-import { routes } from '../../helpers/routes'
-import { useSession } from 'next-auth/react';
 import LoaderSkeleton from '@/components/LoaderSkeleton'
-import { useEffect } from 'react'
+import { apiRoutes, axiosClient } from '@/helpers/apiRoutes'
 import axios from 'axios'
-import { apiBaseUrl } from 'next-auth/client/_utils'
-import { apiRoutes } from '@/helpers/apiRoutes'
-import { headers } from '../../../next.config'
+import { useSession } from 'next-auth/react'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { FaClipboardUser } from 'react-icons/fa6'
+import { routes } from '../../helpers/routes'
 
 
 export default function Home() {
   const { data, status } = useSession()
-
+  const [dataExpedientes, setDataExpedientes] = useState([])
+  const [expedientesLoading, setExpedientesLoading] = useState(true);
+  const token = data?.user.token
+  
   const getExpedientes = async () => {
     try {
-
-      const headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorizathion': `Bearer ${data.user.token}`
+      const config = { headers: { Authorization: `Bearer ${token}` } }
+      const res = await axios.get(apiRoutes.EXPEDIENTE, config);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      if (res.status === 200) {
+        setExpedientesLoading(false)
+        setDataExpedientes(res.data)
       }
-      const res = axios.get(apiRoutes.EXPEDIENTE,);
-      (res.status === 200) && console.log(res.data, headers);
 
     } catch (error) {
       console.error(error);
     }
   }
-
   useEffect(() => {
     status !== 'loading' && getExpedientes()
   }, [status])
@@ -66,9 +64,12 @@ export default function Home() {
       {/* CONTAIER */}
       <div className="flex flex-col bottom-0 login-bg">
         {/* cards */}
-        <ExpedientesGrid
-          data={dataExpedientes}
-        />
+        {expedientesLoading
+          ? <LoaderSkeleton />
+          : <ExpedientesGrid
+            data={dataExpedientes}
+          />
+        }
       </div>
     </>
   )
