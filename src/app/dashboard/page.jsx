@@ -6,11 +6,37 @@ import { FaClipboardUser } from 'react-icons/fa6'
 import { dataExpedientes } from '../../mock/apiResponse'
 import { routes } from '../../helpers/routes'
 import { useSession } from 'next-auth/react';
+import LoaderSkeleton from '@/components/LoaderSkeleton'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { apiBaseUrl } from 'next-auth/client/_utils'
+import { apiRoutes } from '@/helpers/apiRoutes'
+import { headers } from '../../../next.config'
 
 
 export default function Home() {
-  const { data } = useSession()
-  console.log(data?.user.rol);
+  const { data, status } = useSession()
+
+  const getExpedientes = async () => {
+    try {
+
+      const headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorizathion': `Bearer ${data.user.token}`
+      }
+      const res = axios.get(apiRoutes.EXPEDIENTE,);
+      (res.status === 200) && console.log(res.data, headers);
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    status !== 'loading' && getExpedientes()
+  }, [status])
+
 
   return (
     <>
@@ -18,7 +44,12 @@ export default function Home() {
         {/* User name */}
         <div className="flex-1 ">
           <h1 className="text-3xl font-semibold">¡Buen dia!</h1>
-          <h1 className="font-bold text-5xl">{data?.user.nombre}</h1>
+          {
+            status === 'loading'
+              ? <LoaderSkeleton />
+              : <h1 className="font-bold text-5xl">{data?.user.nombre}</h1>
+          }
+
         </div>
         <div className='flex flex-col'>
           {data?.user.rol !== 'admin' ?

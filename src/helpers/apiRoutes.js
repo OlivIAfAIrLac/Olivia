@@ -1,4 +1,7 @@
-const hostname = process.env.apiGateway;
+const hostname = process.env.NEXT_PUBLIC_API_GATEWAY;
+console.log('====================================');
+console.log(hostname);
+console.log('====================================');
 export const apiRoutes = {
     LOGIN: `${hostname}/login`,
     USUARIO: `${hostname}/usuario`,
