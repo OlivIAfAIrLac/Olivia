@@ -3,10 +3,6 @@ import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import "../../styles/globals.css";
 import { Providers } from "../Providers";
-export const metadata = {
-    title: 'Olivia',
-    description: 'for her',
-}
 
 export default function RootLayout({ children }) {
     return (
