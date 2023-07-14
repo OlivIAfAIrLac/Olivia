@@ -3,15 +3,15 @@ const nextConfig = {
     env: {
         apiGateway: "http://ec2-34-203-248-72.compute-1.amazonaws.com:8080/api",
     },
-    // async redirects() {
-    //     return [
-    //         {
-    //             source: '/',
-    //             destination: '/dashboard',
-    //             permanent: true,
-    //         },
-    //     ]
-    // },
+    async redirects() {
+        return [
+            {
+                source: '/',
+                destination: '/dashboard',
+                permanent: true,
+            },
+        ]
+    },
 }
 
-export default nextConfig
+module.exports = nextConfig
