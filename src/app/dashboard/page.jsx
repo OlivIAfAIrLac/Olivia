@@ -6,7 +6,7 @@ import { apiRoutes, axiosClient } from '@/helpers/apiRoutes'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FaClipboardUser } from 'react-icons/fa6'
 import { routes } from '../../helpers/routes'
 
@@ -16,8 +16,8 @@ export default function Home() {
   const [dataExpedientes, setDataExpedientes] = useState([])
   const [expedientesLoading, setExpedientesLoading] = useState(true);
   const token = data?.user.token
-  
-  const getExpedientes = async () => {
+
+  const getExpedientes = useCallback(async () => {
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } }
       const res = await axios.get(apiRoutes.EXPEDIENTE, config);
@@ -30,10 +30,12 @@ export default function Home() {
     } catch (error) {
       console.error(error);
     }
-  }
-  useEffect(() => {
-    status !== 'loading' && getExpedientes()
-  }, [status])
+  },
+    [token],
+  );
+    useEffect(() => {
+      status !== 'loading' && getExpedientes()
+    }, [getExpedientes, status])
 
 
   return (

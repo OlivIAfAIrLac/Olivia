@@ -7,7 +7,7 @@ import { apiRoutes } from "@/helpers/apiRoutes";
 import { routes } from "@/helpers/routes";
 import axios from "axios";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BiSolidMicrophone } from "react-icons/bi";
 import { FaRegEye } from "react-icons/fa6";
 import { TbUpload } from "react-icons/tb";
@@ -25,7 +25,8 @@ const HomeFolio = ({ params }) => {
     //     documentos,
     // } = expedienteData;
     const [expedienteData, setExpedienteData] = useState()
-    const getData = async () => {
+
+    const getData = useCallback(async () => {
         try {
             const res = await axios.get(`${apiRoutes.EXPEDIENTE}/${id}`);
             if (res.status === 200) {
@@ -34,10 +35,11 @@ const HomeFolio = ({ params }) => {
         } catch (error) {
             console.error(error);
         }
-    }
+    }, [id]);
+
     useEffect(() => {
         getData()
-    }, [])
+    }, [getData])
 
 
     return (
@@ -49,7 +51,7 @@ const HomeFolio = ({ params }) => {
                         timeStamp={expedienteData.expediente.createdAt}
                     />
                     <span className="font-bold">Folio {expedienteData.expediente.folio}</span>
-                    <span className="mb-5">{expedienteData.expediente.nombre}</span>
+                    <span className="mb-5 capitalize">{expedienteData.expediente.nombre}</span>
                     {/* Audio Container */}
                     <div className="p-3 login-bg flex flex-col">
                         <span className="font-bold">
@@ -59,7 +61,7 @@ const HomeFolio = ({ params }) => {
                             <div className="border-b-2 border-color-primary  flex flex-row">
                                 {/* Audio descripcion */}
                                 <span className="pl-5 mt-4">
-                                    {expedienteData.audio[0]?.descripcion}Lorem
+                                    {expedienteData.audio[0]?.descripcion}
                                 </span>
                                 <ControlButtonsGroup
                                     onView={() => true}
