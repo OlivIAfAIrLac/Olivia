@@ -15,29 +15,34 @@ export default function Home() {
   const { data, status } = useSession()
   const [dataExpedientes, setDataExpedientes] = useState([])
   const [expedientesLoading, setExpedientesLoading] = useState(true);
+  const [nextPage, setNextPage] = useState(null)
+  const [page, setPage] = useState(1)
   const token = data?.user.token
 
   const getExpedientes = useCallback(async () => {
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } }
-      const res = await axios.get(apiRoutes.EXPEDIENTE, config);
+      const res = await axios.get(`${apiRoutes.EXPEDIENTE}?page=${page}`, config);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       if (res.status === 200) {
         setExpedientesLoading(false)
-        setDataExpedientes(res.data)
+        setDataExpedientes([...dataExpedientes, ...res.data.docs])
+        setNextPage(res.data.nextPage)
       }
 
     } catch (error) {
       console.error(error);
     }
   },
-    [token],
+    [token, page],
   );
-    useEffect(() => {
-      status !== 'loading' && getExpedientes()
-    }, [getExpedientes, status])
+  useEffect(() => {
+    status !== 'loading' && getExpedientes()
+  }, [getExpedientes, status, page])
 
-
+  const addPagination = () => {
+    setPage(nextPage);
+  }
   return (
     <>
       <div className="flex p-2  mt-12 pb-8 py-2 px-32">
@@ -69,6 +74,8 @@ export default function Home() {
         {expedientesLoading
           ? <LoaderSkeleton />
           : <ExpedientesGrid
+            nextPage={nextPage}
+            addPagination={addPagination}
             data={dataExpedientes}
           />
         }

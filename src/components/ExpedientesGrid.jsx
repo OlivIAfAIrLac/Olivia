@@ -4,7 +4,7 @@ import IconButton from "./IconButton";
 import { FaSearch } from "react-icons/fa";
 import Container from "./Container";
 
-const ExpedientesGrid = ({ data }) => {
+const ExpedientesGrid = ({ data, addPagination, nextPage }) => {
     return (<>
         <Container>
             {/* Search button */}
@@ -25,7 +25,7 @@ const ExpedientesGrid = ({ data }) => {
             </div>
             <div className='mt-10 flex flex-col justify-center items-center'>
                 {/* TODO: add on click  */}
-                <IconButton>
+                <IconButton disabled={!nextPage} onClick={addPagination}>
                     <AiOutlinePlus size={40} />
                 </IconButton>
             </div>
