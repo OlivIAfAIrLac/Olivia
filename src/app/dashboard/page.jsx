@@ -2,12 +2,12 @@
 
 import ExpedientesGrid from '@/components/ExpedientesGrid'
 import LoaderSkeleton from '@/components/LoaderSkeleton'
-import { apiRoutes, axiosClient } from '@/helpers/apiRoutes'
+import { apiRoutes } from '@/helpers/apiRoutes'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useCallback, useEffect, useState } from 'react'
-import { FaClipboardUser } from 'react-icons/fa6'
+import { FaClipboardUser, FaUsers } from 'react-icons/fa6'
 import { routes } from '../../helpers/routes'
 
 
@@ -86,7 +86,7 @@ export default function Home() {
 const AdminButtons = () => {
   return <>
     <Link href={routes.dashboard.admin.adminUsuarios} className='flex primary-bg py-2 pr-8 pl-16 mb-4'>
-      <FaClipboardUser className='flex-initial' size={35} />
+      <FaUsers className='flex-initial' size={35} />
       <span className='ml-5 flex-initial mr-24 mt-2 capitalize'>
         administrar usuarios
       </span>

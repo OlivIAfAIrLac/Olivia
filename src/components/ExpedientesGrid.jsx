@@ -7,7 +7,7 @@ import Container from "./Container";
 const ExpedientesGrid = ({ data, addPagination, nextPage }) => {
     return (<>
         <Container>
-            {/* Search button */}
+            {/* TODO: SearchButton */}
             <div className='ml-auto'>
                 <IconButton>
                     <FaSearch size={30} />
@@ -24,7 +24,6 @@ const ExpedientesGrid = ({ data, addPagination, nextPage }) => {
                 }
             </div>
             <div className='mt-10 flex flex-col justify-center items-center'>
-                {/* TODO: add on click  */}
                 <IconButton disabled={!nextPage} onClick={addPagination}>
                     <AiOutlinePlus size={40} />
                 </IconButton>

@@ -2,20 +2,53 @@
 import Container from "@/components/Container";
 import ExpedientesGrid from "@/components/ExpedientesGrid";
 import LoaderSkeleton from "@/components/LoaderSkeleton";
+import UserProfile from "@/components/UserProfile";
+import UserStadistics, { StadisticPod } from "@/components/UserStadistics";
+import { apiRoutes } from "@/helpers/apiRoutes";
 import { userRole } from "@/helpers/usersRole";
 import { dataExpedientes, dataEstadisticasPerfil } from "@/mock/apiResponse";
+import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useCallback, useEffect, useState } from "react";
 
 
 const HomeProfile = () => {
     const { data, status } = useSession()
+    const [dataExpedientes, setDataExpedientes] = useState([])
+    const [expedientesLoading, setExpedientesLoading] = useState(true);
+    const [nextPage, setNextPage] = useState(null)
+    const [page, setPage] = useState(1)
+    const token = data?.user.token
+
+    const getExpedientes = useCallback(async () => {
+        try {
+            const config = { headers: { Authorization: `Bearer ${token}` } }
+            const res = await axios.get(`${apiRoutes.EXPEDIENTE}?page=${page}`, config);
+            if (res.status === 200) {
+                setExpedientesLoading(false)
+                setDataExpedientes([...dataExpedientes, ...res.data.docs])
+                setNextPage(res.data.nextPage)
+            }
+
+        } catch (error) {
+            console.error(error);
+        }
+    },
+        [token, page],
+    );
+    useEffect(() => {
+        status !== 'loading' && getExpedientes()
+    }, [getExpedientes, status, page])
+
+    const addPagination = () => {
+        setPage(nextPage);
+    }
 
     /* TODO: get this data from fetch*/
     const {
         totalPersonasAtendidas,
         riesgo,
     } = dataEstadisticasPerfil;
-
     const {
         eventual,
         acrecentado,
@@ -28,64 +61,30 @@ const HomeProfile = () => {
                 <div className="container flex flex-col login-bg p-8">
                     {status === 'loading'
                         ? <LoaderSkeleton />
-                        : <>
-                            <span className="font-bold mb-2">{data?.user.nombre}</span>
-                            <span className="capitalize">{data?.user.profesion}</span>
-                            <span>{data?.user.unidad}</span>
-                            <span>{data?.user.email}</span>
-                            <span>{data?.user.telefono} Ext.{data?.user.extension}</span>
-                            <span className="capitalize">{userRole[data?.user.rol]}</span>
-                        </>
+                        : <UserProfile data={data} />
                     }
                 </div>
-
-                <div className="container login-bg mt-4 flex flex-col p-8">
-                    <span className="font-bold">
-                        Estadisticas</span>
-                    <span>
-                        Total de Personas Atendidas:  {totalPersonasAtendidas}
-                    </span>
-                    <div className="grid grid-flow-col justify-center gap-28 mt-6">
-                        <StadisticPod
-                            risk="eventual"
-                            data={eventual}
-                        />
-                        <StadisticPod
-                            risk="acrecentado"
-                            data={acrecentado}
-                        />
-                        <StadisticPod
-                            risk="severo"
-                            data={severo}
-                        />
-                        <StadisticPod
-                            risk="extremo"
-                            data={extremo}
-                        />
-                    </div>
-                </div>
+                <UserStadistics
+                    totalPersonasAtendidas={totalPersonasAtendidas}
+                    eventual={eventual}
+                    acrecentado={acrecentado}
+                    severo={severo}
+                    extremo={extremo}
+                />
             </Container>
             {/* cards */}
-            <ExpedientesGrid data={dataExpedientes} />
-        </section >
+            {expedientesLoading
+                ? <LoaderSkeleton />
+                : <ExpedientesGrid
+                    nextPage={nextPage}
+                    addPagination={addPagination}
+                    data={dataExpedientes}
+                />
+            }
+        </section>
     );
 }
 
-const StadisticPod = ({ risk, data }) => {
-    const riesgo = {
-        eventual: "bg-riesgo-eventual",
-        acrecentado: "bg-riesgo-acrecentado",
-        severo: "bg-riesgo-severo",
-        extremo: "bg-riesgo-extremo",
-    };
-    return <div className="flex flex-col justify-center items-center text-center" >
-        <span className={`${riesgo[risk]} rounded-full p-4`}>
-            {data}
-        </span>
-        <span className="capitalize">
-            Riesgo {risk}
-        </span>
-    </div>
-}
+
 
 export default HomeProfile;
