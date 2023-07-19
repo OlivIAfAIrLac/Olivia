@@ -1,36 +1,57 @@
+'use client'
 import CloseBtn from "@/components/CloseBtn";
 import Container from "@/components/Container";
 import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import IconButton from "@/components/IconButton";
+import { apiRoutes } from "@/helpers/apiRoutes";
 import { routes } from "@/helpers/routes";
-import { expedienteData } from "@/mock/apiResponse";
+import axios from "axios";
 import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
 import { BiSolidMicrophone } from "react-icons/bi";
 import { FaRegEye } from "react-icons/fa6";
 import { TbUpload } from "react-icons/tb";
 
 
+
 const HomeFolio = ({ params }) => {
-    const {
-        nombre,
-        fecha,
-        hora,
-        audio,
-        documentos,
-    } = expedienteData;
-    const { folio } = params
+    const { id } = params;
+    // const {
+    //     folio,
+    //     nombre,
+    //     fecha,
+    //     hora,
+    //     audio,
+    //     documentos,
+    // } = expedienteData;
+    const [expedienteData, setExpedienteData] = useState()
+
+    const getData = useCallback(async () => {
+        try {
+            const res = await axios.get(`${apiRoutes.EXPEDIENTE}/${id}`);
+            if (res.status === 200) {
+                setExpedienteData({ ...res.data })
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }, [id]);
+
+    useEffect(() => {
+        getData()
+    }, [getData])
+
 
     return (
         <div className="login-bg py-12 pl-14">
-            <Container>
+            {expedienteData && <Container>
                 <span className="text-lg mb-4">Expediente</span>
                 <div className="p-6 primary-bg flex flex-col">
                     <DateTimeDisplayer
-                        fecha={fecha}
-                        hora={hora}
+                        timeStamp={expedienteData.expediente.createdAt}
                     />
-                    <span className="font-bold">Folio {folio}</span>
-                    <span className="mb-5">{nombre}</span>
+                    <span className="font-bold">Folio {expedienteData.expediente.folio}</span>
+                    <span className="mb-5 capitalize">{expedienteData.expediente.nombre}</span>
                     {/* Audio Container */}
                     <div className="p-3 login-bg flex flex-col">
                         <span className="font-bold">
@@ -40,7 +61,7 @@ const HomeFolio = ({ params }) => {
                             <div className="border-b-2 border-color-primary  flex flex-row">
                                 {/* Audio descripcion */}
                                 <span className="pl-5 mt-4">
-                                    {audio.descripcion}
+                                    {expedienteData.audio[0]?.descripcion}
                                 </span>
                                 <ControlButtonsGroup
                                     onView={() => true}
@@ -55,7 +76,7 @@ const HomeFolio = ({ params }) => {
                     <div className="mt-2 p-3 login-bg flex flex-col">
                         <span className="font-bold">Documentos</span>
                         {
-                            documentos.map((item, index) => <DocumentViewer
+                            expedienteData.documentos.map((item, index) => <DocumentViewer
                                 key={item.descripcion + index}
                                 descripcion={item.descripcion}
                             />)
@@ -65,7 +86,7 @@ const HomeFolio = ({ params }) => {
                     </div>
                     {/* Buttons group */}
                     <ButtonGroup
-                        folio={folio}
+                        folio={id}
                     />
                 </div>
                 <div className="flex flex-col text-center justify-center items-center">
@@ -75,7 +96,7 @@ const HomeFolio = ({ params }) => {
                         más expedientes
                     </Link>
                 </div>
-            </Container>
+            </Container>}
         </div>
     );
 }

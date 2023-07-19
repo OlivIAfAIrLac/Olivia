@@ -1,5 +1,4 @@
 'use client'
-import Footer from '@/components/Footer';
 import LoginForm from '@/components/LoginForm';
 import Logo from '@/components/Logo';
 import { useState } from 'react';

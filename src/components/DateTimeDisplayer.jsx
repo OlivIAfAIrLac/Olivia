@@ -1,7 +1,9 @@
+import { formatDateTime } from "@/helpers/dateFormatter";
+
 const DateTimeDisplayer = ({
-    fecha,
-    hora
+    timeStamp
 }) => {
+    const { fecha, hora } = formatDateTime(timeStamp ?? new Date());
     return (
         <>
             <h1 className="capitalize text-xs ml-auto">hora: {hora}</h1>

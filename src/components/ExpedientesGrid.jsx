@@ -4,10 +4,10 @@ import IconButton from "./IconButton";
 import { FaSearch } from "react-icons/fa";
 import Container from "./Container";
 
-const ExpedientesGrid = ({ data }) => {
+const ExpedientesGrid = ({ data, addPagination, nextPage }) => {
     return (<>
-        <Container>
-            {/* Search button */}
+        <Container key='search'>
+            {/* TODO: SearchButton */}
             <div className='ml-auto'>
                 <IconButton>
                     <FaSearch size={30} />
@@ -17,15 +17,14 @@ const ExpedientesGrid = ({ data }) => {
                 Expedientes Recientes
             </h1>
         </Container>
-        <Container>
+        <Container key='expedientes'>
             <div className="-m-1 flex flex-wrap md:-m-2">
                 {
-                    data.map((item, index) => <CardRecord key={index + item.folio} data={item} />)
+                    data.map((item, index) => <CardRecord key={index + item._id} data={item} />)
                 }
             </div>
             <div className='mt-10 flex flex-col justify-center items-center'>
-                {/* TODO: add on click  */}
-                <IconButton>
+                <IconButton disabled={!nextPage} onClick={addPagination}>
                     <AiOutlinePlus size={40} />
                 </IconButton>
             </div>

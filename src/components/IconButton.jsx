@@ -2,10 +2,11 @@
 const IconButton = ({
     onClick,
     className,
-    children
+    children,
+    disabled = false
 }) => {
     return (
-        <button className={`rounded-full primary-btn p-2 ${className}`}
+        <button disabled={disabled} className={`rounded-full primary-btn p-2 ${className} disabled:opacity-20`}
             onClick={onClick}
         >
             {children}
