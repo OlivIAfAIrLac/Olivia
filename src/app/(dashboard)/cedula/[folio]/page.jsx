@@ -6,6 +6,204 @@ import PrimaryLinkButton from "@/components/PrimaryLinkButton";
 import { routes } from "@/helpers/routes";
 import { cedulaData } from "@/mock/apiResponse";
 
+import Components from "@/components/components";
+
+
+const data =  [
+        {
+            section: 0,
+            content: [
+                {
+                    _uid: "1",
+                    component: "headline",
+                    text: "Información del Expediente"
+                },
+                {
+                    _uid: "2",
+                    component: "subheadline",
+                    text: "1. Área que atiende."
+                },
+                {
+                    _uid: "3",
+                    component: "checkbox",
+                    text: "Psicología"
+                }, 
+                {
+                    _uid: "4",
+                    component: "checkbox",
+                    text: "Juridíco"
+                }, 
+                {
+                    _uid: "5",
+                    component: "checkbox",
+                    text: "Trabajo Social"
+                }, 
+                {
+                    _uid: "6",
+                    component: "checkbox",
+                    text: "Ministerial"
+                }, 
+                {
+                    _uid: "7",
+                    component: "checkbox",
+                    text: "Pericial"
+                },
+                {
+                    _uid: "8",
+                    component: "checkbox",
+                    text: "Consejería"
+                },
+                {
+                    _uid: "124",
+                    component: "fullwidthinput",
+                    checkboxText: "Otra",
+                    inputText: "¿Cuál?"
+                },
+                {
+                    _uid: "10",
+                    component: "subheadline",
+                    text: "2. Tipo de Asesoría."
+                },
+                {
+                    _uid: "11",
+                    component: "checkbox",
+                    text: "Presencial"
+                },
+                {
+                    _uid: "12",
+                    component: "checkbox",
+                    text: "Telefónica"
+                },
+                {
+                    _uid: "123",
+                    component: "fullwidthinput",
+                    checkboxText: "Otra",
+                    inputText: "¿Cuál?"
+                },
+                {
+                    _uid: "1033",
+                    component: "subheadline",
+                    text: "3. ¿Quién atiende?"
+                },
+                {
+                    _uid: "2553",
+                    component: "select",
+                    checkboxText: "Otra",
+                    inputText: "¿Cuál?",
+                    options: ["Parentesco"]
+                },
+                {
+                    _uid: "23",
+                    component: "fullwidthinput",
+                    checkboxText: "Otra",
+                    inputText: "¿Cuál?"
+                },
+                {
+                    _uid: "10s33",
+                    component: "subheadline",
+                    text: "4. Expediente BANAVIM"
+                },
+            ]
+        }, 
+        {
+            section: 1,
+            content: [
+                {
+                    _uid: "1",
+                    component: "headline",
+                    text: "Requerimientos Específicos"
+                },
+                {
+                    _uid: "2",
+                    component: "subheadline",
+                    text: "1. Segunda sección."
+                },
+                {
+                    _uid: "3",
+                    component: "checkbox",
+                    text: "Psicología"
+                }, 
+                {
+                    _uid: "4",
+                    component: "checkbox",
+                    text: "Juridíco"
+                }, 
+                {
+                    _uid: "5",
+                    component: "checkbox",
+                    text: "Trabajo Social"
+                }, 
+                {
+                    _uid: "6",
+                    component: "checkbox",
+                    text: "Ministerial"
+                }, 
+                {
+                    _uid: "7",
+                    component: "checkbox",
+                    text: "Pericial"
+                },
+                {
+                    _uid: "8",
+                    component: "checkbox",
+                    text: "Consejería"
+                },
+                {
+                    _uid: "124",
+                    component: "fullwidthinput",
+                    checkboxText: "Otra",
+                    inputText: "¿Cuál?"
+                },
+                {
+                    _uid: "10",
+                    component: "subheadline",
+                    text: "2. Tipo de Asesoría."
+                },
+                {
+                    _uid: "11",
+                    component: "checkbox",
+                    text: "Presencial"
+                },
+                {
+                    _uid: "12",
+                    component: "checkbox",
+                    text: "Telefónica"
+                },
+                {
+                    _uid: "123",
+                    component: "fullwidthinput",
+                    checkboxText: "Otra",
+                    inputText: "¿Cuál?"
+                },
+                {
+                    _uid: "1033",
+                    component: "subheadline",
+                    text: "3. ¿Quién atiende?"
+                },
+                {
+                    _uid: "2553",
+                    component: "select",
+                    checkboxText: "Otra",
+                    inputText: "¿Cuál?",
+                    options: ["Parentesco"]
+                },
+                {
+                    _uid: "23",
+                    component: "fullwidthinput",
+                    checkboxText: "Otra",
+                    inputText: "¿Cuál?"
+                },
+                {
+                    _uid: "10s33",
+                    component: "subheadline",
+                    text: "4. Expediente BANAVIM"
+                },
+            ]
+        }
+    ]
+        
+
+
 const menuOptions = {
     0: { label: "información del expediente", active: true },
     1: { label: "requerimientos especificos", active: false },
@@ -36,20 +234,28 @@ const HomeCedula = ({ params }) => {
     } = cedulaData;
 
     const [sidebarOptions, setSidebarOptions] = useState(menuOptions)
+    const [activeData, setActiveData] = useState(0)
 
     const renderingButtonOption = (item) => {
         const { active, label } = sidebarOptions[item];
         return <button
             key={item}
             className={`${active && 'main-bg'} border-2 border-color-primary px-4 py-2 text-left font-bold capitalize h-16`}
-            onClick={()=>setActiveOption()}
+            onClick={()=>setActiveOption(item)}
         >
             {`${item}. ${label}`}
         </button>
     }
 
-    const setActiveOption=()=>{
-
+    const setActiveOption = (item)=>{
+        const newOptions = {...sidebarOptions}
+        Object.keys(newOptions).forEach((option) => {
+            newOptions[option].active = false;
+        })
+        newOptions[item].active = true;
+        setSidebarOptions(newOptions);
+        setActiveData(item)
+        
     }
 
     return (
@@ -85,7 +291,10 @@ const HomeCedula = ({ params }) => {
                     </div>
                     {/* Forms */}
                     <section className="main-bg w-3/4 p-3">
-                        lorem
+                        
+                        {data[activeData].content.map(block => Components(block))}
+
+
                     </section>
                 </div>
             </Container>
