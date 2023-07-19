@@ -2,7 +2,8 @@ export const routes = {
     dashboard: {
         admin: {
             adminUsuarios: "/dashboard/admin/usuarios",
-            nuevoUsuario: "/dashboard/admin/usuarios/nuevo"
+            nuevoUsuario: "/dashboard/admin/usuarios/nuevo",
+            usuario: "/dashboard/admin/usuarios/"
         },
         main: "/dashboard",
         miCuenta: "/dashboard/mi_cuenta",

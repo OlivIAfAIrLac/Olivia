@@ -83,6 +83,9 @@
 .h-81vh {
   max-height: 81vh;
 }
+.h-75vh {
+  max-height: 75vh;
+}
 .bg-riesgo-eventual {
   background: #87f195 0% 0% no-repeat padding-box;
   opacity: 1;

@@ -1,18 +1,20 @@
-import { profesiones } from "@/helpers/catalogos";
+import { profesionesCatalog } from "@/helpers/catalogos";
 
 const SelectProfesion = ({
     className,
     onChange,
     required,
-    name
+    name,
+    defaultValue
 }) => {
     return (
         <select className={`input capitalize pl-2 ${className}`}
             onChange={onChange}
             name={name}
             required={required}
+            defaultValue={defaultValue}
         >
-            {profesiones.map(item => <option
+            {profesionesCatalog.map(item => <option
                 key={item.value}
                 value={item.value}>
                 {item.description}

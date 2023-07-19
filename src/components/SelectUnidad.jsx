@@ -1,4 +1,4 @@
-import { unidad } from "@/helpers/catalogos";
+import { unidadesCatalog } from "@/helpers/catalogos";
 
 const userTypes = [
     { description: "administrador", value: "admin" },
@@ -8,16 +8,18 @@ const SelectUnidad = ({
     className,
     onChange,
     required,
-    name
+    name,
+    defaultValue
 }) => {
     return (
         <select className={`input capitalize pl-2 ${className}`}
             onChange={onChange}
             name={name}
             required={required}
+            defaultValue={defaultValue}
         >
             {
-                unidad.map(item => <option
+                unidadesCatalog.map(item => <option
                     key={item.value}
                     value={item.value}>
                     {item.description}

@@ -24,6 +24,7 @@ export default function Home() {
       const config = { headers: { Authorization: `Bearer ${token}` } }
       const res = await axios.get(`${apiRoutes.EXPEDIENTE}?page=${page}`, config);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      localStorage.setItem('olivia-auth', token)
       if (res.status === 200) {
         setExpedientesLoading(false)
         setDataExpedientes([...dataExpedientes, ...res.data.docs])

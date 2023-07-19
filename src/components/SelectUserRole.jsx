@@ -4,13 +4,15 @@ const SelectUserRole = ({
     className,
     onChange,
     name,
-    required
+    required,
+    defaultValue
 }) => {
     return (
         <select className={`input capitalize pl-2 ${className}`}
             onChange={onChange}
             name={name}
             required={required}
+            defaultValue={defaultValue}
         >
             {userRoles.map(item => <option
                 key={item.value}

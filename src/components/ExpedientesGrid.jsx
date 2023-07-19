@@ -6,7 +6,7 @@ import Container from "./Container";
 
 const ExpedientesGrid = ({ data, addPagination, nextPage }) => {
     return (<>
-        <Container>
+        <Container key='search'>
             {/* TODO: SearchButton */}
             <div className='ml-auto'>
                 <IconButton>
@@ -17,10 +17,10 @@ const ExpedientesGrid = ({ data, addPagination, nextPage }) => {
                 Expedientes Recientes
             </h1>
         </Container>
-        <Container>
+        <Container key='expedientes'>
             <div className="-m-1 flex flex-wrap md:-m-2">
                 {
-                    data.map((item, index) => <CardRecord key={index + item.folio} data={item} />)
+                    data.map((item, index) => <CardRecord key={index + item._id} data={item} />)
                 }
             </div>
             <div className='mt-10 flex flex-col justify-center items-center'>

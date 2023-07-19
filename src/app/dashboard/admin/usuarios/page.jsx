@@ -1,13 +1,44 @@
+'use client'
 import Container from "@/components/Container";
-import AdminUsersModal from "@/components/AdminUsersModal";
-import SearchButton from "@/components/SearchButton";
-import { routes } from "@/helpers/routes";
-import Link from "next/link";
-import { FaRegEye, FaUserPlus } from "react-icons/fa6";
 import IconButton from "@/components/IconButton";
+import LoaderSkeleton from "@/components/LoaderSkeleton";
+import SearchButton from "@/components/SearchButton";
+import { apiRoutes } from "@/helpers/apiRoutes";
+import { getProfesion, getUnidad } from "@/helpers/catalogos";
+import { routes } from "@/helpers/routes";
+import axios from "axios";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import { useCallback, useEffect, useState } from "react";
 import { FaUserEdit, FaUserTimes } from "react-icons/fa";
+import { FaRegEye, FaUserPlus } from "react-icons/fa6";
 
 const HomeAdminUsers = () => {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false)
+
+    const getData = useCallback(
+        async () => {
+            try {
+                setLoading(true)
+                const res = await axios.get(apiRoutes.USUARIO);
+                if (res.status === 200) {
+                    setLoading(false)
+                    setData(res.data)
+                }
+            } catch (error) {
+                console.error(error);
+                setLoading(false)
+            }
+        },
+        [],
+    )
+
+    useEffect(() => {
+        getData()
+    }, [getData])
+
 
     return (
         <Container>
@@ -23,10 +54,12 @@ const HomeAdminUsers = () => {
             <div className="">
                 <span className="primary-color capitalize text-2xl ">usuarios</span>
                 <div className="grid grid-flow-row">
-                    <UserCard />
-                    <UserCard />
-                    <UserCard />
-                    <UserCard />
+                    {
+                        loading
+                            ? <LoaderSkeleton />
+                            : data.map(item => <UserCard key={item.nombre} data={item} />)
+                    }
+
                 </div>
             </div>
         </Container>
@@ -41,16 +74,27 @@ export const NewUserButton = () => {
     </Link>
 }
 
-const UserCard = () => {
-    return <div className='flex flez-col mt-2 p-3 login-bg'>
+const UserCard = ({
+    data
+}) => {
+    const router = useRouter()
+    const {
+        _id,
+        nombre,
+        profesion,
+        unidad
+    } = data;
+
+
+    return <div className='flex mt-2 p-3 login-bg'>
         <div className="flex flex-col">
-            <span className="font-bold capitalize">Nombre Completo</span>
-            <span className="capitalize">profesion</span>
-            <span className="capitalize">unidad</span>
+            <span className="font-bold capitalize">{nombre}</span>
+            <span className="capitalize">{getProfesion(profesion)}</span>
+            <span className="capitalize">{getUnidad(unidad)}</span>
         </div>
         <div className="flex flex-row ml-auto">
             <div className="">
-                <IconButton className="mr-14 mt-4">
+                <IconButton onClick={() => router.push(`${routes.dashboard.admin.usuario}/${_id}`)} className="mr-14 mt-4">
                     <FaRegEye size={35} />
                 </IconButton>
             </div>
