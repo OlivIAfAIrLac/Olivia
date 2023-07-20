@@ -1,5 +1,6 @@
 'use client'
 import AdminUsersButton from '@/components/AdminUsersButton'
+import AdminUsersModal from '@/components/AdminUsersModal'
 import Container from '@/components/Container'
 import { FormCreateUser } from '@/components/FormCreateUser'
 import IconButton from '@/components/IconButton'
@@ -8,17 +9,22 @@ import { UserCreatedScreen } from '@/components/UserCreatedScreen'
 import UserProfile from '@/components/UserProfile'
 import UserStadistics from '@/components/UserStadistics'
 import { apiRoutes } from '@/helpers/apiRoutes'
+import { routes } from '@/helpers/routes'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import React, { useCallback, useEffect, useState } from 'react'
 import { FaUserEdit, FaUserTimes } from 'react-icons/fa'
 
 const UserByID = ({ params, searchParams }) => {
+    const router = useRouter()
     const { id } = params;
     const { edit } = searchParams;
     const [userData, setUserData] = useState()
     const [loading, setLoading] = useState(true)
-    const [editMode, setEditMode] = useState(edit)
+    const [editMode, setEditMode] = useState(edit ?? false)
     const [userEdited, setUserEdited] = useState(false)
+
+    const [openRemoveModal, setOpenRemoveModal] = useState(false)
 
     const handleSubmit = async (ev) => {
         ev.preventDefault();
@@ -65,11 +71,25 @@ const UserByID = ({ params, searchParams }) => {
                     setUserData({ user: res.data })
                 }
             } catch (error) {
-
+                error.response.status === 404 && router.push(routes.dashboard.admin.adminUsuarios)
             }
         },
         [id],
     )
+
+    const handleOpenRemoveModal = () => setOpenRemoveModal(true);
+
+    const handleRemove = async () => {
+        try {
+            const res = await axios.delete(`${apiRoutes.USUARIO}/${id}`)
+            if (res.status === 200) {
+                router.push(routes.dashboard.admin.adminUsuarios)
+            }
+        } catch (error) {
+            console.error(error);
+        }
+        setOpenRemoveModal(false)
+    }
 
     useEffect(() => {
         getUserData()
@@ -89,7 +109,7 @@ const UserByID = ({ params, searchParams }) => {
                         }
                     </div>
                     {/* Button Group */}
-                    <div className='flex flex-row ml-auto'>
+                    {!loading && <div className='flex flex-row ml-auto'>
                         <div>
                             <IconButton className="mr-14"
                                 onClick={() => setEditMode(true)}
@@ -98,11 +118,12 @@ const UserByID = ({ params, searchParams }) => {
                             </IconButton>
                         </div>
                         <div>
-                            <IconButton className="">
+                            <IconButton onClick={handleOpenRemoveModal}>
                                 <FaUserTimes size={35} />
                             </IconButton>
                         </div>
                     </div>
+                    }
                 </div>
                 {
                     !loading ?
@@ -115,14 +136,25 @@ const UserByID = ({ params, searchParams }) => {
 
     return (
         <Container>
-            {(userEdited && !editMode) && <UserCreatedScreen userData={userData} />}
-            {(editMode && !loading)
-                ? <FormCreateUser
-                    editMode={editMode}
-                    handleSubmit={handleSubmit}
-                    defaultValues={userData.user}
+            {!loading
+                && <AdminUsersModal
+                    handleRemove={handleRemove}
+                    nombre={userData?.user?.nombre}
+                    open={openRemoveModal}
+                    setOpen={setOpenRemoveModal}
                 />
-                : (!userEdited) && <UserInfoDisplay />
+            }
+            {
+                (userEdited && !editMode) && <UserCreatedScreen userData={userData} />
+            }
+            {
+                (editMode && !loading)
+                    ? <FormCreateUser
+                        editMode={editMode}
+                        handleSubmit={handleSubmit}
+                        defaultValues={userData.user}
+                    />
+                    : (!userEdited) && <UserInfoDisplay />
             }
         </Container>
     );

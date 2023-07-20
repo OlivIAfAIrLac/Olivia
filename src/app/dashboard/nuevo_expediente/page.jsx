@@ -7,18 +7,18 @@ import { routes } from "@/helpers/routes";
 import { dataExpedientes } from "@/mock/apiResponse";
 import axios from "axios";
 import { useState } from 'react';
+const newExpediente = {
+    nombre: '',
+    curp: ''
+}
 
 const HomeNuevoExpediente = () => {
-    const [expedienteData, setExpedienteData] = useState({
-        nombre: '',
-        curp: ''
-    })
+    const [expedienteData, setExpedienteData] = useState(newExpediente)
     const [expedienteIsCreated, setExpedienteIsCreated] = useState(false)
     const [expedienteCreated, setExpedienteCreated] = useState()
 
     const handleCrearExpediente = async (e) => {
-        e.preventDefault();
-        try {
+        e.preventDefault(); try {
             const res = await axios.post(apiRoutes.EXPEDIENTE, { ...expedienteData })
             if (res.status === 200) {
                 setExpedienteCreated(res.data)
@@ -27,6 +27,11 @@ const HomeNuevoExpediente = () => {
         } catch (error) {
             console.error(error);
         }
+    }
+
+    const handleNuevoExpediente = () => {
+        setExpedienteIsCreated(false)
+        setExpedienteData(newExpediente)
     }
 
     const handleChange = (e) => {
@@ -106,16 +111,18 @@ const HomeNuevoExpediente = () => {
                     </div>
                 </div>
                 <div className="flex flex-col justify-center items-center mt-4">
-                    <button className="primary-btn capitalize py-3 w-1/2 mt-5"
-                        onClick={handleCrearExpediente}
-                    >
-                        {
-                            !expedienteIsCreated
-                                ? "crear expediente"
-                                : "nuevo expediente"
-
-                        }
-                    </button>
+                    {!expedienteIsCreated
+                        ? <button className="primary-btn capitalize py-3 w-1/2 mt-5"
+                            onClick={handleCrearExpediente}
+                        >
+                            crear expediente
+                        </button>
+                        : <button className="primary-btn capitalize py-3 w-1/2 mt-5"
+                            onClick={handleNuevoExpediente}
+                        >
+                            nuevo expediente
+                        </button>
+                    }
                 </div>
             </div>
         </section>

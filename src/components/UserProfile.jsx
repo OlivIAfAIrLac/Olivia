@@ -3,7 +3,6 @@ import { getProfesion, getUnidad } from "@/helpers/catalogos";
 const UserProfile = ({
     data
 }) => {
-    console.log(data);
     return (
         <>
             <span className="font-bold mb-2">{data.user.nombre}</span>

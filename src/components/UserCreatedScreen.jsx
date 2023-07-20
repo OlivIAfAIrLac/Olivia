@@ -20,11 +20,11 @@ export const UserCreatedScreen = ({ userData }) => {
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center">
-                <Link className="navbar-bg capitalize py-3 px-20 mt-5"
+                <a className="navbar-bg capitalize py-3 px-20 mt-5"
                     href={`${routes.dashboard.admin.usuario}/${_id}`}
                 >
                     ver usuario
-                </Link>
+                </a>
             </div>
         </div>
         <AdminUsersButton />

@@ -6,8 +6,13 @@ import Container from './Container'
 
 // import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
-export default function AdminUsersModal() {
-    const [open, setOpen] = useState(true)
+export default function AdminUsersModal({
+    nombre = '',
+    open,
+    handleRemove,
+    setOpen
+}) {
+
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -41,11 +46,11 @@ export default function AdminUsersModal() {
                                 </div>
                                 {/* Modal Content */}
                                 <div className='my-16 flex flex-row justify-center items-center '>
-                                    <span className='capitalize'>¿Deseas eliminar al Nombre de Usuario?</span>
+                                    <span className='capitalize'>¿Deseas eliminar a {nombre}?</span>
                                 </div>
                                 {/* Button Group */}
                                 <div className="grid grid-flow-col gap-6 text-center">
-                                    <button className="font-bold navbar-bg capitalize py-3 w-full mt-5">
+                                    <button className="font-bold navbar-bg capitalize py-3 w-full mt-5" onClick={handleRemove}>
                                         {/* TODO: handle remove */}
                                         eliminar
                                     </button>
