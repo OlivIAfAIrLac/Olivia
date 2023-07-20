@@ -58,6 +58,18 @@
 .primary-bg {
   background: #d0c8f6 0% 0% no-repeat padding-box;
   opacity: 1;
+  --tw-placeholder-opacity: 1;
+}
+.primary-bg{
+  --tw-bg-opacity: 1;
+  background-color: rgb(208 200 246 / var(--tw-bg-opacity));
+}
+.focus\:primary-bg:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(208 200 246 / var(--tw-bg-opacity));
+}
+.color-primary-bg:placeholder{
+  color:#d0c8f6
 }
 .dropdown {
   position: relative;

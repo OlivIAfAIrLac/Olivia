@@ -1,18 +1,22 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import CardRecord from "./CardRecord";
 import IconButton from "./IconButton";
-import { FaSearch } from "react-icons/fa";
 import Container from "./Container";
+import SearchButton from "./SearchButton";
 
 const ExpedientesGrid = ({ data, addPagination, nextPage }) => {
+    const handleOnSearch = (ev) => {
+        ev.preventDefault();
+        const searchWord = ev.target.value;
+        console.log(searchWord);
+    }
     return (<>
         <Container key='search'>
             {/* TODO: SearchButton */}
-            <div className='ml-auto'>
-                <IconButton>
-                    <FaSearch size={30} />
-                </IconButton>
-            </div>
+            <SearchButton
+                placeholder="Buscar Folio o Nombre"
+                onChange={handleOnSearch}
+            />
             <h1 className='primary-color font-bold'>
                 Expedientes Recientes
             </h1>
