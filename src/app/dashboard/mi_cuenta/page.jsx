@@ -28,7 +28,7 @@ const HomeProfile = () => {
                 setExpedientesLoading(false)
                 setDataExpedientes([...dataExpedientes, ...res.data.docs])
                 setNextPage(res.data.nextPage)
-            }
+              }
 
         } catch (error) {
             console.error(error);
@@ -42,6 +42,21 @@ const HomeProfile = () => {
 
     const addPagination = () => {
         setPage(nextPage);
+    }
+
+    const handleOnSearch = async (ev) => {
+        ev.preventDefault()
+        const search = ev.target.value
+        try {
+            const config = { headers: { Authorization: `Bearer ${token}` } }
+            const res = await axios.get(`${apiRoutes.EXPEDIENTE}?page=${page}&search=${search}`, config);
+            if (res.status === 200) {
+                setDataExpedientes([...res.data.docs])
+                setNextPage(res.data.nextPage)
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     /* TODO: get this data from fetch*/
@@ -76,6 +91,7 @@ const HomeProfile = () => {
             {expedientesLoading
                 ? <LoaderSkeleton />
                 : <ExpedientesGrid
+                    handleOnSearch={handleOnSearch}
                     nextPage={nextPage}
                     addPagination={addPagination}
                     data={dataExpedientes}

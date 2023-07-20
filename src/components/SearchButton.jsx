@@ -11,13 +11,14 @@ const SearchButton = ({
                 <FaSearch className="" size={30} />
             </div>
             <input
-                onBlur={(ev) => ev.target.value = null}
+                accessKey="b"
                 onChange={onChange}
                 name="search"
                 type="search"
                 placeholder={placeholder}
                 className="rounded-full p-1 bg-transparent text-transparent w-12 h-12 placeholder-transparent focus:flex-1 focus:w-96 focus:pl-10 focus:pr-5 focus:placeholder-black transition-all duration-500 transform focus:border-transparent focus:primary-bg focus:text-black"
             />
+            
         </div>
 
     );

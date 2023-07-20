@@ -15,35 +15,46 @@ export default function Home() {
   const { data, status } = useSession()
   const [dataExpedientes, setDataExpedientes] = useState([])
   const [expedientesLoading, setExpedientesLoading] = useState(true);
+  const [hasNextPage, setHasNextPage] = useState(false)
   const [nextPage, setNextPage] = useState(null)
   const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('')
   const token = data?.user.token
 
+  
   const getExpedientes = useCallback(async () => {
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } }
-      const res = await axios.get(`${apiRoutes.EXPEDIENTE}?page=${page}`, config);
+      const res = await axios.get(`${apiRoutes.EXPEDIENTE}?page=${page}&search=${search}`, config);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       localStorage.setItem('olivia-auth', token)
       if (res.status === 200) {
         setExpedientesLoading(false)
-        setDataExpedientes([...dataExpedientes, ...res.data.docs])
+        // setDataExpedientes([...dataExpedientes, ...res.data.docs])
+        setDataExpedientes([...res.data.docs])
         setNextPage(res.data.nextPage)
+        setHasNextPage(res.data.hasNextPage)
       }
 
     } catch (error) {
       console.error(error);
     }
   },
-    [token, page],
+    [token, page, search],
   );
   useEffect(() => {
     status !== 'loading' && getExpedientes()
   }, [getExpedientes, status, page])
-
   const addPagination = () => {
+    /* TODO: solve no paging issue */
     setPage(nextPage);
   }
+  const handleOnSearch = async (ev) => {
+    ev.preventDefault()
+    setPage(1)
+    setSearch(ev.target.value)
+  }
+
   return (
     <>
       <div className="flex p-2  mt-12 pb-8 py-2 px-32">
@@ -75,6 +86,8 @@ export default function Home() {
         {expedientesLoading
           ? <LoaderSkeleton />
           : <ExpedientesGrid
+            handleOnSearch={handleOnSearch}
+            hasNextPage={hasNextPage}
             nextPage={nextPage}
             addPagination={addPagination}
             data={dataExpedientes}

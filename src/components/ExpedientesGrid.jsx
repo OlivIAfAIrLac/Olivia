@@ -4,12 +4,14 @@ import IconButton from "./IconButton";
 import Container from "./Container";
 import SearchButton from "./SearchButton";
 
-const ExpedientesGrid = ({ data, addPagination, nextPage }) => {
-    const handleOnSearch = (ev) => {
-        ev.preventDefault();
-        const searchWord = ev.target.value;
-        console.log(searchWord);
-    }
+const ExpedientesGrid = ({
+    data,
+    addPagination,
+    nextPage,
+    hasNextPage,
+    handleOnSearch
+}) => {
+
     return (<>
         <Container key='search'>
             {/* TODO: SearchButton */}
@@ -28,7 +30,7 @@ const ExpedientesGrid = ({ data, addPagination, nextPage }) => {
                 }
             </div>
             <div className='mt-10 flex flex-col justify-center items-center'>
-                <IconButton disabled={!nextPage} onClick={addPagination}>
+                <IconButton disabled={!hasNextPage} onClick={addPagination}>
                     <AiOutlinePlus size={40} />
                 </IconButton>
             </div>
