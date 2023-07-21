@@ -47,6 +47,7 @@ const LoginForm = ({
                 }
             }
         } catch (error) {
+            /* TODO: Handle error messages */
             console.error(error);
         }
     }

@@ -33,6 +33,7 @@ const HomeFolio = ({ params }) => {
                 setExpedienteData({ ...res.data })
             }
         } catch (error) {
+            /* TODO: Handle error messages */
             console.error(error);
         }
     }, [id]);

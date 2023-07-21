@@ -12,7 +12,7 @@ import { apiRoutes } from '@/helpers/apiRoutes'
 import { routes } from '@/helpers/routes'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FaUserEdit, FaUserTimes } from 'react-icons/fa'
 
 const UserByID = ({ params, searchParams }) => {
@@ -58,6 +58,7 @@ const UserByID = ({ params, searchParams }) => {
                 setUserData({ ...body })
             }
         } catch (error) {
+            /* TODO: Handle error messages */
             console.error(error);
         }
     }
@@ -86,6 +87,7 @@ const UserByID = ({ params, searchParams }) => {
                 router.push(routes.dashboard.admin.adminUsuarios)
             }
         } catch (error) {
+            /* TODO: Handle error messages */
             console.error(error);
         }
         setOpenRemoveModal(false)

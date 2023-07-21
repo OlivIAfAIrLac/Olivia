@@ -32,6 +32,7 @@ const HomeAdminUsers = () => {
                 }
             } catch (error) {
                 console.error(error);
+                /* TODO: Handle error messages */
                 setLoading(false)
             }
         },
@@ -64,6 +65,7 @@ const HomeAdminUsers = () => {
                     setRefresh(true)
                 }
             } catch (error) {
+                /* TODO: Handle error messages */
                 console.error(error);
             }
             setOpenRemoveModal(false)

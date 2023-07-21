@@ -1,5 +1,4 @@
 'use client'
-import AdminUsersButton from "@/components/AdminUsersButton";
 import Container from "@/components/Container";
 import { FormCreateUser } from "@/components/FormCreateUser";
 import { UserCreatedScreen } from "@/components/UserCreatedScreen";
@@ -46,6 +45,7 @@ const NewUserHome = () => {
                 setUserData({ ...res.data })
             }
         } catch (error) {
+            /* TODO: Handle error messages */
             console.error(error);
         }
 

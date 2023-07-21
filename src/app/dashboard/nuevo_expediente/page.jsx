@@ -25,6 +25,7 @@ const HomeNuevoExpediente = () => {
                 setExpedienteIsCreated(true)
             }
         } catch (error) {
+            /* TODO: Handle error messages */
             console.error(error);
         }
     }
