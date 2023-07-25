@@ -30,6 +30,7 @@ const LoginForm = ({
                     extension,
                     rol
                 } = res.data;
+                localStorage.setItem('olivia-auth', token)
                 const resAuth = await signIn('credentials', {
                     nombre,
                     email,
