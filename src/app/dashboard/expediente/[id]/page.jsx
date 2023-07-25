@@ -4,6 +4,7 @@ import CloseBtn from "@/components/CloseBtn";
 import Container from "@/components/Container";
 import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import IconButton from "@/components/IconButton";
+import IconFile from "@/components/IconFile";
 import Modal from "@/components/Modal";
 import { apiRoutes } from "@/helpers/apiRoutes";
 import { routes } from "@/helpers/routes";
@@ -62,10 +63,14 @@ const HomeFolio = ({ params }) => {
         {/* TODO: Complete documents upload */}
         <div className="mt-8 login-bg p-3 capitalize">
             arrastra aqui tus documentos
-            <div className="p-3">
+            <div className="p-3 grid grid-flow-col">
                 {selectedFiles.map((file, index) => {
-                    console.log(file.name);
-                    return <FaFilePdf size={35} key={`file_${index}`} />
+                    const extension = file[0].name.split('.')[1]
+                    return <IconFile
+                        extension={extension}
+                        size={35}
+                        key={`file_${index}`}
+                    />
                 })}
             </div>
 
@@ -111,7 +116,7 @@ const HomeFolio = ({ params }) => {
                             <div className="border-b-2 border-color-primary  flex flex-row">
                                 {/* Audio descripcion */}
                                 <span className="pl-5 mt-4">
-                                    {expedienteData.audio[0]?.descripcion}
+                                    {/* {expedienteData.audio[0]?.descripcion} */}
                                 </span>
                                 <ControlButtonsGroup
                                     onView={() => true}
