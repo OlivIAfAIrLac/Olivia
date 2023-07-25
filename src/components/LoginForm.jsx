@@ -59,16 +59,17 @@ const LoginForm = ({
                 <CloseBtn onClose={onClose} />
                 <form className="mt-4 mb-2 w-96" onSubmit={handleOnSubmit}>
                     <div className="mb-4 flex flex-col">
-                        <h1 className="font-bold outfit-font ">Usuario o correo</h1>
+                        <h1 className="font-bold outfit-font">Usuario o correo</h1>
                         <Input placeholder="Usuario o correo..." type="email" name="email" />
                         <h1 className="font-bold outfit-font mt-3">Contraseña</h1>
                         <Input placeholder="Contraseña..." type="password" name="password" />
                         {/* Add functions to recover pass */}
-                        <Link className="ml-auto"
+                        {/* <Link className="ml-auto"
                             href={routes.login.recuperarPass}
                         >
                             Olvide mi contraseña
-                        </Link>
+                        </Link> */}
+                        
                     </div>
                     <div className="flex flex-col justify-center items-center">
                         <button type="submit" className="font-bold primary-btn rounded-none capitalize py-3 w-1/2 mt-5">

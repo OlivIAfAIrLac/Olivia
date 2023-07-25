@@ -85,19 +85,19 @@ const HomeNuevoExpediente = () => {
                                 : <div className="mt-4 mb-2 w-full">
                                     <div className="mb-4 flex flex-col">
                                         <DateTimeDisplayer
-                                            timeStamp={expedienteCreated.createdAt}
+                                            timeStamp={expedienteCreated.expediente.createdAt}
                                         />
                                         <h1 className="mt-0 font-bold">
-                                            Folio {expedienteCreated.folio}
+                                            Folio {expedienteCreated.expediente.folio}
                                         </h1>
                                         <h1 className="mt-3 capitalize">
-                                            {expedienteCreated.nombre}
+                                            {expedienteCreated.expediente.nombre}
                                         </h1>
                                     </div>
                                     <div className="grid grid-flow-col gap-3 text-center">
                                         {/* TODO: add folio after created */}
                                         <PrimaryLinkButton
-                                            href={`${routes.dashboard.expediente}/${expedienteCreated._id}`}
+                                            href={`${routes.dashboard.expediente}/${expedienteCreated.expediente._id}`}
                                         >
                                             ver expediente
                                         </PrimaryLinkButton>

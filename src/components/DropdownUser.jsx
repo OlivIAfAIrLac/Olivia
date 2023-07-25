@@ -2,13 +2,21 @@
 import { routes } from "@/helpers/routes";
 import Link from "next/link";
 import { BiUserCircle } from "react-icons/bi";
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
+import { useRouter } from "next/navigation";
 
 const DropdownUser = () => {
-    const handleSingOut = () => {
+    const router = useRouter()
+
+    const handleSingOut = async () => {
         localStorage.removeItem('olivia-auth')
-        signOut()
+        const data = await signOut({
+            redirect: false,
+            callbackUrl: "/login"
+        })
+        router.push(data.url)
     }
+
     return (
         <div className="ml-auto float-right dropdown">
             <BiUserCircle className="primary-color" size={50} />
