@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { apiRoutes } from "@/helpers/apiRoutes";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";

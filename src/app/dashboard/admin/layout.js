@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { routes } from "@/helpers/routes";
 import { useSession } from "next-auth/react";

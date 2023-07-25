@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import AdminUsersButton from '@/components/AdminUsersButton'
 import AdminUsersModal from '@/components/AdminUsersModal'

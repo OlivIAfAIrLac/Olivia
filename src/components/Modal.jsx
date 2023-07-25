@@ -1,13 +1,12 @@
 'use client'
-import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { Fragment } from 'react'
 import CloseBtn from './CloseBtn'
 
 
-export default function AdminUsersModal({
-    nombre = '',
+export default function Modal({
     open,
-    handleRemove,
+    children,
     setOpen
 }) {
 
@@ -43,21 +42,7 @@ export default function AdminUsersModal({
                                     <CloseBtn size={25} onClose={() => setOpen(false)} />
                                 </div>
                                 {/* Modal Content */}
-                                <div className='my-16 flex flex-row justify-center items-center '>
-                                    <span className='capitalize'>¿Deseas eliminar a {nombre}?</span>
-                                </div>
-                                {/* Button Group */}
-                                <div className="grid grid-flow-col gap-6 text-center">
-                                    <button className="font-bold navbar-bg capitalize py-3 w-full mt-5" onClick={handleRemove}>
-                                        {/* TODO: handle remove */}
-                                        eliminar
-                                    </button>
-                                    <button className="font-bold navbar-bg capitalize py-3 w-full mt-5"
-                                        onClick={() => setOpen(false)}
-                                    >
-                                        cancelar
-                                    </button>
-                                </div>
+                                {children}
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>
