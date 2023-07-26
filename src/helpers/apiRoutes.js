@@ -4,4 +4,5 @@ export const apiRoutes = {
     USUARIO: `${hostname}/usuario`,
     EXPEDIENTE: `${hostname}/expediente`,
     DOCUMENTO: `${hostname}/documento`,
+    AUDIO: `${hostname}/audio`,
 }

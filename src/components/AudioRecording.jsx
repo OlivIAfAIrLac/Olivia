@@ -1,15 +1,28 @@
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import IconButton from "./IconButton";
+import { BiSolidMicrophone } from "react-icons/bi";
+import { TbUpload } from "react-icons/tb";
+import Modal from "./Modal";
+import { BsFillRecordFill } from "react-icons/bs";
+import { FaFileAudio } from "react-icons/fa6";
+import axios from "axios";
+import { apiRoutes } from "@/helpers/apiRoutes";
 
-const mimeType = "audio/mpeg";
+const mimeType = "audio/x-wav";
 
-const AudioRecorder = () => {
+const AudioRecorder = ({
+    handleOpenModalAudio,
+    setRefresh,
+    id,
+}) => {
     const [permission, setPermission] = useState(false);
     const mediaRecorder = useRef(null);
     const [recordingStatus, setRecordingStatus] = useState("inactive");
     const [stream, setStream] = useState(null);
     const [audio, setAudio] = useState(null);
     const [audioChunks, setAudioChunks] = useState([]);
+    const [openRecordedAudioModal, setOpenRecordedAudioModal] = useState(false)
 
     const getMicrophonePermission = async () => {
         if ("MediaRecorder" in window) {
@@ -52,45 +65,98 @@ const AudioRecorder = () => {
         mediaRecorder.current.stop();
 
         mediaRecorder.current.onstop = () => {
-            const audioBlob = new Blob(audioChunks, { type: mimeType });
-            const audioUrl = URL.createObjectURL(audioBlob);
-
-            setAudio(audioUrl);
-
-            setAudioChunks([]);
+            // const audioBlob = new Blob(audioChunks, { type: mimeType });
+            // const audioUrl = URL.createObjectURL(audioBlob);
+            // setAudio(audioUrl);
+            setOpenRecordedAudioModal(true)
+            // setAudioChunks([]);
+            /* Upload Audio File */
         };
     };
+    const downLoadFile = () => {
+        const anchorElement = document.createElement('a');
+        document.body.appendChild(anchorElement);
+        anchorElement.style.display = 'none';
+        anchorElement.href = audio;
+        anchorElement.download = 'audio-record.wav';
+        anchorElement.click();
+
+        window.URL.revokeObjectURL(audio);
+    }
+
+    const handleSaveAudio = async () => {
+        try {
+            const formData = new FormData()
+            const audioBlob = new Blob(audioChunks, { type: mimeType });
+            formData.append('audios', audioBlob,"audio-test.wav")
+            formData.append("expediente", id)
+            const res = await axios.post(apiRoutes.AUDIO, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            if (res.status === 200) {
+                setOpenRecordedAudioModal(false)
+                setAudioChunks([])
+                setRefresh(true)                
+            }
+        } catch (error) {
+            /* TODO:Handle error notification */
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        getMicrophonePermission()
+    }, [permission])
+
+    const AudioRecordedModal = () => {
+        return <Modal
+            open={openRecordedAudioModal}
+            setOpen={setOpenRecordedAudioModal}
+        >
+            <div className="flex flex-col justify-center items-center h-60">
+                <button className='flex save-bg-btn primary-bg py-6 pr-8 pl-16 rounded-full' onClick={handleSaveAudio}>
+                    <FaFileAudio className='flex-initial' size={35} />
+                    <span className='ml-2 flex-initial mr-8 mt-2 capitalize'>
+                        Guardar
+                    </span>
+                </button>
+            </div>
+        </Modal>
+    }
 
     return (
-        <div>
-            <h2>Audio Recorder</h2>
-            <main>
-                <div className="audio-controls">
-                    {!permission ? (
-                        <button onClick={getMicrophonePermission} type="button">
-                            Get Microphone
-                        </button>
-                    ) : null}
-                    {permission && recordingStatus === "inactive" ? (
-                        <button onClick={startRecording} type="button">
-                            Start Recording
-                        </button>
-                    ) : null}
-                    {recordingStatus === "recording" ? (
-                        <button onClick={stopRecording} type="button">
-                            Stop Recording
-                        </button>
-                    ) : null}
-                </div>
-                {audio ? (
-                    <div className="audio-player">
-                        <audio src={audio} controls></audio>
-                        <a download href={audio}>
-                            Download Recording
-                        </a>
-                    </div>
-                ) : null}
-            </main>
+        <div className="p-3 ml-auto">
+            <AudioRecordedModal />
+            {!permission ? (
+                <button onClick={getMicrophonePermission} type="button">
+                    Get Microphone
+                </button>
+            ) : null}
+            {permission && recordingStatus === "inactive" ? (
+                <IconButton onClick={startRecording} className="mr-2">
+                    <BiSolidMicrophone size={40} />
+                </IconButton>
+            ) : null}
+            {recordingStatus === "recording" ? (
+               
+                <IconButton onClick={stopRecording} className="mr-2 animate-pulse">
+                    <BsFillRecordFill size={40} />
+                </IconButton>
+            ) : null}
+            {/* {audio ? (
+                <IconButton onClick={downLoadFile} className="mr-2">
+                    <FaDownload size={40} />
+                </IconButton>
+                // <a download href={audio}>
+                //     Descargar Audio
+                // </a>
+
+            ) : null} */}
+            <IconButton className="" onClick={handleOpenModalAudio}>
+                <TbUpload size={40} />
+            </IconButton>
         </div>
     );
 };

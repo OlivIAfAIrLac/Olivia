@@ -1,8 +1,11 @@
 'use client'
+import AudioPlayer from "@/components/AudioPlayer";
 import AudioRecorder from "@/components/AudioRecording";
+import ButtonGroupCedulaExpediente from "@/components/ButtonGroupCedulaExpediente";
 import CloseBtn from "@/components/CloseBtn";
 import Container from "@/components/Container";
 import DateTimeDisplayer from "@/components/DateTimeDisplayer";
+import { FileViewer } from "@/components/FileViewer";
 import IconButton from "@/components/IconButton";
 import IconFile from "@/components/IconFile";
 import LoaderSkeleton from "@/components/LoaderSkeleton";
@@ -23,11 +26,15 @@ const HomeFolio = ({ params }) => {
     const [expedienteData, setExpedienteData] = useState()
     const [openModalAudio, setOpenModalAudio] = useState(false)
     const [openModalDocument, setOpenModalDocument] = useState(false)
+    const [openModalPlayer, setOpenModalPlayer] = useState(true)
+    const [selectedAudios, setSelectedAudios] = useState([])
     const [selectedFiles, setSelectedFiles] = useState([])
+    const [playerUrl, setPlayerUrl] = useState()
     const [refresh, setRefresh] = useState(false)
 
     const handleOpenModalAudio = (ev) => {
         setOpenModalAudio(true)
+        setSelectedAudios([])
     }
     const handleOpenModalDocument = (v) => {
         setSelectedFiles([])
@@ -37,7 +44,11 @@ const HomeFolio = ({ params }) => {
         ev.preventDefault()
         setSelectedFiles(ev.target.files)
     }
-    const handleSubmit = async (ev) => {
+    const handleAudioOnChange = (ev) => {
+        ev.preventDefault()
+        setSelectedAudios(ev.target.files)
+    }
+    const handleSubmitDocumentos = async (ev) => {
         ev.preventDefault()
         let formData = new FormData()
         try {
@@ -54,6 +65,28 @@ const HomeFolio = ({ params }) => {
                 setOpenModalDocument(false)
                 setRefresh(true)
                 setSelectedFiles([])
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    const handleSubmitAudios = async (ev) => {
+        ev.preventDefault()
+        let formData = new FormData()
+        try {
+            for (let i = 0; i < selectedAudios.length; i++) {
+                formData.append("audios", selectedAudios[i]);
+            }
+            formData.append("expediente", id)
+            const res = await axios.post(apiRoutes.AUDIO, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            if (res.status === 200) {
+                setOpenModalAudio(false)
+                setRefresh(true)
+                setSelectedAudios([])
             }
         } catch (error) {
             console.error(error);
@@ -78,16 +111,50 @@ const HomeFolio = ({ params }) => {
         open={openModalAudio}
         setOpen={setOpenModalAudio}
     >
-        <div className="login-bg p-3 capitalize">
-            arrastra aqui tu audio
+        <div className="mt-8 login-bg p-3">
+            <span>Arrastra aqui tus audios</span>
+            <div className="p-3 grid grid-flow-row grid-cols-4 gap-3 ">
+                {
+                    Array.from(selectedAudios).map(
+                        (file, index) => {
+                            const extension = file.name.split('.')[1]
+                            return <IconFile
+                                extension={extension}
+                                size={35}
+                                key={`file_${index}`}
+                            />
+                        })
+                }
+            </div>
+
         </div>
+        <form onSubmit={handleSubmitAudios}>
+            <div className="flex flex-row mt-2">
+                <label htmlFor="documento" className="ml-auto">Buscar en mi audios</label>
+                <input
+                    id="documento"
+                    type="file"
+                    multiple
+                    accept=".m4a,.wav"
+                    className="hidden"
+                    onChange={handleAudioOnChange}
+                />
+            </div>
+            {/* Submit button */}
+            <div className="grid grid-flow-col gap-6 text-center">
+                <button className="font-bold save-bg-btn capitalize py-3 w-full mt-5"
+                    type="submit"
+                >
+                    Guardar
+                </button>
+            </div>
+        </form>
     </Modal>;
 
     const DocumentModal = () => <Modal
         open={openModalDocument}
         setOpen={setOpenModalDocument}
     >
-        {/* TODO: Complete documents upload */}
         <div className="mt-8 login-bg p-3">
             <span>Arrastra aqui tus documentos</span>
             <div className="p-3 grid grid-flow-row grid-cols-4 gap-3 ">
@@ -105,7 +172,7 @@ const HomeFolio = ({ params }) => {
             </div>
 
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmitDocumentos}>
             <div className="flex flex-row mt-2">
                 <label htmlFor="documento" className="ml-auto">Buscar en mi documentos</label>
                 <input
@@ -128,19 +195,37 @@ const HomeFolio = ({ params }) => {
         </form>
     </Modal>
 
+    const AudioPlayerModal = () => {
+        return <Modal
+            open={openModalPlayer}
+            setOpen={setOpenModalPlayer}
+        >
+            <div>
+                <AudioPlayer src={playerUrl} />
+            </div>
+        </Modal>
+    }
+
     useEffect(() => {
         getData()
     }, [getData])
 
+    const handleAudioPlayer = (url) => {
+        setPlayerUrl(url)
+        setOpenModalPlayer(true)
+    }
+
 
     return (
         <div className="login-bg py-12 pl-14">
-            <AudioRecorder />
             <AudioModal />
             <DocumentModal />
+            <AudioPlayerModal />
             {!expedienteData ? <LoaderSkeleton />
                 : <Container>
                     <span className="text-lg mb-4">Expediente</span>
+
+
                     <div className="p-6 primary-bg flex flex-col">
                         <DateTimeDisplayer
                             timeStamp={expedienteData.expediente.createdAt}
@@ -153,38 +238,40 @@ const HomeFolio = ({ params }) => {
                                 Audio
                             </span>
                             <div className="px-5 mt-2 flex flex-col ">
-                                <div className="border-b-2 border-color-primary  flex flex-row">
-                                    {/* Audio descripcion */}
-                                    <span className="pl-5 mt-4">
-                                        {/* {expedienteData.audio[0]?.descripcion} */}
-                                    </span>
-                                    <ControlButtonsGroup
-                                        onView={() => true}
-                                        onRemove={() => true}
-                                    />
-                                </div>
+                                {expedienteData.audios.map((item, index) => <FileViewer
+                                    isAudio
+                                    onView={() => handleAudioPlayer(item.url)}
+                                    key={item.descripcion + index}
+                                    url={item.url}
+                                    descripcion={item.descripcion}
+                                />)}
                             </div>
-                            {/* Buttons */}
-                            <RecordsButtonGroup
-                                handleUploadAudio={handleOpenModalAudio}
+                            {/* AUDIO Buttons */}
+                            <AudioRecorder
+                                id={id}
+                                setRefresh={setRefresh}
+                                handleOpenModalAudio={handleOpenModalAudio}
                             />
                         </div>
                         {/* Documentos Container */}
                         <div className="mt-2 p-3 login-bg flex flex-col">
                             <span className="font-bold">Documentos</span>
                             {
-                                expedienteData.documentos.map((item, index) => <DocumentViewer
+                                expedienteData.documentos.map((item, index) => <FileViewer
                                     key={item.descripcion + index}
+                                    url={item.url}
                                     descripcion={item.descripcion}
                                 />)
                             }
                             {/* Upload doc button */}
-                            <UploadDocumentButton
-                                onClick={handleOpenModalDocument}
-                            />
+                            <div className="p-3 ml-auto" >
+                                <IconButton onClick={handleOpenModalDocument}>
+                                    <TbUpload size={40} />
+                                </IconButton>
+                            </div>
                         </div>
                         {/* Buttons group */}
-                        <ButtonGroup
+                        <ButtonGroupCedulaExpediente
                             folio={id}
                         />
                     </div>
@@ -201,71 +288,5 @@ const HomeFolio = ({ params }) => {
     );
 }
 
-const DocumentViewer = ({
-    descripcion,
-}) => {
-    /* TODO: add onView and on Remove */
-    return <div className="px-5 mt-2 flex flex-col ">
-        <div className="border-b-2 border-color-primary  flex flex-row">
-            {/* Document descripcion */}
-            <span className="pl-5 mt-4">{descripcion}</span>
-            <ControlButtonsGroup
-                onView={() => true}
-                onRemove={() => true}
-            />
-        </div>
-    </div>
-}
 
-const ButtonGroup = ({ folio }) => {
-    return <div className="grid grid-flow-col gap-6 text-center">
-        <Link className="font-bold navbar-bg capitalize py-3 w-full mt-5"
-            href={`${routes.dashboard.cedula}/${folio}`}
-        >
-            cédula
-        </Link>
-        <Link className="font-bold navbar-bg capitalize py-3 w-full mt-5"
-            href={routes.dashboard.main}
-        >
-            sabana
-        </Link>
-    </div>
-}
-
-const RecordsButtonGroup = ({
-    handleUploadAudio
-}) => {
-    return <div className="p-3 ml-auto">
-        <IconButton className="mr-2">
-            <BiSolidMicrophone size={40} />
-        </IconButton>
-        <IconButton className="" onClick={handleUploadAudio}>
-            <TbUpload size={40} />
-        </IconButton>
-    </div>
-}
-
-const ControlButtonsGroup = ({ onView, onRemove }) => {
-    <div className="ml-auto mb-1">
-        {/* TODO: onView and onRemove funtionality  */}
-        <IconButton className="mr-5"
-            onClick={onView}>
-            <FaRegEye size={25} />
-        </IconButton>
-        <CloseBtn
-            onClick={onRemove}
-            size={25}
-        />
-    </div>
-}
-
-const UploadDocumentButton = ({
-    onClick
-}) => {
-    return <div className="p-3 ml-auto" >
-        <IconButton onClick={onClick}>
-            <TbUpload size={40} />
-        </IconButton>
-    </ div>
-}
 export default HomeFolio;
