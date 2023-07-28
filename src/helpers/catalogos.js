@@ -40,7 +40,7 @@ export const estatus_escolaridad = [
     { value: 'terminada', description: 'Terminada' },
     { value: 'trunca', description: 'Trunca' },
 ];
-export const tipo_de_relaciones = [
+const tipo_de_relaciones = [
     { value: 'madre', description: 'Madre' },
     { value: 'padre', description: 'Padre' },
     { value: 'hija', description: 'Hija' },
@@ -50,8 +50,8 @@ export const tipo_de_relaciones = [
     { value: 'c_nyuge', description: 'Cónyuge' },
     { value: 'suegra', description: 'Suegra' },
     { value: 'suegro', description: 'Suegro' },
-    { value: 'cu_ada', description: 'Cuñada' },
-    { value: 'cu_ado', description: 'Cuñado' },
+    { value: 'cuniada', description: 'Cuñada' },
+    { value: 'cuniado', description: 'Cuñado' },
     { value: 'otro', description: 'Otro' }
 ];
 export const requerimiento_especifico = [
