@@ -40,7 +40,7 @@ export const estatus_escolaridad = [
     { value: 'terminada', description: 'Terminada' },
     { value: 'trunca', description: 'Trunca' },
 ];
-const tipo_de_relaciones = [
+export const tipo_de_relaciones = [
     { value: 'madre', description: 'Madre' },
     { value: 'padre', description: 'Padre' },
     { value: 'hija', description: 'Hija' },
@@ -216,3 +216,13 @@ export const estado_fisico = [
     { value: 'malo', description: 'Malo' },
     { value: 'regular', description: 'Regular' }
 ];
+export const genero = [
+    { value: 'cisgenero', description: 'Cisgénero' },
+    { value: 'transgenero', description: 'Transgénero' },
+    { value: 'transexual', description: 'Transexual' },
+    { value: 'genero_fluido', description: 'Género fluido' },
+    { value: 'genero', description: 'Ágenero' },
+    { value: 'persona_no_binaria', description: 'Persona no binaria' },
+    { value: 'prefiero_no_decirlo', description: 'Prefiero no decirlo' },
+    { value: 'otro', description: 'Otro' }
+]
