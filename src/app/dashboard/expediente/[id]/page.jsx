@@ -26,7 +26,7 @@ const HomeFolio = ({ params }) => {
     const [expedienteData, setExpedienteData] = useState()
     const [openModalAudio, setOpenModalAudio] = useState(false)
     const [openModalDocument, setOpenModalDocument] = useState(false)
-    const [openModalPlayer, setOpenModalPlayer] = useState(true)
+    const [openModalPlayer, setOpenModalPlayer] = useState(false)
     const [selectedAudios, setSelectedAudios] = useState([])
     const [selectedFiles, setSelectedFiles] = useState([])
     const [playerUrl, setPlayerUrl] = useState()
