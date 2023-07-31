@@ -160,7 +160,7 @@ export const tipo_de_droga = [
     { value: 'estimulantes_con_receta_medica', description: 'Estimulantes con receta médica' },
     { value: 'esteroides_anabolicos', description: 'Esteroides (anabólicos)' },
     { value: 'cannabinoides_sinteticos_k_spice', description: 'Cannabinoides sintéticos (K2/spice)' },
-    { value: 'catinonas_sinteticas_fentanilo', description: 'Catinonas sintéticas' },
+    { value: 'catinonas_sinteticas', description: 'Catinonas sintéticas' },
     { value: 'fentanilo', description: 'Fentanilo' }
 ];
 export const complexion = [
@@ -221,8 +221,20 @@ export const genero = [
     { value: 'transgenero', description: 'Transgénero' },
     { value: 'transexual', description: 'Transexual' },
     { value: 'genero_fluido', description: 'Género fluido' },
-    { value: 'genero', description: 'Ágenero' },
+    { value: 'agenero', description: 'Ágenero' },
     { value: 'persona_no_binaria', description: 'Persona no binaria' },
     { value: 'prefiero_no_decirlo', description: 'Prefiero no decirlo' },
     { value: 'otro', description: 'Otro' }
+]
+export const comparte_vivienda = [
+    { value: 'amistades', description: 'Amistades' },
+    { value: 'familiares', description: 'Familiares' },
+    { value: 'otras', description: 'Otra(s)' },
+]
+export const frecuencia_violencia = [
+    { value: 'menos_de_1_mes', description: 'Menos de 1 mes' },
+    { value: 'de_1_mes_a_3_meses', description: 'De un 1 mes a 3 meses' },
+    { value: 'de_3_meses_a_6_meses', description: 'De 3 meses a 6 meses' },
+    { value: 'de_6_meses_a_un_anio', description: 'De 6 meses a un 1 año' },
+    { value: 'otra', description: 'Otra (elaborar)' },
 ]
