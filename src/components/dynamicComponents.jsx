@@ -8,6 +8,7 @@ import FullWidthInput from "@/components/dynamic-components/FullWidthInput";
 import Select from "@/components/dynamic-components/Select";
 import Input from "@/components/dynamic-components/Input";
 import Break from "@/components/dynamic-components/Break";
+import Textarea from "@/components/dynamic-components/Textarea";
 import OptionsGroup from "@/components/dynamic-components/OptionsGroup";
 
  
@@ -19,7 +20,8 @@ const Components = {
   select: Select,
   input: Input,
   break: Break,
-  optionsgroup: OptionsGroup
+  optionsgroup: OptionsGroup,
+  textarea: Textarea
 };
 
 const clicked = () => {

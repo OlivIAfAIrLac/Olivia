@@ -12,13 +12,13 @@ export default function OptionsGroup(props) {
 
     return (
 
-        <div class="flex flex-wrap">
+        <div className="flex flex-wrap">
             {
                 props.block.options.map(item => {
                     return(
-                        <label key={item.value} class="mr-2 my-1 flex items-center justify-center">
+                        <label key={item.value} className="mr-2 my-1 flex items-center justify-center">
                             <input type="radio" value={item.value} name={props.block.field} onChange={(e)=>{handleChange(e, props.block.field)} } checked={item.value === userValue.value} />
-                            <span class="mx-1.5 whitespace-nowrap">{item.description}</span>
+                            <span className="mx-1.5 whitespace-nowrap">{item.description}</span>
                         </label>
                     )
                 })    
