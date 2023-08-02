@@ -1,4 +1,6 @@
-import { sabanaData } from "@/mock/apiResponse"
+import { sabanaData } from "@/mock/apiResponse";
+import { useRef } from "react";
+import { DownloadTableExcel } from 'react-export-table-to-excel';
 
 const cabecerasSabana = [
   'Fecha (DD/MM/AAA)',
@@ -131,9 +133,16 @@ const cabecerasSabana = [
 const Cell = ({ children }) => <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{children}</td>;
 
 export default function SabanaTable() {
-
+  const tableRef = useRef(null);
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-7">
+      <DownloadTableExcel
+        filename="users table"
+        sheet="users"
+        currentTableRef={tableRef.current}
+      >
+        <button>Descargar en Xls</button>
+      </DownloadTableExcel>
       {/* <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">Users</h1>
@@ -154,7 +163,7 @@ export default function SabanaTable() {
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-300">
+              <table className="min-w-full divide-y divide-gray-300" ref={tableRef}>
                 <thead className="bg-gray-50">
                   <tr>
 
@@ -170,23 +179,8 @@ export default function SabanaTable() {
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {
-                    sabanaData.map((item) => (
-                      <tr key={item._id}>
-                        <Cell>{item.fecha}</Cell>
-                        <Cell>{item.hora_de_inicio}</Cell>
-                        <Cell>{item.expediente}</Cell>
-                        <Cell>{ }</Cell>
-                        <CellAreaQueAtiende data={item.area_que_atiende} />
-                        <Cell>{item.especificar}</Cell>
-                        <Cell>{ }</Cell>
-
-                        {/* <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                          <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                            Edit<span className="sr-only">, {}</span>
-                          </a>
-                        </td> */}
-                      </tr>
-                    ))}
+                    sabanaData.map(RowTable)
+                  }
                 </tbody>
               </table>
             </div>
@@ -196,6 +190,68 @@ export default function SabanaTable() {
     </div>
   )
 }
+
+const RowTable = (item, index) => {
+  const {
+    _id,
+    fecha,
+    hora_de_inicio,
+    area_que_atiende,
+    especificar,
+    modalidad_de_asesoria,
+    modalidad_especificar,
+    institucion_que_atiende,
+    nombres_de_las_personas_que_atienden,
+    numero_de_expediente_banavim,
+    horario_de_termino_de_atencion,
+    I_la_persona_presenta_alguna_enfermedad_y_o_lesion_que_requiera_ser_atendida_con_inmediatez,
+    I_especificar_cual_en_caso_afirmativo,
+    I_existe_algun_requerimiento_especifico,
+    I_requerimiento_cual,
+    I_presenta_alguna_emergencia,
+    I_emergencia_cual,
+    I_especificar,
+    I_esta_en_periodo_de_gestacion,
+    I_cuantos_meses,
+
+  } = item;
+
+
+  return <tr key={_id}>
+    <Cell>{fecha}</Cell>
+    <Cell>{hora_de_inicio}</Cell>
+    <Cell>No. {index + 1}</Cell>
+    <Cell>{ }</Cell>
+    <CellAreaQueAtiende data={area_que_atiende} />
+    <Cell>{especificar}</Cell>
+    <CellModalidadAsesora data={modalidad_de_asesoria} />
+    <Cell>{modalidad_especificar}</Cell>
+    <Cell>{institucion_que_atiende}</Cell>
+    {/* Área de adscripción*/}
+    <Cell />
+    <Cell>{nombres_de_las_personas_que_atienden}</Cell>
+    {/* Cargo de la(s) persona(s) que atiende(n) */}
+    <Cell />
+    <Cell>{numero_de_expediente_banavim}</Cell>
+    <Cell>{horario_de_termino_de_atencion}</Cell>
+    <Cell>{I_la_persona_presenta_alguna_enfermedad_y_o_lesion_que_requiera_ser_atendida_con_inmediatez ? 1 : 0}</Cell>
+    <Cell>{I_especificar_cual_en_caso_afirmativo}</Cell>
+    <Cell>{I_existe_algun_requerimiento_especifico ? 1 : 0}</Cell>
+    <CellRequerimientoEspecifico data={I_requerimiento_cual} />
+    <Cell>{I_especificar}</Cell>
+    <Cell>{I_presenta_alguna_emergencia ? 1 : 0}</Cell>
+    <CellEmergencia data={I_emergencia_cual} />
+    <Cell>{I_especificar}</Cell>
+    <Cell>{I_esta_en_periodo_de_gestacion ? 1 : 0}</Cell>
+    <Cell>{I_cuantos_meses}</Cell>
+  </tr>
+}
+
+/* 
+  TODO: improve this, could be better refactor and use catologos.js,
+  but i i don't have time for deadline 
+ */
+
 const CellAreaQueAtiende = ({ data }) => {
   const psicologia = data.some(item => item === 'psicologia') ? 1 : 0
   const psicologia_nna = data.some(item => item === 'psicologia_nna') ? 1 : 0
@@ -221,8 +277,37 @@ const CellAreaQueAtiende = ({ data }) => {
 }
 
 const CellModalidadAsesora = ({ data }) => {
-  return
-  <>
-  
+  return <>
+    <Cell>{data === 'presencial' ? 1 : null}</Cell>
+    <Cell>{data === 'telefonica' ? 1 : null}</Cell>
+    <Cell>{data === 'otra' ? 1 : null}</Cell>
+  </>
+}
+const CellRequerimientoEspecifico = ({ data }) => {
+  const lengua_de_senias_mexicana_lsm = data === 'lengua_de_senias_mexicana_lsm' ? 1 : 0
+  const lengua_indigena = data === 'lengua_indigena' ? 1 : 0
+  const lengua_extranjera = data === 'lengua_extranjera' ? 1 : 0
+  const discapacidades = data === 'discapacidades' ? 1 : 0
+  const otra = data === 'otra' ? 1 : 0
+  return <>
+    <Cell>{lengua_de_senias_mexicana_lsm}</Cell>
+    <Cell>{lengua_indigena}</Cell>
+    <Cell>{lengua_extranjera}</Cell>
+    <Cell>{discapacidades}</Cell>
+    <Cell>{otra}</Cell>
+  </>
+}
+const CellEmergencia = ({ data }) => {
+  const atencion_medica_de_emergencia_por_lesiones = data === 'atencion_medica_de_emergencia_por_lesiones' ? 1 : 0
+  const crisis_nerviosa = data === 'crisis_nerviosa' ? 1 : 0
+  const dictamen_ginecologico_por_agresion_sexual = data === 'dictamen_ginecologico_por_agresion_sexual' ? 1 : 0
+  const atencion_medica_por_agresion_sexual = data === 'atencion_medica_por_agresion_sexual' ? 1 : 0
+  const otras = data === 'otras' ? 1 : 0
+  return <>
+    <Cell>{atencion_medica_de_emergencia_por_lesiones}</Cell>
+    <Cell>{crisis_nerviosa}</Cell>
+    <Cell>{dictamen_ginecologico_por_agresion_sexual}</Cell>
+    <Cell>{atencion_medica_por_agresion_sexual}</Cell>
+    <Cell>{otras}</Cell>
   </>
 }
