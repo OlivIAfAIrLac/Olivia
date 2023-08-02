@@ -216,6 +216,112 @@ const cabecerasSabana = [
   'Catinonas sintéticas',
   'Otra',
   'Especificar otro',
+  /* IV Motivo de la atencion */
+  'Contexto (Causa y Evolución)',
+  '¿Ha tenido que ser atendida en una institución médica o por personal médico como consecuencia de un evento de violencia con la persona agresora?',
+  '¿Episodio reciente?',
+  'Especificar',
+  'Último episodio de violencia',
+  'Especificar',
+  'Acciones o intentos de solución realizados',
+  'Personas involucradas en la situación',
+  /* V. ANTECEDENTES DE VIOLENCIA  */
+  'Contexto (Causa y Evolución)',
+  'Acciones o intentos de solución realizados',
+  'Personas involucradas en la situación',
+  'Redes de apoyo y tipo de apoyo que se proporcionó',
+  '¿Recurrió a alguna institución para pedir apoyo?',
+  'Especificar',
+  '¿Cuenta con expediente  de atención?',
+  'Especificar',
+  /* VI INFORMACION DE LA PERSONA AGRESORA */
+  '¿Persona conocida?',
+  'Pseudónimo',
+  'Nombre(s)',
+  'Primer apellido',
+  'Segundo apellido',
+  'Género',
+  'Especificar',
+  'Sexo',
+  'Nacionalidad',
+  'Relación de la persona agresora con la víctima.',
+  'Especificar relación',
+  'Tiempo de convivencia con la persona agresora (años y meses)',
+  'Calle',
+  'Número exterior',
+  'Número interior',
+  'Letra exterior',
+  'Letra interior',
+  'C.P.',
+  'Cruce 1',
+  'Cruce 2',
+  'Referencia',
+  'Estado',
+  'Municipio',
+  'Colonia/ Localidad',
+  'Escolaridad',
+  '¿Su escolaridad está en?',
+  'Ocupación',
+  'Teléfono fijo/casa',
+  'Celular',
+  'Otro, especificar',
+  'Posesión de armas',
+  '¿Consume drogas?',
+  'Alcohol',
+  'Marihuana',
+  'Depresores del sistema nervioso central(benzos)',
+  'Cocaína (crack)',
+  'GHB',
+  'Alucinógenos',
+  'Heroína',
+  'Inhalantes',
+  'Ketamina',
+  'LSD (ácidos) ',
+  'Tabaco',
+  'PCP (ángel dust)',
+  'MDMA (éxtasis) ',
+  'Mescalina (peyote)',
+  'Metanfetamina (cristal/meth)',
+  'Medicamentos de venta libre',
+  'Dextrometorfano (DXM) ',
+  'Loperamida',
+  'Opioides con receta médica (oxy/percs)',
+  'Estimulantes con receta médica',
+  'Esteroides (anabólicos)',
+  'Fentanilo',
+  'Cannabinoides sintéticos (K2/spice)',
+  'Catinonas sintéticas',
+  'Otra',
+  'Especificar otro',
+  'Enfermedad mental',
+  'Toma algún tratamiento psiquiátrico',
+  'Farmacodependencia',
+  'Pertenece a la policía o al ejercito',
+  'Pertenece o tiene enlace con el crimen organizado',
+  'Historial de antecedentes penales',
+  'Infidelidad',
+  'Estatura Aproximada (m. / cm.)',
+  'Complexión',
+  'Tez',
+  'Color de cabello',
+  'Tamaño',
+  'Forma',
+  'Nariz',
+  'Labios',
+  'Color',
+  'Descripción del estado físico aparente',
+  'Forma de la cara. Especificar',
+  'Tipos de cejas. Especificar',
+  'Bigote',
+  'Especificar Forma',
+  'Barba',
+  'Señas particulares',
+  'Tatuajes',
+  'Especificar forma y lugar',
+  'Lunares',
+  'Lesiones',
+  'Cicatrices',
+  'Especificar forma y lugar',
 ]
 
 const Cell = ({ children }) => <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{children}</td>;
@@ -401,6 +507,7 @@ const RowTable = (item, index) => {
     III_pertenece_a_la_comunidad_lgbtttiq,
     III_pertenece_a_la_comunidad_lgbtttiq_especificar,
     III_tiene_alguna_discapacidad,
+    III_discapacidad,
     III_especificar_discapacidad,
     III_vive_violencia_por_presentar_discapacidad,
     III_especificar_violencia,
@@ -410,6 +517,22 @@ const RowTable = (item, index) => {
     III_especificar_enfermedad_cronica,
     III_consumo_de_drogas,
     III_especificar_el_tipo_de_drogas_que_consume_la_prv,
+    IV_contexto_causa_y_evolucion,
+    IV_ha_tenido_que_ser_atendida_en_una_institucion_medica_o_por_personal_medico_como_consecuencia_de_un_evento_de_violencia_con_la_persona_agresora,
+    IV_ultimo_episodio_de_violencia_reciente,
+    IV_ultimo_episodio_de_violencia_reciente_especificar,
+    IV_ultimo_episodio_de_violencia,
+    IV_ultimo_episodio_de_violencia_especificar,
+    IV_acciones_o_intentos_de_solucion_realizados,
+    IV_personas_involucradas_en_la_situacion,
+    V_contexto_causa_y_evolucion,
+    V_acciones_o_intentos_de_solucion_realizados,
+    V_personas_involucradas_en_la_situacion,
+    V_redes_de_apoyo_y_tipo_de_apoyo_que_se_proporciono,
+    V_recurrio_a_alguna_institucion_para_pedir_apoyo,
+    V_recurrio_a_alguna_institucion_especificar,
+    V_cuenta_con_expediente_de_atencion,
+    V_cuenta_con_expediente_de_atencion_especificar,
   } = item;
 
 
@@ -636,15 +759,39 @@ const RowTable = (item, index) => {
     <Cell>{III_pertenece_a_la_comunidad_lgbtttiq ? 1 : 0}</Cell>
     <Cell>{III_pertenece_a_la_comunidad_lgbtttiq_especificar}</Cell>
     <Cell>{III_tiene_alguna_discapacidad ? 1 : 0}</Cell>
-    <CellDiscapacidad data={III_especificar_discapacidad} />
+    <CellDiscapacidad data={III_discapacidad} />
+    <Cell>{III_especificar_discapacidad}</Cell>
+
     <Cell>{III_vive_violencia_por_presentar_discapacidad ? 1 : 0}</Cell>
     <Cell>{III_especificar_violencia}</Cell>
     <Cell>{III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia ? 1 : 0}</Cell>
-    {/* <Cell>{III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia:especificar}</Cell> */}
-    {/* <Cell>{III_tiene_alguna_enfermedad_cronica_degenerativa_que_limite_o_imposibilite_sus_actividades}</Cell> */}
-    {/* <Cell>{III_especificar_enfermedad_cronica}</Cell> */}
-    {/* <Cell>{III_consumo_de_drogas}</Cell> */}
-    {/* <Cell>{III_especificar_el_tipo_de_drogas_que_consume_la_prv}</Cell> */}
+    <Cell>{III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia_especificar}</Cell>
+    <Cell>{III_tiene_alguna_enfermedad_cronica_degenerativa_que_limite_o_imposibilite_sus_actividades ? 1 : 0}</Cell>
+    <Cell>{III_especificar_enfermedad_cronica}</Cell>
+    <Cell>{III_consumo_de_drogas ? 1 : 0}</Cell>
+    <CellDrogas data={III_especificar_el_tipo_de_drogas_que_consume_la_prv} />
+    <Cell />
+    <Cell>{IV_contexto_causa_y_evolucion}</Cell>
+    <Cell>{IV_ha_tenido_que_ser_atendida_en_una_institucion_medica_o_por_personal_medico_como_consecuencia_de_un_evento_de_violencia_con_la_persona_agresora ? 1 : 0}</Cell>
+    <Cell>{IV_ultimo_episodio_de_violencia_reciente ? 1 : 0}</Cell>
+    <Cell>{IV_ultimo_episodio_de_violencia_reciente_especificar}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'frecuencia_violencia',
+        value: IV_ultimo_episodio_de_violencia
+      })
+    }</Cell>
+    <Cell>{IV_ultimo_episodio_de_violencia_especificar}</Cell>
+    <Cell>{IV_acciones_o_intentos_de_solucion_realizados}</Cell>
+    <Cell>{IV_personas_involucradas_en_la_situacion}</Cell>
+    <Cell>{V_contexto_causa_y_evolucion}</Cell>
+    <Cell>{V_acciones_o_intentos_de_solucion_realizados}</Cell>
+    <Cell>{V_personas_involucradas_en_la_situacion}</Cell>
+    <Cell>{V_redes_de_apoyo_y_tipo_de_apoyo_que_se_proporciono}</Cell>
+    <Cell>{V_recurrio_a_alguna_institucion_para_pedir_apoyo ? 1 : 0}</Cell>
+    <Cell>{V_recurrio_a_alguna_institucion_especificar}</Cell>
+    <Cell>{V_cuenta_con_expediente_de_atencion ? 1 : 0}</Cell>
+    <Cell>{V_cuenta_con_expediente_de_atencion_especificar}</Cell>
 
   </tr>
 }
@@ -735,5 +882,57 @@ const CellDiscapacidad = ({ data }) => {
     <Cell>{intelectual}</Cell>
     <Cell>{psicosocial}</Cell>
     <Cell>{otra}</Cell>
+  </>
+}
+const CellDrogas = ({ data }) => {
+  const alcohol = data === 'alcohol' ? 1 : 0
+  const marihuana = data === 'marihuana' ? 1 : 0
+  const depresores_del_sistema_nervioso_central_benzos = data === 'depresores_del_sistema_nervioso_central_benzos' ? 1 : 0
+  const cocaina_crack_ghb = data === 'cocaina_crack_ghb' ? 1 : 0
+  const alucinogenos = data === 'alucinogenos' ? 1 : 0
+  const heroina = data === 'heroina' ? 1 : 0
+  const inhalantes = data === 'inhalantes' ? 1 : 0
+  const ketamina = data === 'ketamina' ? 1 : 0
+  const lsd_acidos = data === 'lsd_acidos' ? 1 : 0
+  const tabaco = data === 'tabaco' ? 1 : 0
+  const pcp_angel_dust = data === 'pcp_angel_dust' ? 1 : 0
+  const mdma_extasis = data === 'mdma_extasis' ? 1 : 0
+  const mescalina_peyote = data === 'mescalina_peyote' ? 1 : 0
+  const metanfetamina_cristal_meth = data === 'metanfetamina_cristal_meth' ? 1 : 0
+  const dextrometorfano_dxm = data === 'dextrometorfano_dxm' ? 1 : 0
+  const medicamentos_de_venta_libre = data === 'medicamentos_de_venta_libre' ? 1 : 0
+  const loperamida = data === 'loperamida' ? 1 : 0
+  const opioides_con_receta_medica_oxy_percs = data === 'opioides_con_receta_medica_oxy_percs' ? 1 : 0
+  const estimulantes_con_receta_medica = data === 'estimulantes_con_receta_medica' ? 1 : 0
+  const esteroides_anabolicos = data === 'esteroides_anabolicos' ? 1 : 0
+  const cannabinoides_sinteticos_k_spice = data === 'cannabinoides_sinteticos_k_spice' ? 1 : 0
+  const catinonas_sinteticas = data === 'catinonas_sinteticas' ? 1 : 0
+  const fentanilo = data === 'fentanilo' ? 1 : 0
+  return <>
+    <Cell>{alcohol}</Cell>
+    <Cell>{marihuana}</Cell>
+    <Cell>{depresores_del_sistema_nervioso_central_benzos}</Cell>
+    <Cell>{cocaina_crack_ghb}</Cell>
+    <Cell>{alucinogenos}</Cell>
+    <Cell>{heroina}</Cell>
+    <Cell>{inhalantes}</Cell>
+    <Cell>{ketamina}</Cell>
+    <Cell>{lsd_acidos}</Cell>
+    <Cell>{tabaco}</Cell>
+    <Cell>{pcp_angel_dust}</Cell>
+    <Cell>{mdma_extasis}</Cell>
+    <Cell>{mescalina_peyote}</Cell>
+    <Cell>{metanfetamina_cristal_meth}</Cell>
+    <Cell>{dextrometorfano_dxm}</Cell>
+    <Cell>{medicamentos_de_venta_libre}</Cell>
+    <Cell>{loperamida}</Cell>
+    <Cell>{opioides_con_receta_medica_oxy_percs}</Cell>
+    <Cell>{estimulantes_con_receta_medica}</Cell>
+    <Cell>{esteroides_anabolicos}</Cell>
+    <Cell>{cannabinoides_sinteticos_k_spice}</Cell>
+    <Cell>{catinonas_sinteticas}</Cell>
+    <Cell>{fentanilo}</Cell>
+    <Cell />
+    <Cell />
   </>
 }

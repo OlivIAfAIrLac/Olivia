@@ -916,7 +916,7 @@ export const sabanaData = [
         "_id": "64b84ad0660ff3a0187acf4d",
         "expediente": "64b84ad0660ff3a0187acf4b",
         "createdAt": "2023-07-19T20:42:56.935Z",
-        "updatedAt": "2023-08-02T21:49:37.477Z",
+        "updatedAt": "2023-08-02T23:10:14.012Z",
         "__v": 0,
         "III_calle_empleo": "lorem upsum",
         "III_colonia_localidad_empleo": "El salto",
@@ -938,7 +938,7 @@ export const sabanaData = [
         "III_es_una_persona_migrante_transmigrante": true,
         "III_escolaridad": "preparatoria_o_bachillerato",
         "III_escolaridad_hijes": "carrera_tecnica_o_comercial",
-        "III_especificar_discapacidad": "motora",
+        "III_especificar_discapacidad": "motora lorem",
         "III_especificar_el_tipo_de_drogas_que_consume_la_prv": "cocaina_crack_ghb",
         "III_especificar_enfermedad_cronica": "lorem ipsum dolo intensa",
         "III_especificar_habitante": "lorem ipsum",
@@ -1138,7 +1138,10 @@ export const sabanaData = [
         "III_sexo": "intersexual",
         "III_pertenece_a_un_grupo_originario_o_indigena_especiificar": "lorem",
         "III_pertenece_a_la_comunidad_lgbtttiq_especificar": "lorem ispum",
-        "III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia_especificar": "lorem Ipsum"
+        "III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia_especificar": "lorem Ipsum",
+        "III_discapacidad": "motora",
+        "IV_ultimo_episodio_de_violencia_reciente_especificar": "lorem ipsum",
+        "IV_ultimo_episodio_de_violencia_especificar": "violencia especificar"
     },
     {
         "area_que_atiende": [],
