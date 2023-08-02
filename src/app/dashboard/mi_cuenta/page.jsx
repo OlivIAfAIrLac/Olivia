@@ -29,13 +29,13 @@ const HomeProfile = () => {
                         : <UserProfile data={data} />
                     }
                 </div>
-                <UserStadistics
+                {/* <UserStadistics
                     totalPersonasAtendidas={totalPersonasAtendidas}
                     eventual={eventual}
                     acrecentado={acrecentado}
                     severo={severo}
                     extremo={extremo}
-                />
+                /> */}
             </Container>
             {/* cards */}
             <ExpedientesGrid />

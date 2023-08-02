@@ -1004,8 +1004,9 @@ const menuOptions = {
 }
 
 
-const HomeCedula = ({ params }) => {
+const HomeCedula = ({ params, searchParams }) => {
     /* FOLIO => EXPEDIENTE_ID */
+
     const { folio } = params;
     /* TODO:REOMVE MOCKUP AFTER MAP */
     const {
@@ -1014,7 +1015,7 @@ const HomeCedula = ({ params }) => {
     } = cedulaData;
 
     const [sidebarOptions, setSidebarOptions] = useState(menuOptions)
-    const [activeData, setActiveData] = useState(0)
+    const [activeData, setActiveData] = useState(searchParams.activeSection ?? 0)
 
     const renderingButtonOption = (item) => {
         const { active, label } = sidebarOptions[item];
