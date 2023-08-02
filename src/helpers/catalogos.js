@@ -250,7 +250,7 @@ export const area_que_atiende = [
     { value: 'otra', description: 'Otra ' },
 ]
 export const modalidad_asesora = [
-    {vale:'presencial',description:'Presencial'},
-    {vale:'telefonica',description:'Telefónica'},
-    {vale:'otra',description:'Otra'},
+    { value: 'presencial', description: 'Presencial' },
+    { value: 'telefonica', description: 'Telefónica' },
+    { value: 'otra', description: 'Otra' },
 ];
