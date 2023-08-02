@@ -238,3 +238,14 @@ export const frecuencia_violencia = [
     { value: 'de_6_meses_a_un_anio', description: 'De 6 meses a un 1 año' },
     { value: 'otra', description: 'Otra (elaborar)' },
 ]
+export const area_que_atiende = [
+    { value: 'psicologia', description: 'Psicología' },
+    { value: 'psicolog_a_nna', description: 'Psicología NNA' },
+    { value: 'juridica', description: 'Jurídica' },
+    { value: 'trabajo_social', description: 'Trabajo Social' },
+    { value: 'ministerial', description: 'Ministerial' },
+    { value: 'pericial', description: 'Pericial' },
+    { value: 'medica', description: 'Médica' },
+    { value: 'psiquiatrica', description: 'Psiquiátrica' },
+    { value: 'otra', description: 'Otra ' },
+]
