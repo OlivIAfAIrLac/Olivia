@@ -144,6 +144,7 @@ const cabecerasSabana = [
   '¿Tienes hijas, hijos o hijes?',
   '¿Cuantos?',
   'Sexo',
+  'Especificar Sexo',
   'Nombre completo de sus hijes',
   'Edad. Años cumplidos',
   'Escolaridad',
@@ -361,6 +362,7 @@ const RowTable = (item, index) => {
     III_especificar_habitante,
     III_sexo_habitante,
     III_genero_habitante,
+    III_genero_habitante_especificar,
     III_edad_habitante,
     III_tiene_alguna_discapacidad_habitante,
     III_es_dependiente_economico_de_quien_solicita_la_atencion,
@@ -368,6 +370,7 @@ const RowTable = (item, index) => {
     III_compartida_especificar,
     III_tiene_hijas_hijos_o_hijes,
     III_cuantos_hijes_tiene,
+    III_sexo,
     III_nombre_completo_de_sus_hijes,
     III_especificar_sexo,
     III_edad_anios_cumplidos,
@@ -392,14 +395,17 @@ const RowTable = (item, index) => {
     III_turno,
     III_monto_de_ingreso_mensual_de_su_empleo_principal,
     III_pertenece_a_un_grupo_originario_o_indigena,
+    III_pertenece_a_un_grupo_originario_o_indigena_especiificar,
     III_es_una_persona_migrante_transmigrante,
     III_es_una_persona_en_situacion_de_calle,
     III_pertenece_a_la_comunidad_lgbtttiq,
+    III_pertenece_a_la_comunidad_lgbtttiq_especificar,
     III_tiene_alguna_discapacidad,
     III_especificar_discapacidad,
     III_vive_violencia_por_presentar_discapacidad,
     III_especificar_violencia,
     III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia,
+    III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia_especificar,
     III_tiene_alguna_enfermedad_cronica_degenerativa_que_limite_o_imposibilite_sus_actividades,
     III_especificar_enfermedad_cronica,
     III_consumo_de_drogas,
@@ -489,23 +495,25 @@ const RowTable = (item, index) => {
     <Cell>{II_direccion_eventual_estado}</Cell>
     <Cell>{II_direccion_eventual_municipio}</Cell>
     <Cell>{II_direccion_eventual_colonia_localidad}</Cell>
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
-    <Cell />
+    <>
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+    </>
     <Cell>{
       getCatalogoIndexSabana({
         catalogo: 'escolaridad',
@@ -563,44 +571,76 @@ const RowTable = (item, index) => {
       })
     }</Cell>
     <Cell>{III_especificar_habitante}</Cell>
-    <Cell>{III_sexo_habitante}</Cell>
-    <Cell>{III_genero_habitante}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'sexo',
+        value: III_sexo_habitante,
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'genero',
+        value: III_genero_habitante
+      })
+    }</Cell>
+    <Cell>{III_genero_habitante_especificar}</Cell>
     <Cell>{III_edad_habitante}</Cell>
-    <Cell>{III_tiene_alguna_discapacidad_habitante}</Cell>
-    <Cell>{III_es_dependiente_economico_de_quien_solicita_la_atencion}</Cell>
-    <Cell>{III_es_dependiente_de_cuidados_de_quien_solicita_la_atencion}</Cell>
-    {/* <Cell>{III_habitantes}</Cell> */}
-    {/* <Cell>{III_tiene_hijas_hijos_o_hijes}</Cell> */}
-    {/* <Cell>{III_cuantos_hijes_tiene}</Cell> */}
-    {/* <Cell>{III_hijes}</Cell> */}
-    {/* <Cell>{III_quien_aporta_el_mayor_ingreso_dentro_del_hogar}</Cell> */}
-    {/* <Cell>{III_quien_aporta_el_mayor_porcentaje_de_ingresos_para_la_victima}</Cell> */}
-    {/* <Cell>{III_quien_aporta_el_mayor_ingreso_para_sus_hijes}</Cell> */}
-    {/* <Cell>{III_cuanto}</Cell> */}
-    {/* <Cell>{III_calle_empleo}</Cell> */}
-    {/* <Cell>{III_numero_exterior_empleo}</Cell> */}
-    {/* <Cell>{III_numero_interior_empleo}</Cell> */}
-    {/* <Cell>{III_letra_exterior_empleo}</Cell> */}
-    {/* <Cell>{III_letra_interior_empleo}</Cell> */}
-    {/* <Cell>{III_cp_empleo}</Cell> */}
-    {/* <Cell>{III_cruce1_empleo}</Cell> */}
-    {/* <Cell>{III_cruce2_empleo}</Cell> */}
-    {/* <Cell>{III_referencia_empleo}</Cell> */}
-    {/* <Cell>{III_estado_empleo}</Cell> */}
-    {/* <Cell>{III_municipio_empleo}</Cell> */}
-    {/* <Cell>{III_colonia_localidad_empleo}</Cell> */}
-    {/* <Cell>{III_que_dias_de_la_semana_trabaja}</Cell> */}
-    {/* <Cell>{III_turno}</Cell> */}
-    {/* <Cell>{III_monto_de_ingreso_mensual_de_su_empleo_principal}</Cell> */}
-    {/* <Cell>{III_pertenece_a_un_grupo_originario_o_indigena}</Cell> */}
-    {/* <Cell>{III_es_una_persona_migrante_transmigrante}</Cell> */}
-    {/* <Cell>{III_es_una_persona_en_situacion_de_calle}</Cell> */}
-    {/* <Cell>{III_pertenece_a_la_comunidad_lgbtttiq}</Cell> */}
-    {/* <Cell>{III_tiene_alguna_discapacidad}</Cell> */}
-    {/* <Cell>{III_especificar_discapacidad}</Cell> */}
-    {/* <Cell>{III_vive_violencia_por_presentar_discapacidad}</Cell> */}
-    {/* <Cell>{III_especificar_violencia}</Cell> */}
-    {/* <Cell>{III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia}</Cell> */}
+    <Cell>{III_tiene_alguna_discapacidad_habitante ? 1 : 0}</Cell>
+    <Cell>{III_es_dependiente_economico_de_quien_solicita_la_atencion ? 1 : 0}</Cell>
+    <Cell>{III_es_dependiente_de_cuidados_de_quien_solicita_la_atencion ? 1 : 0}</Cell>
+    <Cell>{III_tiene_hijas_hijos_o_hijes ? 1 : 0}</Cell>
+    <Cell>{III_cuantos_hijes_tiene}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'sexo',
+        value: III_sexo
+      })
+    }</Cell>
+    <Cell>{III_especificar_sexo}</Cell>
+    <Cell>{III_nombre_completo_de_sus_hijes}</Cell>
+    <Cell>{III_edad_anios_cumplidos}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'escolaridad',
+        value: III_escolaridad_hijes
+      })
+    }</Cell>
+    <Cell>{III_quien_aporta_el_mayor_ingreso_dentro_del_hogar}</Cell>
+    <Cell>{III_quien_aporta_el_mayor_porcentaje_de_ingresos_para_la_victima}</Cell>
+    <Cell>{III_quien_aporta_el_mayor_ingreso_para_sus_hijes}</Cell>
+    <Cell>{III_cuanto}</Cell>
+    <Cell>{III_calle_empleo}</Cell>
+    <Cell>{III_numero_exterior_empleo}</Cell>
+    <Cell>{III_numero_interior_empleo}</Cell>
+    <Cell>{III_letra_exterior_empleo}</Cell>
+    <Cell>{III_letra_interior_empleo}</Cell>
+    <Cell>{III_cp_empleo}</Cell>
+    <Cell>{III_cruce1_empleo}</Cell>
+    <Cell>{III_cruce2_empleo}</Cell>
+    <Cell>{III_referencia_empleo}</Cell>
+    <Cell>{III_estado_empleo}</Cell>
+    <Cell>{III_municipio_empleo}</Cell>
+    <Cell>{III_colonia_localidad_empleo}</Cell>
+    <Cell>{III_que_dias_de_la_semana_trabaja}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'turno',
+        value: III_turno
+      })
+    }</Cell>
+    <Cell>{III_monto_de_ingreso_mensual_de_su_empleo_principal}</Cell>
+    <Cell>{III_pertenece_a_un_grupo_originario_o_indigena ? 1 : 0}</Cell>
+    <Cell>{III_pertenece_a_un_grupo_originario_o_indigena_especiificar}</Cell>
+    <Cell>{III_es_una_persona_migrante_transmigrante ? 1 : 0}</Cell>
+    <Cell>{III_es_una_persona_en_situacion_de_calle ? 1 : 0}</Cell>
+    <Cell>{III_pertenece_a_la_comunidad_lgbtttiq ? 1 : 0}</Cell>
+    <Cell>{III_pertenece_a_la_comunidad_lgbtttiq_especificar}</Cell>
+    <Cell>{III_tiene_alguna_discapacidad ? 1 : 0}</Cell>
+    <CellDiscapacidad data={III_especificar_discapacidad} />
+    <Cell>{III_vive_violencia_por_presentar_discapacidad ? 1 : 0}</Cell>
+    <Cell>{III_especificar_violencia}</Cell>
+    <Cell>{III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia ? 1 : 0}</Cell>
+    {/* <Cell>{III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia:especificar}</Cell> */}
     {/* <Cell>{III_tiene_alguna_enfermedad_cronica_degenerativa_que_limite_o_imposibilite_sus_actividades}</Cell> */}
     {/* <Cell>{III_especificar_enfermedad_cronica}</Cell> */}
     {/* <Cell>{III_consumo_de_drogas}</Cell> */}
@@ -679,5 +719,21 @@ const CellEmergencia = ({ data }) => {
     <Cell>{dictamen_ginecologico_por_agresion_sexual}</Cell>
     <Cell>{atencion_medica_por_agresion_sexual}</Cell>
     <Cell>{otras}</Cell>
+  </>
+}
+const CellDiscapacidad = ({ data }) => {
+  const motora = data === 'motora' ? 1 : 0
+  const auditiva = data === 'auditiva' ? 1 : 0
+  const visual = data === 'visual' ? 1 : 0
+  const intelectual = data === 'intelectual' ? 1 : 0
+  const psicosocial = data === 'psicosocial' ? 1 : 0
+  const otra = data === 'otra' ? 1 : 0
+  return <>
+    <Cell>{motora}</Cell>
+    <Cell>{auditiva}</Cell>
+    <Cell>{visual}</Cell>
+    <Cell>{intelectual}</Cell>
+    <Cell>{psicosocial}</Cell>
+    <Cell>{otra}</Cell>
   </>
 }

@@ -30,6 +30,7 @@ export const getCatalogoDescription = ({ catalogo = '', value = 'description' })
         frecuencia_violencia: frecuencia_violencia.filter(item => item.value === value),
         area_que_atiende: area_que_atiende.filter(item => item.value === value),
         modalidad_asesora: modalidad_asesora.filter(item => item.value === value),
+        discapacidad: discapacidad.filter(item => item.value === value),
     }
     console.log(catalogo, value);
     return allCatalogos[catalogo][0]?.description;
@@ -66,8 +67,8 @@ export const getCatalogoIndexSabana = ({ catalogo = '', value = 'indexSabana' })
         frecuencia_violencia: frecuencia_violencia.filter(item => item.value === value),
         area_que_atiende: area_que_atiende.filter(item => item.value === value),
         modalidad_asesora: modalidad_asesora.filter(item => item.value === value),
+        discapacidad: discapacidad.filter(item => item.value === value),
     }
-    console.log(catalogo, value);
     return allCatalogos[catalogo][0]?.indexSabana;
 }
 export const userRoles = [
@@ -326,3 +327,11 @@ export const modalidad_asesora = [
     { indexSabana: 2, value: 'telefonica', description: 'Telefónica' },
     { indexSabana: 3, value: 'otra', description: 'Otra' },
 ];
+export const discapacidad = [
+    { indexSabana: 1, value: 'motora', description: 'Motora' },
+    { indexSabana: 2, value: 'auditiva', description: 'Auditiva' },
+    { indexSabana: 3, value: 'visual', description: 'Visual' },
+    { indexSabana: 4, value: 'intelectual', description: 'Intelectual' },
+    { indexSabana: 5, value: 'psicosocial', description: 'Psicosocial' },
+    { indexSabana: 6, value: 'otra ', description: 'Otra' },
+]
