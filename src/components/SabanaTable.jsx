@@ -128,6 +128,8 @@ const cabecerasSabana = [
   '¿Cuántas personas habitan en su vivienda?',
 ]
 
+const Cell = ({ children }) => <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{children}</td>;
+
 export default function SabanaTable() {
 
   return (
@@ -170,12 +172,13 @@ export default function SabanaTable() {
                   {
                     sabanaData.map((item) => (
                       <tr key={item._id}>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{item.fecha}</td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{item.hora_de_inicio}</td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{item.expediente}</td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ }</td>
+                        <Cell>{item.fecha}</Cell>
+                        <Cell>{item.hora_de_inicio}</Cell>
+                        <Cell>{item.expediente}</Cell>
+                        <Cell>{ }</Cell>
                         <CellAreaQueAtiende data={item.area_que_atiende} />
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ }</td>
+                        <Cell>{item.especificar}</Cell>
+                        <Cell>{ }</Cell>
 
                         {/* <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                           <a href="#" className="text-indigo-600 hover:text-indigo-900">
@@ -194,19 +197,32 @@ export default function SabanaTable() {
   )
 }
 const CellAreaQueAtiende = ({ data }) => {
-  const piscologia = data.some(item => item === 'piscologia') ? 1 : 0
-  const juridico = data.some(item => item === 'juridico') ? 1 : 0
+  const psicologia = data.some(item => item === 'psicologia') ? 1 : 0
+  const psicologia_nna = data.some(item => item === 'psicologia_nna') ? 1 : 0
+  const juridica = data.some(item => item === 'juridica') ? 1 : 0
   const trabajo_social = data.some(item => item === 'trabajo_social') ? 1 : 0
   const ministerial = data.some(item => item === 'ministerial') ? 1 : 0
   const pericial = data.some(item => item === 'pericial') ? 1 : 0
-  const conserjeria = data.some(item => item === 'conserjeria') ? 1 : 0
+  const medica = data.some(item => item === 'medica') ? 1 : 0
+  const psiquiatrica = data.some(item => item === 'psiquiatrica') ? 1 : 0
+  const otra = data.some(item => item === 'otra') ? 1 : 0
   return <>
-    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{piscologia}</td>
-    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{juridico}</td>
-    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{trabajo_social}</td>
-    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{ministerial}</td>
-    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{pericial}</td>
-    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{conserjeria}</td>
+    <Cell>{psicologia}</Cell>
+    <Cell>{psicologia_nna}</Cell>
+    <Cell>{juridica}</Cell>
+    <Cell>{trabajo_social}</Cell>
+    <Cell>{ministerial}</Cell>
+    <Cell>{pericial}</Cell>
+    <Cell>{medica}</Cell>
+    <Cell>{psiquiatrica}</Cell>
+    <Cell>{otra}</Cell>
 
+  </>
+}
+
+const CellModalidadAsesora = ({ data }) => {
+  return
+  <>
+  
   </>
 }

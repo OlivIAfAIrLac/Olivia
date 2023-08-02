@@ -240,7 +240,7 @@ export const frecuencia_violencia = [
 ]
 export const area_que_atiende = [
     { value: 'psicologia', description: 'Psicología' },
-    { value: 'psicolog_a_nna', description: 'Psicología NNA' },
+    { value: 'psicologia_nna', description: 'Psicología NNA' },
     { value: 'juridica', description: 'Jurídica' },
     { value: 'trabajo_social', description: 'Trabajo Social' },
     { value: 'ministerial', description: 'Ministerial' },
@@ -249,3 +249,8 @@ export const area_que_atiende = [
     { value: 'psiquiatrica', description: 'Psiquiátrica' },
     { value: 'otra', description: 'Otra ' },
 ]
+export const modalidad_asesora = [
+    {vale:'presencial',description:'Presencial'},
+    {vale:'telefonica',description:'Telefónica'},
+    {vale:'otra',description:'Otra'},
+];

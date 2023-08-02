@@ -312,8 +312,8 @@ export const sabanaData = [
         "updatedAt": "2023-08-01T17:06:30.474Z",
         "__v": 0,
         "area_que_atiende": [
-            "piscologia",
-            "juridico"
+            "psicologia",
+            "juridica"
         ],
         "especificar": "lorem",
         "fecha": "29/07/2023",
