@@ -8,11 +8,14 @@ const ButtonGroupCedulaExpediente = ({ folio }) => {
         >
             cédula
         </Link>
-        <Link className="font-bold navbar-bg capitalize py-3 w-full mt-5"
-            href={routes.dashboard.main}
-        >
-            sabana
-        </Link>
+        {
+            
+        /* <Link className="font-bold navbar-bg capitalize py-3 w-full mt-5"
+                href={routes.dashboard.main}
+            >
+                sabana
+            </Link> */
+        }
     </div>
 }
 

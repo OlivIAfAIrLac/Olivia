@@ -128,11 +128,11 @@ const UserByID = ({ params, searchParams }) => {
                     </div>
                     }
                 </div>
-                {
+                {/* {
                     !loading ?
                         <UserStadistics />
                         : <LoaderSkeleton />
-                }
+                } */}
                 <AdminUsersButton />
             </div>);
     }
