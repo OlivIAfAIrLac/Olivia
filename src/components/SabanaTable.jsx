@@ -1,4 +1,4 @@
-import { getCatalogoDescription, getCatalogoIndexSabana } from "@/helpers/catalogos";
+import { getCatalogoIndexSabana } from "@/helpers/catalogos";
 import { sabanaData } from "@/mock/apiResponse";
 import { useRef } from "react";
 import { DownloadTableExcel } from 'react-export-table-to-excel';
@@ -262,10 +262,12 @@ const cabecerasSabana = [
   'Escolaridad',
   '¿Su escolaridad está en?',
   'Ocupación',
+  'ESPECIFICAR',
   'Teléfono fijo/casa',
   'Celular',
-  'Otro, especificar',
+  'Otro especificar',
   'Posesión de armas',
+  'Especificar Arma',
   '¿Consume drogas?',
   'Alcohol',
   'Marihuana',
@@ -295,9 +297,12 @@ const cabecerasSabana = [
   'Especificar otro',
   'Enfermedad mental',
   'Toma algún tratamiento psiquiátrico',
+  'Especificar tratamiento',
   'Farmacodependencia',
   'Pertenece a la policía o al ejercito',
+  'Especificar',
   'Pertenece o tiene enlace con el crimen organizado',
+  'Especificar',
   'Historial de antecedentes penales',
   'Infidelidad',
   'Estatura Aproximada (m. / cm.)',
@@ -308,20 +313,27 @@ const cabecerasSabana = [
   'Forma',
   'Nariz',
   'Labios',
-  'Color',
+  'Ojos color',
+  'Ojos tamaño',
+  'Ojos forma',
   'Descripción del estado físico aparente',
-  'Forma de la cara. Especificar',
-  'Tipos de cejas. Especificar',
+  'Especificar Forma fisica',
+  'Forma de la cara.',
+  'Tipos de cejas.',
   'Bigote',
   'Especificar Forma',
   'Barba',
+  'Especificar Forma',
   'Señas particulares',
+  'Especificar Forma',
   'Tatuajes',
   'Especificar forma y lugar',
   'Lunares',
+  'Especificar Forma',
   'Lesiones',
+  'Especificar Forma',
   'Cicatrices',
-  'Especificar forma y lugar',
+  'Especificar Forma',
 ]
 
 const Cell = ({ children }) => <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{children}</td>;
@@ -533,6 +545,81 @@ const RowTable = (item, index) => {
     V_recurrio_a_alguna_institucion_especificar,
     V_cuenta_con_expediente_de_atencion,
     V_cuenta_con_expediente_de_atencion_especificar,
+    VI_persona_conocida_o_desconocida,
+    VI_pseudonimo,
+    VI_nombre,
+    VI_primer_apellido,
+    VI_segundo_apellido,
+    VI_edad,
+    VI_genero,
+    VI_especificar_genero,
+    VI_sexo,
+    VI_nacionalidad,
+    VI_relacion_con_la_persona_agresora,
+    VI_especificar_relacion,
+    VI_tiempo_de_convivencia_con_la_persona_agresora_anios_y_meses,
+    VI_calle,
+    VI_numero_exterior,
+    VI_numero_interior,
+    VI_letra_exterior,
+    VI_letra_interior,
+    VI_cp,
+    VI_cruce1,
+    VI_cruce2,
+    VI_referencia,
+    VI_estado,
+    VI_municipio,
+    VI_colonia_localidad,
+    VI_escolaridad,
+    VI_estatus_escolaridad,
+    VI_ocupacion_de_la_persona,
+    VI_especificar_ocupacion,
+    VI_telefono_fijo_casa,
+    VI_celular,
+    VI_especificar_contacto,
+    VI_posesion_de_armas,
+    VI_especificar_arma,
+    VI_consumo_de_drogas,
+    VI_especificar_el_tipo_de_drogas_que_consume_la_persona_agresora,
+    VI_enfermedad_mental,
+    VI_toma_algun_tratamiento_psiquiatrico,
+    VI_especificar_tratamiento,
+    VI_farmacodependencia,
+    VI_pertenece_a_la_policia_o_al_ejercito,
+    VI_especificar_plicia_ejercito,
+    VI_pertenece_o_tiene_enlace_con_el_crimen_organizado,
+    VI_especificar_crimen_organizado,
+    VI_historial_de_antecedentes_penales,
+    VI_infidelidad,
+    VI_estatura_aproximada,
+    VI_complexion,
+    VI_tez,
+    VI_color_cabello,
+    VI_tamanio_cabello,
+    VI_forma_cabello,
+    VI_nariz,
+    VI_color_ojos,
+    VI_labios,
+    VI_tamanio_ojos,
+    VI_forma_ojos,
+    VI_estado_fisico_aparente,
+    VI_especifique_estado_fisico,
+    VI_forma_de_la_cara,
+    VI_tipo_de_cejas,
+    VI_senias_particulares,
+    VI_especificar_senias,
+    VI_tatuajes,
+    VI_especifique_tatuajes,
+    VI_lunares,
+    VI_especifique_lunares,
+    VI_barba,
+    VI_especifique_barba,
+    VI_bigote,
+    VI_especifique_bigote,
+    VI_cicatrices,
+    VI_especifique_cicatrices,
+    VI_lesiones,
+    VI_especifique_lesiones,
   } = item;
 
 
@@ -793,6 +880,163 @@ const RowTable = (item, index) => {
     <Cell>{V_cuenta_con_expediente_de_atencion ? 1 : 0}</Cell>
     <Cell>{V_cuenta_con_expediente_de_atencion_especificar}</Cell>
 
+    <Cell>{VI_persona_conocida_o_desconocida ? 1 : 0}</Cell>
+    <Cell>{VI_pseudonimo}</Cell>
+    <Cell>{VI_nombre}</Cell>
+    <Cell>{VI_primer_apellido}</Cell>
+    <Cell>{VI_segundo_apellido}</Cell>
+    {/* <Cell>{VI_edad}</Cell> */}
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'genero',
+        value: VI_genero
+      })
+    }</Cell>
+    <Cell>{VI_especificar_genero}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'sexo',
+        value: VI_sexo
+      })
+    }</Cell>
+    <Cell>{VI_nacionalidad}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'parentesco',
+        value: VI_relacion_con_la_persona_agresora
+      })
+    }</Cell>
+    <Cell>{VI_especificar_relacion}</Cell>
+    <Cell>{VI_tiempo_de_convivencia_con_la_persona_agresora_anios_y_meses}</Cell>
+    <Cell>{VI_calle}</Cell>
+    <Cell>{VI_numero_exterior}</Cell>
+    <Cell>{VI_numero_interior}</Cell>
+    <Cell>{VI_letra_exterior}</Cell>
+    <Cell>{VI_letra_interior}</Cell>
+    <Cell>{VI_cp}</Cell>
+    <Cell>{VI_cruce1}</Cell>
+    <Cell>{VI_cruce2}</Cell>
+    <Cell>{VI_referencia}</Cell>
+    <Cell>{VI_estado}</Cell>
+    <Cell>{VI_municipio}</Cell>
+    <Cell>{VI_colonia_localidad}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'escolaridad',
+        value: VI_escolaridad
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'estatus_escolaridad',
+        value: VI_estatus_escolaridad
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'ocupacion',
+        value: VI_ocupacion_de_la_persona
+      })
+    }</Cell>
+    <Cell>{VI_especificar_ocupacion}</Cell>
+    <Cell>{VI_telefono_fijo_casa}</Cell>
+    <Cell>{VI_celular}</Cell>
+    <Cell>{VI_especificar_contacto}</Cell>
+    <Cell>{VI_posesion_de_armas ? 1 : 0}</Cell>
+    <Cell>{VI_especificar_arma}</Cell>
+    <Cell>{VI_consumo_de_drogas ? 1 : 0}</Cell>
+    <CellDrogas data={VI_especificar_el_tipo_de_drogas_que_consume_la_persona_agresora} />
+    <Cell />
+    <Cell>{VI_enfermedad_mental ? 1 : 0}</Cell>
+    <Cell>{VI_toma_algun_tratamiento_psiquiatrico ? 1 : 0}</Cell>
+    <Cell>{VI_especificar_tratamiento}</Cell>
+    <Cell>{VI_farmacodependencia ? 1 : 0}</Cell>
+    <Cell>{VI_pertenece_a_la_policia_o_al_ejercito ? 1 : 0}</Cell>
+    <Cell>{VI_especificar_plicia_ejercito}</Cell>
+    <Cell>{VI_pertenece_o_tiene_enlace_con_el_crimen_organizado ? 1 : 0}</Cell>
+    <Cell>{VI_especificar_crimen_organizado}</Cell>
+    <Cell>{VI_historial_de_antecedentes_penales}</Cell>
+    <Cell>{VI_infidelidad ? 1 : 0}</Cell>
+    <Cell>{VI_estatura_aproximada}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'complexion',
+        value: VI_complexion
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'tez',
+        value:
+          VI_tez
+      })
+    }</Cell>
+    <Cell>{VI_color_cabello}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'tamanio_de_cabello',
+        value: VI_tamanio_cabello
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'forma_cabello',
+        value: VI_forma_cabello
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'nariz',
+        value: VI_nariz
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'labios',
+        value: VI_labios
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'ojos',
+        value: VI_color_ojos
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'tamanio_ojos',
+        value: VI_tamanio_ojos
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'forma_ojos',
+        value: VI_forma_ojos
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'estado_fisico',
+        value: VI_estado_fisico_aparente
+      })
+    }</Cell>
+    <Cell>{VI_especifique_estado_fisico}</Cell>
+    <Cell>{VI_forma_de_la_cara}</Cell>
+    <Cell>{VI_tipo_de_cejas}</Cell>
+    <Cell>{VI_bigote ? 1 : 0}bigote</Cell>
+    <Cell>{VI_especifique_bigote}</Cell>
+    <Cell>{VI_barba ? 1 : 0}</Cell>
+    <Cell>{VI_especifique_barba}</Cell>
+    <Cell>{VI_senias_particulares ? 1 : 0}</Cell>
+    <Cell>{VI_especificar_senias}</Cell>
+    <Cell>{VI_tatuajes ? 1 : 0}</Cell>
+    <Cell>{VI_especifique_tatuajes}</Cell>
+    <Cell>{VI_lunares ? 1 : 0}</Cell>
+    <Cell>{VI_especifique_lunares}</Cell>
+    <Cell>{VI_lesiones ? 1 : 0}</Cell>
+    <Cell>{VI_especifique_lesiones}</Cell>
+    <Cell>{VI_cicatrices ? 1 : 0}</Cell>
+    <Cell>{VI_especifique_cicatrices}</Cell>
   </tr>
 }
 

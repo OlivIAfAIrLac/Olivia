@@ -916,7 +916,7 @@ export const sabanaData = [
         "_id": "64b84ad0660ff3a0187acf4d",
         "expediente": "64b84ad0660ff3a0187acf4b",
         "createdAt": "2023-07-19T20:42:56.935Z",
-        "updatedAt": "2023-08-02T23:10:14.012Z",
+        "updatedAt": "2023-08-03T01:59:35.768Z",
         "__v": 0,
         "III_calle_empleo": "lorem upsum",
         "III_colonia_localidad_empleo": "El salto",
@@ -1141,7 +1141,8 @@ export const sabanaData = [
         "III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia_especificar": "lorem Ipsum",
         "III_discapacidad": "motora",
         "IV_ultimo_episodio_de_violencia_reciente_especificar": "lorem ipsum",
-        "IV_ultimo_episodio_de_violencia_especificar": "violencia especificar"
+        "IV_ultimo_episodio_de_violencia_especificar": "violencia especificar",
+        "VI_labios": "regulares"
     },
     {
         "area_que_atiende": [],
