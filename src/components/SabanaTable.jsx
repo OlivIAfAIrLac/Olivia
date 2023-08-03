@@ -6,6 +6,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { DownloadTableExcel } from 'react-export-table-to-excel';
 import LoaderSkeleton from "./LoaderSkeleton";
 import axios from "axios";
+import { RiFileExcel2Fill } from 'react-icons/ri'
+
 
 const cabecerasSabana = [
   'Fecha (DD/MM/AAA)',
@@ -21,11 +23,11 @@ const cabecerasSabana = [
   'Psicología NNA',
   'Médica',
   'Psiquiátrica',
-  'Especificar',
+  'Especificar psiquiatrica',
   'Presencial',
   'Telefónica',
   'Otra',
-  'Especificar',
+  'Especificar telefonica',
   'Institución que atiende',
   'Área de adscripción',
   'Nombre(s) de la persona(s) que atiende(n)',
@@ -33,21 +35,21 @@ const cabecerasSabana = [
   'Número de expediente BANAVIM',
   'Hora de término atención:',
   '¿La persona presenta alguna enfermedad y/o lesión que requiera ser atendida con inmediatez? Si/No',
-  'Especificar',
+  'Especificar enfermedad o lesion',
   '¿Existe algún requerimiento específico? Si/No',
   'Lengua de Señas Mexicana (LSM)',
   'Lengua Indígena',
   'Lengua Extranjera',
   'Discapacidad(es)',
   'Otra',
-  'Especificar',
+  'Especificar requrimiento esp',
   '¿Presenta alguna emergencia? Si/No',
   'Atención médica de emergencia por lesiones',
   'Crisis nerviosa',
   'Dictamen ginecológico  por agresión sexual',
   'Atención médica por agresión sexual',
   'Otras',
-  'Especificar',
+  'Especificar atencion medica',
   '¿Está en periodo de gestación?	Si/No',
   '¿Cuántos meses?',
   /* III. INFORMACIÓN GENERAL DE CONTACTO */
@@ -57,7 +59,7 @@ const cabecerasSabana = [
   'Primer apellido',
   'Segundo apellido',
   'Género',
-  'Especificar',
+  'Especificar genero contacto',
   'Sexo',
   'Fecha de nacimiento (DD/MM/AAAA)',
   'Nacionalidad',
@@ -123,11 +125,11 @@ const cabecerasSabana = [
   '¿Tiene seguridad social?',
   'Cual',
   'Ocupación de la Víctima',
-  'Especificar',
+  'Especificar victima',
   'Situación conyugal',
   'Régimen matrimonial',
   'Tipo de vivienda',
-  'Especificar',
+  'Especificar vivienda',
   /* Compartida con otras personas */
   'Amistades',
   'Familiares',
@@ -139,7 +141,7 @@ const cabecerasSabana = [
   'Especificar otro',
   'Sexo',
   'Género',
-  'Especificar',
+  'Especificar genero habitante',
   'Edad',
   '¿Tiene alguna discapacidad?',
   '¿Es dependiente económico de quien solicita la atención?',
@@ -173,11 +175,11 @@ const cabecerasSabana = [
   'Turno',
   'Monto de ingreso mensual de su empleo principal',
   '¿Pertenece a un grupo originario o indígena?',
-  'Especificar',
+  'Especificar grupo indigena',
   '¿Es una persona migrante/ transmigrante?',
   '¿Es una persona en situación de calle?',
   '¿Pertenece a la comunidad LGBTTIQ+?',
-  'Especificar',
+  'Especificar comunidad',
   '¿Tiene alguna discapacidad?',
   'Motora',
   'Auditiva',
@@ -185,13 +187,13 @@ const cabecerasSabana = [
   'Intelectual',
   'Psicosocial',
   'Otra',
-  'Especificar',
+  'Especificar tipo discapacidad',
   '¿Vive violencia por presentar discapacidad?',
-  'Especificar',
+  'Especificar violencia',
   '¿Presenta alguna discapacidad a consecuencia de la violencia?',
-  'Especificar',
+  'Especificar consecuencia',
   '¿Tiene alguna enfermedad crónica degenerativa que limite o imposibilite sus actividades?',
-  'Especificar',
+  'Especificar enfermedad',
   /*OMITIR Datos de consumo problematico */
   '¿Consume drogas?',
   'Alcohol',
@@ -224,9 +226,9 @@ const cabecerasSabana = [
   'Contexto (Causa y Evolución)',
   '¿Ha tenido que ser atendida en una institución médica o por personal médico como consecuencia de un evento de violencia con la persona agresora?',
   '¿Episodio reciente?',
-  'Especificar',
+  'Especificar reciente',
   'Último episodio de violencia',
-  'Especificar',
+  'Especificar episodio',
   'Acciones o intentos de solución realizados',
   'Personas involucradas en la situación',
   /* V. ANTECEDENTES DE VIOLENCIA  */
@@ -235,9 +237,9 @@ const cabecerasSabana = [
   'Personas involucradas en la situación',
   'Redes de apoyo y tipo de apoyo que se proporcionó',
   '¿Recurrió a alguna institución para pedir apoyo?',
-  'Especificar',
+  'Especificar ayuda',
   '¿Cuenta con expediente  de atención?',
-  'Especificar',
+  'Especificar expediente',
   /* VI INFORMACION DE LA PERSONA AGRESORA */
   '¿Persona conocida?',
   'Pseudónimo',
@@ -245,7 +247,7 @@ const cabecerasSabana = [
   'Primer apellido',
   'Segundo apellido',
   'Género',
-  'Especificar',
+  'Especificar genero agresor',
   'Sexo',
   'Nacionalidad',
   'Relación de la persona agresora con la víctima.',
@@ -266,7 +268,7 @@ const cabecerasSabana = [
   'Escolaridad',
   '¿Su escolaridad está en?',
   'Ocupación',
-  'ESPECIFICAR',
+  'ESPECIFICAR ocupacion',
   'Teléfono fijo/casa',
   'Celular',
   'Otro especificar',
@@ -304,9 +306,9 @@ const cabecerasSabana = [
   'Especificar tratamiento',
   'Farmacodependencia',
   'Pertenece a la policía o al ejercito',
-  'Especificar',
+  'Especificar policia',
   'Pertenece o tiene enlace con el crimen organizado',
-  'Especificar',
+  'Especificar crimen',
   'Historial de antecedentes penales',
   'Infidelidad',
   'Estatura Aproximada (m. / cm.)',
@@ -325,19 +327,19 @@ const cabecerasSabana = [
   'Forma de la cara.',
   'Tipos de cejas.',
   'Bigote',
-  'Especificar Forma',
+  'Especificar Forma bigote',
   'Barba',
-  'Especificar Forma',
+  'Especificar Forma barba',
   'Señas particulares',
-  'Especificar Forma',
+  'Especificar Forma señas',
   'Tatuajes',
   'Especificar forma y lugar',
   'Lunares',
-  'Especificar Forma',
+  'Especificar Forma lunares',
   'Lesiones',
-  'Especificar Forma',
+  'Especificar Forma lesiones',
   'Cicatrices',
-  'Especificar Forma',
+  'Especificar Forma cicatrices',
 ]
 
 const Cell = ({ children }) => <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{children}</td>;
@@ -346,11 +348,13 @@ export default function SabanaTable() {
   const tableRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true)
   const [sabanaData, setSabanaData] = useState([])
+  const [initDate, setInitDate] = useState('')
+  const [lastDate, setLastDate] = useState('')
 
   const getData = useCallback(
     async () => {
       try {
-        const res = await axios.get(apiRoutes.SABANA)
+        const res = await axios.get(`${apiRoutes.SABANA}?initDate=${initDate}&lastDate=${lastDate}`)
         if (res.status === 200) {
           setSabanaData(res.data.docs);
           setIsLoading(false)
@@ -360,12 +364,22 @@ export default function SabanaTable() {
       }
 
     },
-    [],
+    [initDate, lastDate],
   )
+
+  const handleOnChange = (ev) => {
+    ev.preventDefault();
+    const name = ev.target.name
+    const value = ev.target.value;
+
+    name === 'initDate' && setInitDate(value)
+    name === 'lastDate' && setLastDate(value)
+
+  }
 
   useEffect(() => {
     getData()
-  }, [getData])
+  }, [getData, initDate, lastDate])
 
 
   return (
@@ -378,24 +392,18 @@ export default function SabanaTable() {
             sheet="users"
             currentTableRef={tableRef.current}
           >
-            <button className="p-3 primary-bg">Descargar en Xls</button>
+            <button className="inline-flex items-center p-3 save-bg-btn gap-x-2">
+              Descargar
+              <RiFileExcel2Fill size={35} />
+            </button>
           </DownloadTableExcel>
-          {/* <div className="sm:flex sm:items-center">
-        <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">Users</h1>
-          <p className="mt-2 text-sm text-gray-700">
-            A list of all the users in your account including their name, title, email and role.
-          </p>
-        </div>
-        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <button
-            type="button"
-            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Add user
-          </button>
-        </div>
-      </div> */}
+          <div className="ml-5 inline-flex">
+            <span className="capitalize px-5 py-1">fecha inicial:</span>
+            <input name='initDate' type="date" className="p-1" onChange={handleOnChange} />
+            <span className="capitalize px-5 py-1">fecha final:</span>
+            <input name='lastDate' type="date" className="p-1" onChange={handleOnChange} />
+          </div>
+
           <div className="mt-8 flow-root">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -404,8 +412,8 @@ export default function SabanaTable() {
                     <thead className="bg-gray-50">
                       <tr>
                         {
-                          cabecerasSabana.map(item => <th
-                            key={item}
+                          cabecerasSabana.map((item, index) => <th
+                            key={item + index}
                             scope="col"
                             className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                             {item}
