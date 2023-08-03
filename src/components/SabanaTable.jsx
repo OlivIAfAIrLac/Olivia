@@ -1,7 +1,11 @@
+'use client'
 import { getCatalogoIndexSabana } from "@/helpers/catalogos";
-import { sabanaData } from "@/mock/apiResponse";
-import { useRef } from "react";
+// import { sabanaData } from "@/mock/apiResponse";
+import { apiRoutes } from "@/helpers/apiRoutes";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { DownloadTableExcel } from 'react-export-table-to-excel';
+import LoaderSkeleton from "./LoaderSkeleton";
+import axios from "axios";
 
 const cabecerasSabana = [
   'Fecha (DD/MM/AAA)',
@@ -340,16 +344,43 @@ const Cell = ({ children }) => <td className="whitespace-nowrap px-3 py-4 text-s
 
 export default function SabanaTable() {
   const tableRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true)
+  const [sabanaData, setSabanaData] = useState([])
+
+  const getData = useCallback(
+    async () => {
+      try {
+        const res = await axios.get(apiRoutes.SABANA)
+        if (res.status === 200) {
+          setSabanaData(res.data.docs);
+          setIsLoading(false)
+        }
+      } catch (error) {
+        /* TODO: Handle errors */
+      }
+
+    },
+    [],
+  )
+
+  useEffect(() => {
+    getData()
+  }, [getData])
+
+
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-7">
-      <DownloadTableExcel
-        filename="users table"
-        sheet="users"
-        currentTableRef={tableRef.current}
-      >
-        <button>Descargar en Xls</button>
-      </DownloadTableExcel>
-      {/* <div className="sm:flex sm:items-center">
+      {isLoading
+        ? <LoaderSkeleton />
+        : <>
+          <DownloadTableExcel
+            filename="users table"
+            sheet="users"
+            currentTableRef={tableRef.current}
+          >
+            <button className="p-3 primary-bg">Descargar en Xls</button>
+          </DownloadTableExcel>
+          {/* <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">Users</h1>
           <p className="mt-2 text-sm text-gray-700">
@@ -365,34 +396,34 @@ export default function SabanaTable() {
           </button>
         </div>
       </div> */}
-      <div className="mt-8 flow-root">
-        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-300" ref={tableRef}>
-                <thead className="bg-gray-50">
-                  <tr>
-
-                    {
-                      cabecerasSabana.map(item => <th
-                        key={item}
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                        {item}
-                      </th>)
-                    }
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
-                  {
-                    sabanaData.length > 0 && sabanaData.map(RowTable)
-                  }
-                </tbody>
-              </table>
+          <div className="mt-8 flow-root">
+            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                  <table className="min-w-full divide-y divide-gray-300" ref={tableRef}>
+                    <thead className="bg-gray-50">
+                      <tr>
+                        {
+                          cabecerasSabana.map(item => <th
+                            key={item}
+                            scope="col"
+                            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            {item}
+                          </th>)
+                        }
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200 bg-white">
+                      {
+                        sabanaData.length > 0 && sabanaData.map(RowTable)
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>}
     </div>
   )
 }
@@ -1023,7 +1054,7 @@ const RowTable = (item, index) => {
     <Cell>{VI_especifique_estado_fisico}</Cell>
     <Cell>{VI_forma_de_la_cara}</Cell>
     <Cell>{VI_tipo_de_cejas}</Cell>
-    <Cell>{VI_bigote ? 1 : 0}bigote</Cell>
+    <Cell>{VI_bigote ? 1 : 0}</Cell>
     <Cell>{VI_especifique_bigote}</Cell>
     <Cell>{VI_barba ? 1 : 0}</Cell>
     <Cell>{VI_especifique_barba}</Cell>
