@@ -10,6 +10,7 @@ import Input from "@/components/dynamic-components/Input";
 import Break from "@/components/dynamic-components/Break";
 import Textarea from "@/components/dynamic-components/Textarea";
 import OptionsGroup from "@/components/dynamic-components/OptionsGroup";
+import MultipleOptionsGroup from "@/components/dynamic-components/MultipleOptionsGroup";
 
  
 const Components = {
@@ -21,7 +22,8 @@ const Components = {
   input: Input,
   break: Break,
   optionsgroup: OptionsGroup,
-  textarea: Textarea
+  textarea: Textarea,
+  multipleoptionsgroup: MultipleOptionsGroup
 };
 
 const clicked = () => {
@@ -36,6 +38,10 @@ const changedGroup = (e, id) => {
   console.log(e, id, "From Group")
 }
 
+const multipleChangedGroup = (e, id) => {
+  console.log(e, id)
+}
+
 export default block => {
   // component does exist
   if (typeof Components[block.component] !== "undefined") {
@@ -44,7 +50,8 @@ export default block => {
       block: block, 
       onClick: () => {clicked()},
       onChange: (e, id) => {changed(e, id)},
-      onChangeGroup: (e, id) => {changedGroup(e, id)}
+      onChangeGroup: (e, id) => {changedGroup(e, id)},
+      onChangedMultiple: (e, id) => (multipleChangedGroup(e, id))
     });
   }
   // component doesn't exist yet

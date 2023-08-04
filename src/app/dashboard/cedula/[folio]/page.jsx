@@ -23,67 +23,124 @@ const data = [
                 text: "Información del Expediente"
             },
             {
-                _uid: "2",
+                _uid: "subheadline-fecha",
                 component: "subheadline",
-                text: "1. Área que atiende."
+                text: "Fecha"
             },
             {
-                _uid: "area_que_atiende",
-                component: "optionsgroup",
-                field: "area_que_atiende",
-                options: [
-                    { description: "Trabajo social", value: "trabajo_social" },
-                    { description: "Psicología", value: "psicologia" },
-                    { description: "Jurídico", value: "juridico" },
-                    { description: "Otro", value: "otro" },
-                ]
-            },
-        
-            {
-                _uid: "124",
-                component: "fullwidthinput",
-                checkboxText: "Otra",
-                inputText: "¿Cuál?"
-            },
-            {
-                _uid: "10",
-                component: "subheadline",
-                text: "2. Tipo de Asesoría."
-            },
-            {
-                _uid: "1033",
-                component: "subheadline",
-                text: "3. ¿Quién atiende?"
-            },
-            {
-                _uid: "2553",
-                component: "select",
-                checkboxText: "Otra",
-                inputText: "¿Cuál?",
-                options: ["Parentesco"]
-            },
-            {
-                _uid: "23",
-                component: "fullwidthinput",
-                checkboxText: "Otra",
-                inputText: "¿Cuál?"
-            },
-            {
-                _uid: "10s33",
-                component: "subheadline",
-                text: "4. Expediente BANAVIM"
-            },
-            {
-                _uid: "banavim",
+                _uid: "fecha",
                 component: "input",
             },
             {
-                _uid: "dddfff",
+                _uid: "subheadline-hora-inicio",
                 component: "subheadline",
-                text: "Horario del término de atención"
+                text: "Hora de inicio"
             },
             {
-                _uid: "horario",
+                _uid: "hora_de_inicio",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-numero-expediente",
+                component: "subheadline",
+                text: "Número de expediente"
+            },
+            {
+                _uid: "no_de_expediente",
+                component: "input",
+            },
+            {
+                _uid: "2",
+                component: "subheadline",
+                text: "Área que atiende."
+            },
+            {
+                _uid: "area_que_atiende",
+                component: "multipleoptionsgroup",
+                field: "area_que_atiende",
+                options: [
+                    { indexSabana: 1, value: 'psicologia', description: 'Psicología' },
+                    { indexSabana: 2, value: 'psicologia_nna', description: 'Psicología NNA' },
+                    { indexSabana: 3, value: 'juridica', description: 'Jurídica' },
+                    { indexSabana: 4, value: 'trabajo_social', description: 'Trabajo Social' },
+                    { indexSabana: 5, value: 'ministerial', description: 'Ministerial' },
+                    { indexSabana: 6, value: 'pericial', description: 'Pericial' },
+                    { indexSabana: 7, value: 'medica', description: 'Médica' },
+                    { indexSabana: 8, value: 'psiquiatrica', description: 'Psiquiátrica' },
+                    { indexSabana: 9, value: 'otra', description: 'Otra ' },
+                ]
+            },
+            {
+                _uid: "subheadline-modalidad-asesoria",
+                component: "subheadline",
+                text: "Modalidad de asesoría"
+            },
+            {
+                _uid: "modalidad_de_asesoria",
+                component: "optionsgroup",
+                field: "escolaridad",
+                options: [
+                    { indexSabana: 1, value: 'presencial', description: 'Presencial' },
+                    { indexSabana: 2, value: 'telefonica', description: 'Telefónica' },
+                    { indexSabana: 3, value: 'otra', description: 'Otra' },
+                ]
+            },    
+            {
+                _uid: "otra_falta",
+                component: "input",
+            },  
+            {
+                _uid: "subheadline-institucion-que-atiende",
+                component: "subheadline",
+                text: "Institución que atiende"
+            }, 
+            {
+                _uid: "institucion_que_atiende",
+                component: "input",
+            },  
+            {
+                _uid: "subheadline-area-de-adscripcion",
+                component: "subheadline",
+                text: "Área de adscripción"
+            }, 
+            {
+                _uid: "area_falta",
+                component: "input",
+            },  
+            {
+                _uid: "subheadline-nombre-persona-atiende",
+                component: "subheadline",
+                text: "Nombre(s) de la(s) persona(s) que atiende(n)"
+            }, 
+            {
+                _uid: "nombres_de_las_personas_que_atienden",
+                component: "input",
+            },  
+            {
+                _uid: "subheadline-cargo-persona-atiende",
+                component: "subheadline",
+                text: "Cargo de la(s) persona(s) que atiende(n)"
+            }, 
+            {
+                _uid: "cargo_falta",
+                component: "input",
+            },  
+            {
+                _uid: "subheadline-expediente-banavim",
+                component: "subheadline",
+                text: "Expediente BANAVIM"
+            },
+            {
+                _uid: "numero_de_expediente_banavim",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-horario-termino-atencion",
+                component: "subheadline",
+                text: "Horario de término de atención"
+            },
+            {
+                _uid: "horario_de_termino_de_atencion",
                 component: "input",
             },
         ]
@@ -92,95 +149,129 @@ const data = [
         section: 1,
         content: [
             {
-                _uid: "1",
+                _uid: "headline-requerimientos",
                 component: "headline",
                 text: "Requerimientos Específicos"
             },
             {
-                _uid: "2",
+                _uid: "subheadline-inmediatez",
                 component: "subheadline",
-                text: "1. Segunda sección."
+                text: " ¿La persona presenta alguna enfermedad y/o lesión que requiera ser atendida con inmediatez"
             },
             {
-                _uid: "3",
-                component: "checkbox",
-                text: "Psicología"
+                _uid: "I_la_persona_presenta_alguna_enfermedad_y_o_lesion_que_requiera_ser_atendida_con_inmediatez",
+                component: "optionsgroup",
+                field: "persona_conocida",
+                options: [
+
+                    { value: 'si', description: 'Si' },
+                    { value: 'no', description: 'No' },
+                ]
             },
             {
-                _uid: "4",
-                component: "checkbox",
-                text: "Juridíco"
-            },
-            {
-                _uid: "5",
-                component: "checkbox",
-                text: "Trabajo Social"
-            },
-            {
-                _uid: "6",
-                component: "checkbox",
-                text: "Ministerial"
-            },
-            {
-                _uid: "7",
-                component: "checkbox",
-                text: "Pericial"
-            },
-            {
-                _uid: "8",
-                component: "checkbox",
-                text: "Consejería"
-            },
-            {
-                _uid: "124",
-                component: "fullwidthinput",
-                checkboxText: "Otra",
-                inputText: "¿Cuál?"
-            },
-            {
-                _uid: "10",
+                _uid: "subheadline-inmediatez-cual",
                 component: "subheadline",
-                text: "2. Tipo de Asesoría."
+                text: "Especificar cuál en caso afirmativo:"
             },
             {
-                _uid: "11",
-                component: "checkbox",
-                text: "Presencial"
+                _uid: "falta",
+                component: "input",
             },
             {
-                _uid: "12",
-                component: "checkbox",
-                text: "Telefónica"
-            },
-            {
-                _uid: "123",
-                component: "fullwidthinput",
-                checkboxText: "Otra",
-                inputText: "¿Cuál?"
-            },
-            {
-                _uid: "1033",
+                _uid: "subheadline-requerimiento-especifico",
                 component: "subheadline",
-                text: "3. ¿Quién atiende?"
+                text: "¿Existe algún requerimiento específico?"
             },
             {
-                _uid: "2553",
-                component: "select",
-                checkboxText: "Otra",
-                inputText: "¿Cuál?",
-                options: ["Parentesco"]
+                _uid: "I_existe_algun_requerimiento_especifico",
+                component: "optionsgroup",
+                field: "persona_conocida",
+                options: [
+
+                    { value: 'si', description: 'Si' },
+                    { value: 'no', description: 'No' },
+                ]
             },
             {
-                _uid: "23",
-                component: "fullwidthinput",
-                checkboxText: "Otra",
-                inputText: "¿Cuál?"
+                _uid: "I_requerimiento_cual",
+                component: "optionsgroup",
+                field: "persona_conocida",
+                options: [
+                    { value: 'lengua_de_senias_mexicana_lsm', description: 'Lengua de Señas Mexicana (LSM)' },
+                    { value: 'lengua_indigena', description: 'Lengua Indígena' },
+                    { value: 'lengua_extranjera', description: 'Lengua Extranjera' },
+                    { value: 'discapacidades', description: 'Discapacidad(es)' },
+                    { value: 'otra', description: 'Otra' }
+                ]
             },
             {
-                _uid: "10s33",
+                _uid: "subheadline-requerimiento-especificar",
                 component: "subheadline",
-                text: "4. Expediente BANAVIM"
+                text: "Especificar"
             },
+            {
+                _uid: "I_especificar",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-emergencia",
+                component: "subheadline",
+                text: "¿Presenta alguna emergencia?"
+            },
+            {
+                _uid: "I_presenta_alguna_emergencia",
+                component: "optionsgroup",
+                field: "persona_conocida",
+                options: [
+
+                    { value: 'si', description: 'Si' },
+                    { value: 'no', description: 'No' },
+                ]
+            },
+            {
+                _uid: "subheadline-atención-lesiones",
+                component: "subheadline",
+                text: "Atención médica de emergencia por lesiones"
+            },
+            {
+                _uid: "I_emergencia_cual",
+                component: "optionsgroup",
+                field: "I_emergencia_cual",
+                options: [
+                    { value: 'atencion_medica_de_emergencia_por_lesiones', description: 'Atención médica de emergencia por lesiones' },
+                    { value: 'crisis_nerviosa', description: 'Crisis nerviosa' },
+                    { value: 'dictamen_ginecologico_por_agresion_sexual', description: 'Dictamen ginecológico por agresión sexual' },
+                    { value: 'atencion_medica_por_agresion_sexual', description: 'Atención médica por agresión sexual' },
+                    { value: 'otras', description: 'Otras' }
+                ]
+            },
+            {
+                _uid: "subheadline-periodo-gestacion",
+                component: "subheadline",
+                text: "¿Está en periodo de gestación?"
+            },
+            {
+                _uid: "I_esta_en_periodo_de_gestacion",
+                component: "optionsgroup",
+                field: "persona_conocida",
+                options: [
+
+                    { value: 'si', description: 'Si' },
+                    { value: 'no', description: 'No' },
+                ]
+            },
+            {
+                _uid: "subheadline-cuantos-meses",
+                component: "subheadline",
+                text: "¿Cuántos meses?"
+            },
+            {
+                _uid: "I_cuantos_meses",
+                component: "input",
+            },
+            
+                
+            
         ]
     },
     {

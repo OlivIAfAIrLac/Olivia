@@ -17,7 +17,7 @@ export default function OptionsGroup(props) {
                 props.block.options.map(item => {
                     return(
                         <label key={item.value} className="mr-2 my-1 flex items-center justify-center">
-                            <input type="radio" value={item.value} name={props.block.field} onChange={(e)=>{handleChange(e, props.block.field)} } checked={item.value === userValue.value} />
+                            <input type="radio" value={item.value} name={props.block._uid} onChange={(e)=>{handleChange(e, props.block._uid)} } checked={item.value === userValue.value} />
                             <span className="mx-1.5 whitespace-nowrap">{item.description}</span>
                         </label>
                     )
