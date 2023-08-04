@@ -2,7 +2,6 @@
 import AudioPlayer from "@/components/AudioPlayer";
 import AudioRecorder from "@/components/AudioRecording";
 import ButtonGroupCedulaExpediente from "@/components/ButtonGroupCedulaExpediente";
-import CloseBtn from "@/components/CloseBtn";
 import Container from "@/components/Container";
 import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import { FileViewer } from "@/components/FileViewer";
@@ -10,14 +9,11 @@ import IconButton from "@/components/IconButton";
 import IconFile from "@/components/IconFile";
 import LoaderSkeleton from "@/components/LoaderSkeleton";
 import Modal from "@/components/Modal";
-import RemoveFileModal from "@/components/RemoveFileModal";
 import { apiRoutes } from "@/helpers/apiRoutes";
 import { routes } from "@/helpers/routes";
 import axios from "axios";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { BiSolidMicrophone } from "react-icons/bi";
-import { FaRegEye } from "react-icons/fa6";
 import { TbUpload } from "react-icons/tb";
 
 
