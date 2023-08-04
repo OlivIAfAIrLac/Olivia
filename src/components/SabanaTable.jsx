@@ -7,6 +7,8 @@ import { DownloadTableExcel } from 'react-export-table-to-excel';
 import LoaderSkeleton from "./LoaderSkeleton";
 import axios from "axios";
 import { RiFileExcel2Fill } from 'react-icons/ri'
+import { useRouter } from "next/navigation";
+import { routes } from "@/helpers/routes";
 
 
 const cabecerasSabana = [
@@ -388,7 +390,7 @@ export default function SabanaTable() {
         ? <LoaderSkeleton />
         : <>
           <DownloadTableExcel
-            filename="users table"
+            filename="sabana"
             sheet="users"
             currentTableRef={tableRef.current}
           >
@@ -436,9 +438,25 @@ export default function SabanaTable() {
   )
 }
 
+
+
 const RowTable = (item, index) => {
+  const router = useRouter()
+  let tapedTwice = false;
+
+  function tapHandler(expediente) {
+    if (!tapedTwice) {
+      tapedTwice = true;
+      setTimeout(function () { tapedTwice = false; }, 300);
+      return false;
+    }
+
+    //action on double tap goes below
+    router.push(`${routes.dashboard.cedula}/${expediente}`)
+  }
   const {
     _id,
+    expediente,
     fecha,
     hora_de_inicio,
     area_que_atiende,
@@ -662,7 +680,10 @@ const RowTable = (item, index) => {
   } = item;
 
 
-  return <tr key={_id}>
+  return <tr key={_id}
+    // onDoubleClick={() => console.log(`dobleCLic ${_id}`)}
+    onTouchStart={() => tapHandler(expediente)}
+  >
     <Cell>{fecha}</Cell>
     <Cell>{hora_de_inicio}</Cell>
     <Cell>No. {index + 1}</Cell>
