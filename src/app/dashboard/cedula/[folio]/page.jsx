@@ -10,6 +10,7 @@ import Components from "@/components/dynamicComponents";
 import axios from 'axios';
 import { apiRoutes } from '@/helpers/apiRoutes';
 import { area_que_atiende, complexion, emergencia, escolaridad, estado_fisico, estatus_escolaridad, forma_cabello, forma_ojos, frecuencia_violencia, genero, nariz, ocupacion, ojos, parentesco, requerimiento_especifico, sexo, tamanio_de_cabello, tamanio_ojos, tez, tipo_de_droga } from '@/helpers/catalogos';
+import LoaderSkeleton from '@/components/LoaderSkeleton';
 
 
 
@@ -1575,7 +1576,8 @@ const menuOptions = {
 
 const HomeCedula = ({ params, searchParams }) => {
     /* FOLIO => EXPEDIENTE_ID */
-
+    const [dataCedula, setDataCedula] = useState()
+    const [loading, setLoading] = useState(true)
     const { folio } = params;
     /* TODO:REOMVE MOCKUP AFTER MAP */
     const {
@@ -1615,7 +1617,8 @@ const HomeCedula = ({ params, searchParams }) => {
                 const res = await axios.get(`${apiRoutes.CEDULA}/${folio}`);
                 if (res.status === 200) {
                     /* TODO: add to some DATA State */
-                    console.log(res.data);
+                    setLoading(false)
+                    setDataCedula(res.data)
                 }
 
             } catch (error) {
@@ -1636,39 +1639,50 @@ const HomeCedula = ({ params, searchParams }) => {
             <Container>
                 <span className="mt-10 mb-4">Cédula</span>
                 <div className="p-6 main-bg flex flex-col">
-                    <DateTimeDisplayer
-                        fecha={expediente.fecha}
-                        hora={expediente.hora}
-                    />
-                    <span className="font-bold">Folio {expediente.folio}</span>
-                    <span className="mb-5">{expediente.nombre}</span>
-                    {/* Button GRID container */}
-                    <div className="grid grid-flow-col gap-5 text-center">
-                        <PrimaryLinkButton
-                            href={`${routes.dashboard.expediente}/${folio}`}
-                        >
-                            Expediente
-                        </PrimaryLinkButton>
-                        <PrimaryLinkButton
-                            href={routes.dashboard.sabana}
-                        >
-                            Sábana
-                        </PrimaryLinkButton>
-                    </div>
+                    {
+                        loading
+                            ? <LoaderSkeleton />
+                            : <>
+                                <DateTimeDisplayer
+                                    fecha={dataCedula.expediente.fecha}
+                                    hora={dataCedula.expediente.hora}
+                                />
+                                <span className="font-bold">Folio {dataCedula.expediente.folio}</span>
+                                <span className="mb-5">{dataCedula.expediente.nombre}</span>
+                                {/* Button GRID container */}
+                                <div className="grid grid-flow-col gap-5 text-center">
+                                    <PrimaryLinkButton
+                                        href={`${routes.dashboard.expediente}/${folio}`}
+                                    >
+                                        Expediente
+                                    </PrimaryLinkButton>
+                                    <PrimaryLinkButton
+                                        href={routes.dashboard.sabana}
+                                    >
+                                        Sábana
+                                    </PrimaryLinkButton>
+                                </div>
+                            </>}
                 </div>
+
                 {/* Expediente Section */}
+
                 <div className="mt-5 flex flex-row">
+                    {
+                        loading
+                            ? <LoaderSkeleton />
+                            : <>
+                                <div className="flex flex-col primary-btn w-1/4">
+                                    {Object.keys(sidebarOptions).map(renderingButtonOption)}
+                                </div>
+                                {/* Forms */}
+                                <section className="main-bg w-3/4 p-3">
+                                    {data[activeData].content.map(block => Components(block))}
+                                </section>
+                            </>
+                    }
                     {/* SIDEBAR */}
-                    <div className="flex flex-col primary-btn w-1/4">
-                        {Object.keys(sidebarOptions).map(renderingButtonOption)}
-                    </div>
-                    {/* Forms */}
-                    <section className="main-bg w-3/4 p-3">
 
-                        {data[activeData].content.map(block => Components(block))}
-
-
-                    </section>
                 </div>
             </Container>
         </div>
