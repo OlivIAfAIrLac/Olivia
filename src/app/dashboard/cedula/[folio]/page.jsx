@@ -271,9 +271,6 @@ const data = [
                 _uid: "I_cuantos_meses",
                 component: "input",
             },
-            
-                
-            
         ]
     },
     {
@@ -283,6 +280,434 @@ const data = [
                 _uid: "10skk33",
                 component: "headline",
                 text: "Información general y de contacto"
+            },
+            {
+                _uid: "subheadline-curp",
+                component: "subheadline",
+                text: "CURP:"
+            },
+            {
+                _uid: "II_curp",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-pseudonimo",
+                component: "subheadline",
+                text: "Pseudónimo:"
+            },
+            {
+                _uid: "II_pseudonimo",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-nombre",
+                component: "subheadline",
+                text: "Nombre(s):"
+            },
+            {
+                _uid: "II_nombre",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-primer-apellido",
+                component: "subheadline",
+                text: "Primer apellido:"
+            },
+            {
+                _uid: "II_primer_apellido",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-segundo-apellido",
+                component: "subheadline",
+                text: "Segundo apellido:"
+            },
+            {
+                _uid: "II_segundo_apellido",
+                component: "input",
+            },
+            {
+                _uid: "II_genero",
+                component: "optionsgroup",
+                field: "escolaridad",
+                options: [
+                    { indexSabana: 1, value: 'cisgenero', description: 'Cisgénero', indexSabana: 1 },
+                    { indexSabana: 2, value: 'transgenero', description: 'Transgénero', indexSabana: 2 },
+                    { indexSabana: 3, value: 'transexual', description: 'Transexual', indexSabana: 3 },
+                    { indexSabana: 4, value: 'genero_fluido', description: 'Género fluido', indexSabana: 4 },
+                    { indexSabana: 5, value: 'agenero', description: 'Ágenero', indexSabana: 5 },
+                    { indexSabana: 6, value: 'persona_no_binaria', description: 'Persona no binaria', indexSabana: 6 },
+                    { indexSabana: 7, value: 'prefiero_no_decirlo', description: 'Prefiero no decirlo', indexSabana: 7 },
+                    { indexSabana: 8, value: 'otro', description: 'Otro', indexSabana: 8 }
+                ]
+            },
+            {
+                _uid: "subheadline-especificar-genero",
+                component: "subheadline",
+                text: "Especificar:"
+            },
+            {
+                _uid: "II_genero_especificar",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-sexo",
+                component: "subheadline",
+                text: "Sexo:"
+            },
+            {
+                _uid: "II_sexo",
+                component: "input",
+                // faltas corroborarr
+            },
+            {
+                _uid: "subheadline-fecha-de-nacimiento",
+                component: "subheadline",
+                text: "Fecha de nacimiento (DD/MM/AAAA):"
+            },
+            {
+                _uid: "II_fecha_de_nacimiento",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-edad",
+                component: "subheadline",
+                text: "Edad:"
+            },
+            {
+                _uid: "II_edad",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-nacionalidad",
+                component: "subheadline",
+                text: "Nacionalidad:"
+            },
+            {
+                _uid: "II_nacionalidad",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-lugar-nacimiento",
+                component: "subheadline",
+                text: "Lugar de nacimiento:"
+            },
+            {
+                _uid: "II_lugar_de_nacimiento",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-entidad-donde-reside",
+                component: "subheadline",
+                text: "Entidad federativa donde reside actualmente:"
+            },
+            {
+                _uid: "II_entidad_federativa_donde_reside_actualmente",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-telefono-fijo",
+                component: "subheadline",
+                text: "Teléfono fijo/casa:"
+            },
+            {
+                _uid: "II_telefono_fijo_casa",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-celular",
+                component: "subheadline",
+                text: "Celular:"
+            },
+            {
+                _uid: "II_celular",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-otro",
+                component: "subheadline",
+                text: "Otro, especificar:"
+            },
+            {
+                _uid: "II_otro",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-autoriza-seguimiento-whatsapp",
+                component: "subheadline",
+                text: "Autoriza dar seguimiento vía WhatsApp: falta catálogo"
+            },
+            {
+                _uid: "II_motivo_whatsapp",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-autoriza-seguimiento-telefonico",
+                component: "subheadline",
+                text: "Autoriza dar seguimiento vía Telefónica: falta catalogo"
+            },
+            {
+                _uid: "II_motivo_telefonica",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-correo-electronico",
+                component: "subheadline",
+                text: "Correo electrónico"
+            },
+            {
+                _uid: "II_correo_electronico",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-direccion-principal",
+                component: "subheadline",
+                text: "Direccion principal"
+            },
+            {
+                _uid: "subheadline-calle",
+                component: "subheadline",
+                text: "Calle",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_calle",
+                component: "input",
+            },
+            {
+                _uid: "numero-exterior",
+                component: "subheadline",
+                text: "Número exterior",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_numero_exterior",
+                component: "input",
+            },
+            {
+                _uid: "numero-interior",
+                component: "subheadline",
+                text: "Número interior",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_numero_interior",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-letra-exterior",
+                component: "subheadline",
+                text: "Letra exterior",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_letra_exterior",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-letra-interior",
+                component: "subheadline",
+                text: "Letra interior",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_letra_interior",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-cp",
+                component: "subheadline",
+                text: "CP",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_cp",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-cruce-1-v",
+                component: "subheadline",
+                text: "Cruce 1",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_cruce1",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-cruce-2-v",
+                component: "subheadline",
+                text: "Cruce 2",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_cruce2",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-referencia",
+                component: "subheadline",
+                text: "Referencias",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_referencia",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-estado",
+                component: "subheadline",
+                text: "Estado",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_estado",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-municipio",
+                component: "subheadline",
+                text: "Municipio",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_municipio",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-colonia",
+                component: "subheadline",
+                text: "Colonia / localidad",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_colonia_localidad",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-direccion-eventual",
+                component: "subheadline",
+                text: "Direccion eventual"
+            },
+            {
+                _uid: "subheadline-calle-eventual",
+                component: "subheadline",
+                text: "Calle",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_eventual_calle",
+                component: "input",
+            },
+            {
+                _uid: "numero-exterior-eventual",
+                component: "subheadline",
+                text: "Número exterior",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_eventual_numero_exterior",
+                component: "input",
+            },
+            {
+                _uid: "numero-interior-eventual",
+                component: "subheadline",
+                text: "Número interior",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_eventual_numero_interior",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-letra-exterior_eventual",
+                component: "subheadline",
+                text: "Letra exterior",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_eventual_letra_exterior",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-letra-interior-eventual",
+                component: "subheadline",
+                text: "Letra interior",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_eventual_letra_interior",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-cp-eventual",
+                component: "subheadline",
+                text: "CP",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_eventual_cp",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-cruce-1-eventual",
+                component: "subheadline",
+                text: "Cruce 1",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_eventual_cruce1",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-cruce-2-eventual",
+                component: "subheadline",
+                text: "Cruce 2",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_eventual_cruce2",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-referencia-eventual",
+                component: "subheadline",
+                text: "Referencias",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_eventual_referencia",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-estado-eventual",
+                component: "subheadline",
+                text: "Estado",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_eventual_estado",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-municipio-eventual",
+                component: "subheadline",
+                text: "Municipio",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_eventual_municipio",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-colonia-eventual",
+                component: "subheadline",
+                text: "Colonia / localidad",
+                thin: true
+            },
+            {
+                _uid: "II_direccion_eventual_colonia_localidad",
+                component: "input",
             },
         ]
     },
@@ -332,6 +757,162 @@ const data = [
                 ]
             },
 
+            {
+                _uid: "subheadline-aporta-mayor-ingreso",
+                component: "subheadline",
+                text: "¿Quién aporta el mayor ingreso dentro del hogar?",
+                thin: true
+            },
+            {
+                _uid: "subheadline-aporta-mayor-porcentaje-ingresos",
+                component: "subheadline",
+                text: "¿Quién aporta el mayor porcentaje de ingresos  para la víctima?",
+                thin: true
+            },
+            {
+                _uid: "subheadline-aporta-mayor-ingreso-hijes",
+                component: "subheadline",
+                text: "¿Quién aporta el mayor ingreso para sus hijes?",
+                thin: true
+            },
+            {
+                _uid: "subheadline-cuánto",
+                component: "subheadline",
+                text: "¿Cuánto?",
+                thin: true
+            },
+            {
+                _uid: "subheadline-empleo-remunerado",
+                component: "subheadline",
+                text: "En caso de que cuente con un empleo remunerado:",
+                thin: true
+            },
+            {
+                _uid: "subheadline-localizacion-empleo",
+                component: "subheadline",
+                text: "Localización del empleo:",
+                thin: true
+            },
+            {
+                _uid: "subheadline-calle-empleo",
+                component: "subheadline",
+                text: "Calle",
+                thin: true
+            },
+            {
+                _uid: "III_calle_empleo",
+                component: "input",
+            },
+            {
+                _uid: "numero-exterior-empleo",
+                component: "subheadline",
+                text: "Número exterior",
+                thin: true
+            },
+            {
+                _uid: "III_numero_exterior_empleo",
+                component: "input",
+            },
+            {
+                _uid: "numero-interior-empleo",
+                component: "subheadline",
+                text: "Número interior",
+                thin: true
+            },
+            {
+                _uid: "III_numero_interior_empleo",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-letra-exterior_empleo",
+                component: "subheadline",
+                text: "Letra exterior",
+                thin: true
+            },
+            {
+                _uid: "III_letra_exterior_empleo",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-letra-interior-empleo",
+                component: "subheadline",
+                text: "Letra interior",
+                thin: true
+            },
+            {
+                _uid: "III_letra_interior_empleo",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-cp-empleo",
+                component: "subheadline",
+                text: "CP",
+                thin: true
+            },
+            {
+                _uid: "III_cp_empleo",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-cruce-1-empleo",
+                component: "subheadline",
+                text: "Cruce 1",
+                thin: true
+            },
+            {
+                _uid: "III_cruce1_empleo",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-cruce-2-empleo",
+                component: "subheadline",
+                text: "Cruce 2",
+                thin: true
+            },
+            {
+                _uid: "III_cruce2_empleo",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-referencia-empleo",
+                component: "subheadline",
+                text: "Referencias",
+                thin: true
+            },
+            {
+                _uid: "III_referencia_empleo",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-estado-empleo",
+                component: "subheadline",
+                text: "Estado",
+                thin: true
+            },
+            {
+                _uid: "III_estado_empleo",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-municipio-empleo",
+                component: "subheadline",
+                text: "Municipio",
+                thin: true
+            },
+            {
+                _uid: "III_municipio_empleo",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-colonia-empleo",
+                component: "subheadline",
+                text: "Colonia / localidad",
+                thin: true
+            },
+            {
+                _uid: "III_colonia_localidad_empleo",
+                component: "input",
+            },
 
         ]
     },
