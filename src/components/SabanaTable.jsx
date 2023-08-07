@@ -1,7 +1,15 @@
-import { getCatalogoDescription, getCatalogoIndexSabana } from "@/helpers/catalogos";
-import { sabanaData } from "@/mock/apiResponse";
-import { useRef } from "react";
+'use client'
+import { getCatalogoIndexSabana } from "@/helpers/catalogos";
+// import { sabanaData } from "@/mock/apiResponse";
+import { apiRoutes } from "@/helpers/apiRoutes";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { DownloadTableExcel } from 'react-export-table-to-excel';
+import LoaderSkeleton from "./LoaderSkeleton";
+import axios from "axios";
+import { RiFileExcel2Fill } from 'react-icons/ri'
+import { useRouter } from "next/navigation";
+import { routes } from "@/helpers/routes";
+
 
 const cabecerasSabana = [
   'Fecha (DD/MM/AAA)',
@@ -17,11 +25,11 @@ const cabecerasSabana = [
   'Psicología NNA',
   'Médica',
   'Psiquiátrica',
-  'Especificar',
+  'Especificar psiquiatrica',
   'Presencial',
   'Telefónica',
   'Otra',
-  'Especificar',
+  'Especificar telefonica',
   'Institución que atiende',
   'Área de adscripción',
   'Nombre(s) de la persona(s) que atiende(n)',
@@ -29,21 +37,21 @@ const cabecerasSabana = [
   'Número de expediente BANAVIM',
   'Hora de término atención:',
   '¿La persona presenta alguna enfermedad y/o lesión que requiera ser atendida con inmediatez? Si/No',
-  'Especificar',
+  'Especificar enfermedad o lesion',
   '¿Existe algún requerimiento específico? Si/No',
   'Lengua de Señas Mexicana (LSM)',
   'Lengua Indígena',
   'Lengua Extranjera',
   'Discapacidad(es)',
   'Otra',
-  'Especificar',
+  'Especificar requrimiento esp',
   '¿Presenta alguna emergencia? Si/No',
   'Atención médica de emergencia por lesiones',
   'Crisis nerviosa',
   'Dictamen ginecológico  por agresión sexual',
   'Atención médica por agresión sexual',
   'Otras',
-  'Especificar',
+  'Especificar atencion medica',
   '¿Está en periodo de gestación?	Si/No',
   '¿Cuántos meses?',
   /* III. INFORMACIÓN GENERAL DE CONTACTO */
@@ -53,7 +61,7 @@ const cabecerasSabana = [
   'Primer apellido',
   'Segundo apellido',
   'Género',
-  'Especificar',
+  'Especificar genero contacto',
   'Sexo',
   'Fecha de nacimiento (DD/MM/AAAA)',
   'Nacionalidad',
@@ -119,11 +127,11 @@ const cabecerasSabana = [
   '¿Tiene seguridad social?',
   'Cual',
   'Ocupación de la Víctima',
-  'Especificar',
+  'Especificar victima',
   'Situación conyugal',
   'Régimen matrimonial',
   'Tipo de vivienda',
-  'Especificar',
+  'Especificar vivienda',
   /* Compartida con otras personas */
   'Amistades',
   'Familiares',
@@ -135,7 +143,7 @@ const cabecerasSabana = [
   'Especificar otro',
   'Sexo',
   'Género',
-  'Especificar',
+  'Especificar genero habitante',
   'Edad',
   '¿Tiene alguna discapacidad?',
   '¿Es dependiente económico de quien solicita la atención?',
@@ -169,11 +177,11 @@ const cabecerasSabana = [
   'Turno',
   'Monto de ingreso mensual de su empleo principal',
   '¿Pertenece a un grupo originario o indígena?',
-  'Especificar',
+  'Especificar grupo indigena',
   '¿Es una persona migrante/ transmigrante?',
   '¿Es una persona en situación de calle?',
   '¿Pertenece a la comunidad LGBTTIQ+?',
-  'Especificar',
+  'Especificar comunidad',
   '¿Tiene alguna discapacidad?',
   'Motora',
   'Auditiva',
@@ -181,13 +189,13 @@ const cabecerasSabana = [
   'Intelectual',
   'Psicosocial',
   'Otra',
-  'Especificar',
+  'Especificar tipo discapacidad',
   '¿Vive violencia por presentar discapacidad?',
-  'Especificar',
+  'Especificar violencia',
   '¿Presenta alguna discapacidad a consecuencia de la violencia?',
-  'Especificar',
+  'Especificar consecuencia',
   '¿Tiene alguna enfermedad crónica degenerativa que limite o imposibilite sus actividades?',
-  'Especificar',
+  'Especificar enfermedad',
   /*OMITIR Datos de consumo problematico */
   '¿Consume drogas?',
   'Alcohol',
@@ -216,72 +224,239 @@ const cabecerasSabana = [
   'Catinonas sintéticas',
   'Otra',
   'Especificar otro',
+  /* IV Motivo de la atencion */
+  'Contexto (Causa y Evolución)',
+  '¿Ha tenido que ser atendida en una institución médica o por personal médico como consecuencia de un evento de violencia con la persona agresora?',
+  '¿Episodio reciente?',
+  'Especificar reciente',
+  'Último episodio de violencia',
+  'Especificar episodio',
+  'Acciones o intentos de solución realizados',
+  'Personas involucradas en la situación',
+  /* V. ANTECEDENTES DE VIOLENCIA  */
+  'Contexto (Causa y Evolución)',
+  'Acciones o intentos de solución realizados',
+  'Personas involucradas en la situación',
+  'Redes de apoyo y tipo de apoyo que se proporcionó',
+  '¿Recurrió a alguna institución para pedir apoyo?',
+  'Especificar ayuda',
+  '¿Cuenta con expediente  de atención?',
+  'Especificar expediente',
+  /* VI INFORMACION DE LA PERSONA AGRESORA */
+  '¿Persona conocida?',
+  'Pseudónimo',
+  'Nombre(s)',
+  'Primer apellido',
+  'Segundo apellido',
+  'Género',
+  'Especificar genero agresor',
+  'Sexo',
+  'Nacionalidad',
+  'Relación de la persona agresora con la víctima.',
+  'Especificar relación',
+  'Tiempo de convivencia con la persona agresora (años y meses)',
+  'Calle',
+  'Número exterior',
+  'Número interior',
+  'Letra exterior',
+  'Letra interior',
+  'C.P.',
+  'Cruce 1',
+  'Cruce 2',
+  'Referencia',
+  'Estado',
+  'Municipio',
+  'Colonia/ Localidad',
+  'Escolaridad',
+  '¿Su escolaridad está en?',
+  'Ocupación',
+  'ESPECIFICAR ocupacion',
+  'Teléfono fijo/casa',
+  'Celular',
+  'Otro especificar',
+  'Posesión de armas',
+  'Especificar Arma',
+  '¿Consume drogas?',
+  'Alcohol',
+  'Marihuana',
+  'Depresores del sistema nervioso central(benzos)',
+  'Cocaína (crack)',
+  'GHB',
+  'Alucinógenos',
+  'Heroína',
+  'Inhalantes',
+  'Ketamina',
+  'LSD (ácidos) ',
+  'Tabaco',
+  'PCP (ángel dust)',
+  'MDMA (éxtasis) ',
+  'Mescalina (peyote)',
+  'Metanfetamina (cristal/meth)',
+  'Medicamentos de venta libre',
+  'Dextrometorfano (DXM) ',
+  'Loperamida',
+  'Opioides con receta médica (oxy/percs)',
+  'Estimulantes con receta médica',
+  'Esteroides (anabólicos)',
+  'Fentanilo',
+  'Cannabinoides sintéticos (K2/spice)',
+  'Catinonas sintéticas',
+  'Otra',
+  'Especificar otro',
+  'Enfermedad mental',
+  'Toma algún tratamiento psiquiátrico',
+  'Especificar tratamiento',
+  'Farmacodependencia',
+  'Pertenece a la policía o al ejercito',
+  'Especificar policia',
+  'Pertenece o tiene enlace con el crimen organizado',
+  'Especificar crimen',
+  'Historial de antecedentes penales',
+  'Infidelidad',
+  'Estatura Aproximada (m. / cm.)',
+  'Complexión',
+  'Tez',
+  'Color de cabello',
+  'Tamaño',
+  'Forma',
+  'Nariz',
+  'Labios',
+  'Ojos color',
+  'Ojos tamaño',
+  'Ojos forma',
+  'Descripción del estado físico aparente',
+  'Especificar Forma fisica',
+  'Forma de la cara.',
+  'Tipos de cejas.',
+  'Bigote',
+  'Especificar Forma bigote',
+  'Barba',
+  'Especificar Forma barba',
+  'Señas particulares',
+  'Especificar Forma señas',
+  'Tatuajes',
+  'Especificar forma y lugar',
+  'Lunares',
+  'Especificar Forma lunares',
+  'Lesiones',
+  'Especificar Forma lesiones',
+  'Cicatrices',
+  'Especificar Forma cicatrices',
 ]
 
 const Cell = ({ children }) => <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{children}</td>;
 
 export default function SabanaTable() {
   const tableRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true)
+  const [sabanaData, setSabanaData] = useState([])
+  const [initDate, setInitDate] = useState('')
+  const [lastDate, setLastDate] = useState('')
+
+  const getData = useCallback(
+    async () => {
+      try {
+        const res = await axios.get(`${apiRoutes.SABANA}?initDate=${initDate}&lastDate=${lastDate}`)
+        if (res.status === 200) {
+          setSabanaData(res.data.docs);
+          setIsLoading(false)
+        }
+      } catch (error) {
+        /* TODO: Handle errors */
+      }
+
+    },
+    [initDate, lastDate],
+  )
+
+  const handleOnChange = (ev) => {
+    ev.preventDefault();
+    const name = ev.target.name
+    const value = ev.target.value;
+
+    name === 'initDate' && setInitDate(value)
+    name === 'lastDate' && setLastDate(value)
+
+  }
+
+  useEffect(() => {
+    getData()
+  }, [getData, initDate, lastDate])
+
+
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-7">
-      <DownloadTableExcel
-        filename="users table"
-        sheet="users"
-        currentTableRef={tableRef.current}
-      >
-        <button>Descargar en Xls</button>
-      </DownloadTableExcel>
-      {/* <div className="sm:flex sm:items-center">
-        <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">Users</h1>
-          <p className="mt-2 text-sm text-gray-700">
-            A list of all the users in your account including their name, title, email and role.
-          </p>
-        </div>
-        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <button
-            type="button"
-            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      {isLoading
+        ? <LoaderSkeleton />
+        : <>
+          <DownloadTableExcel
+            filename="sabana"
+            sheet="users"
+            currentTableRef={tableRef.current}
           >
-            Add user
-          </button>
-        </div>
-      </div> */}
-      <div className="mt-8 flow-root">
-        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-300" ref={tableRef}>
-                <thead className="bg-gray-50">
-                  <tr>
+            <button className="inline-flex items-center p-3 save-bg-btn gap-x-2">
+              Descargar
+              <RiFileExcel2Fill size={35} />
+            </button>
+          </DownloadTableExcel>
+          <div className="ml-5 inline-flex">
+            <span className="capitalize px-5 py-1">fecha inicial:</span>
+            <input name='initDate' type="date" className="p-1" onChange={handleOnChange} />
+            <span className="capitalize px-5 py-1">fecha final:</span>
+            <input name='lastDate' type="date" className="p-1" onChange={handleOnChange} />
+          </div>
 
-                    {
-                      cabecerasSabana.map(item => <th
-                        key={item}
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                        {item}
-                      </th>)
-                    }
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
-                  {
-                    sabanaData.length > 0 && sabanaData.map(RowTable)
-                  }
-                </tbody>
-              </table>
+          <div className="mt-8 flow-root">
+            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                  <table className="min-w-full divide-y divide-gray-300" ref={tableRef}>
+                    <thead className="bg-gray-50">
+                      <tr>
+                        {
+                          cabecerasSabana.map((item, index) => <th
+                            key={item + index}
+                            scope="col"
+                            className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            {item}
+                          </th>)
+                        }
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200 bg-white">
+                      {
+                        sabanaData.length > 0 && sabanaData.map(RowTable)
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>}
     </div>
   )
 }
 
+
+
 const RowTable = (item, index) => {
+  const router = useRouter()
+  let tapedTwice = false;
+
+  function tapHandler(expediente) {
+    if (!tapedTwice) {
+      tapedTwice = true;
+      setTimeout(function () { tapedTwice = false; }, 300);
+      return false;
+    }
+
+    //action on double tap goes below
+    router.push(`${routes.dashboard.cedula}/${expediente}`)
+  }
   const {
     _id,
+    expediente,
     fecha,
     hora_de_inicio,
     area_que_atiende,
@@ -401,6 +576,7 @@ const RowTable = (item, index) => {
     III_pertenece_a_la_comunidad_lgbtttiq,
     III_pertenece_a_la_comunidad_lgbtttiq_especificar,
     III_tiene_alguna_discapacidad,
+    III_discapacidad,
     III_especificar_discapacidad,
     III_vive_violencia_por_presentar_discapacidad,
     III_especificar_violencia,
@@ -410,10 +586,104 @@ const RowTable = (item, index) => {
     III_especificar_enfermedad_cronica,
     III_consumo_de_drogas,
     III_especificar_el_tipo_de_drogas_que_consume_la_prv,
+    IV_contexto_causa_y_evolucion,
+    IV_ha_tenido_que_ser_atendida_en_una_institucion_medica_o_por_personal_medico_como_consecuencia_de_un_evento_de_violencia_con_la_persona_agresora,
+    IV_ultimo_episodio_de_violencia_reciente,
+    IV_ultimo_episodio_de_violencia_reciente_especificar,
+    IV_ultimo_episodio_de_violencia,
+    IV_ultimo_episodio_de_violencia_especificar,
+    IV_acciones_o_intentos_de_solucion_realizados,
+    IV_personas_involucradas_en_la_situacion,
+    V_contexto_causa_y_evolucion,
+    V_acciones_o_intentos_de_solucion_realizados,
+    V_personas_involucradas_en_la_situacion,
+    V_redes_de_apoyo_y_tipo_de_apoyo_que_se_proporciono,
+    V_recurrio_a_alguna_institucion_para_pedir_apoyo,
+    V_recurrio_a_alguna_institucion_especificar,
+    V_cuenta_con_expediente_de_atencion,
+    V_cuenta_con_expediente_de_atencion_especificar,
+    VI_persona_conocida_o_desconocida,
+    VI_pseudonimo,
+    VI_nombre,
+    VI_primer_apellido,
+    VI_segundo_apellido,
+    VI_edad,
+    VI_genero,
+    VI_especificar_genero,
+    VI_sexo,
+    VI_nacionalidad,
+    VI_relacion_con_la_persona_agresora,
+    VI_especificar_relacion,
+    VI_tiempo_de_convivencia_con_la_persona_agresora_anios_y_meses,
+    VI_calle,
+    VI_numero_exterior,
+    VI_numero_interior,
+    VI_letra_exterior,
+    VI_letra_interior,
+    VI_cp,
+    VI_cruce1,
+    VI_cruce2,
+    VI_referencia,
+    VI_estado,
+    VI_municipio,
+    VI_colonia_localidad,
+    VI_escolaridad,
+    VI_estatus_escolaridad,
+    VI_ocupacion_de_la_persona,
+    VI_especificar_ocupacion,
+    VI_telefono_fijo_casa,
+    VI_celular,
+    VI_especificar_contacto,
+    VI_posesion_de_armas,
+    VI_especificar_arma,
+    VI_consumo_de_drogas,
+    VI_especificar_el_tipo_de_drogas_que_consume_la_persona_agresora,
+    VI_enfermedad_mental,
+    VI_toma_algun_tratamiento_psiquiatrico,
+    VI_especificar_tratamiento,
+    VI_farmacodependencia,
+    VI_pertenece_a_la_policia_o_al_ejercito,
+    VI_especificar_plicia_ejercito,
+    VI_pertenece_o_tiene_enlace_con_el_crimen_organizado,
+    VI_especificar_crimen_organizado,
+    VI_historial_de_antecedentes_penales,
+    VI_infidelidad,
+    VI_estatura_aproximada,
+    VI_complexion,
+    VI_tez,
+    VI_color_cabello,
+    VI_tamanio_cabello,
+    VI_forma_cabello,
+    VI_nariz,
+    VI_color_ojos,
+    VI_labios,
+    VI_tamanio_ojos,
+    VI_forma_ojos,
+    VI_estado_fisico_aparente,
+    VI_especifique_estado_fisico,
+    VI_forma_de_la_cara,
+    VI_tipo_de_cejas,
+    VI_senias_particulares,
+    VI_especificar_senias,
+    VI_tatuajes,
+    VI_especifique_tatuajes,
+    VI_lunares,
+    VI_especifique_lunares,
+    VI_barba,
+    VI_especifique_barba,
+    VI_bigote,
+    VI_especifique_bigote,
+    VI_cicatrices,
+    VI_especifique_cicatrices,
+    VI_lesiones,
+    VI_especifique_lesiones,
   } = item;
 
 
-  return <tr key={_id}>
+  return <tr key={_id}
+    // onDoubleClick={() => console.log(`dobleCLic ${_id}`)}
+    onTouchStart={() => tapHandler(expediente)}
+  >
     <Cell>{fecha}</Cell>
     <Cell>{hora_de_inicio}</Cell>
     <Cell>No. {index + 1}</Cell>
@@ -636,16 +906,197 @@ const RowTable = (item, index) => {
     <Cell>{III_pertenece_a_la_comunidad_lgbtttiq ? 1 : 0}</Cell>
     <Cell>{III_pertenece_a_la_comunidad_lgbtttiq_especificar}</Cell>
     <Cell>{III_tiene_alguna_discapacidad ? 1 : 0}</Cell>
-    <CellDiscapacidad data={III_especificar_discapacidad} />
+    <CellDiscapacidad data={III_discapacidad} />
+    <Cell>{III_especificar_discapacidad}</Cell>
+
     <Cell>{III_vive_violencia_por_presentar_discapacidad ? 1 : 0}</Cell>
     <Cell>{III_especificar_violencia}</Cell>
     <Cell>{III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia ? 1 : 0}</Cell>
-    {/* <Cell>{III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia:especificar}</Cell> */}
-    {/* <Cell>{III_tiene_alguna_enfermedad_cronica_degenerativa_que_limite_o_imposibilite_sus_actividades}</Cell> */}
-    {/* <Cell>{III_especificar_enfermedad_cronica}</Cell> */}
-    {/* <Cell>{III_consumo_de_drogas}</Cell> */}
-    {/* <Cell>{III_especificar_el_tipo_de_drogas_que_consume_la_prv}</Cell> */}
+    <Cell>{III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia_especificar}</Cell>
+    <Cell>{III_tiene_alguna_enfermedad_cronica_degenerativa_que_limite_o_imposibilite_sus_actividades ? 1 : 0}</Cell>
+    <Cell>{III_especificar_enfermedad_cronica}</Cell>
+    <Cell>{III_consumo_de_drogas ? 1 : 0}</Cell>
+    <CellDrogas data={III_especificar_el_tipo_de_drogas_que_consume_la_prv} />
+    <Cell />
+    <Cell>{IV_contexto_causa_y_evolucion}</Cell>
+    <Cell>{IV_ha_tenido_que_ser_atendida_en_una_institucion_medica_o_por_personal_medico_como_consecuencia_de_un_evento_de_violencia_con_la_persona_agresora ? 1 : 0}</Cell>
+    <Cell>{IV_ultimo_episodio_de_violencia_reciente ? 1 : 0}</Cell>
+    <Cell>{IV_ultimo_episodio_de_violencia_reciente_especificar}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'frecuencia_violencia',
+        value: IV_ultimo_episodio_de_violencia
+      })
+    }</Cell>
+    <Cell>{IV_ultimo_episodio_de_violencia_especificar}</Cell>
+    <Cell>{IV_acciones_o_intentos_de_solucion_realizados}</Cell>
+    <Cell>{IV_personas_involucradas_en_la_situacion}</Cell>
+    <Cell>{V_contexto_causa_y_evolucion}</Cell>
+    <Cell>{V_acciones_o_intentos_de_solucion_realizados}</Cell>
+    <Cell>{V_personas_involucradas_en_la_situacion}</Cell>
+    <Cell>{V_redes_de_apoyo_y_tipo_de_apoyo_que_se_proporciono}</Cell>
+    <Cell>{V_recurrio_a_alguna_institucion_para_pedir_apoyo ? 1 : 0}</Cell>
+    <Cell>{V_recurrio_a_alguna_institucion_especificar}</Cell>
+    <Cell>{V_cuenta_con_expediente_de_atencion ? 1 : 0}</Cell>
+    <Cell>{V_cuenta_con_expediente_de_atencion_especificar}</Cell>
 
+    <Cell>{VI_persona_conocida_o_desconocida ? 1 : 0}</Cell>
+    <Cell>{VI_pseudonimo}</Cell>
+    <Cell>{VI_nombre}</Cell>
+    <Cell>{VI_primer_apellido}</Cell>
+    <Cell>{VI_segundo_apellido}</Cell>
+    {/* <Cell>{VI_edad}</Cell> */}
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'genero',
+        value: VI_genero
+      })
+    }</Cell>
+    <Cell>{VI_especificar_genero}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'sexo',
+        value: VI_sexo
+      })
+    }</Cell>
+    <Cell>{VI_nacionalidad}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'parentesco',
+        value: VI_relacion_con_la_persona_agresora
+      })
+    }</Cell>
+    <Cell>{VI_especificar_relacion}</Cell>
+    <Cell>{VI_tiempo_de_convivencia_con_la_persona_agresora_anios_y_meses}</Cell>
+    <Cell>{VI_calle}</Cell>
+    <Cell>{VI_numero_exterior}</Cell>
+    <Cell>{VI_numero_interior}</Cell>
+    <Cell>{VI_letra_exterior}</Cell>
+    <Cell>{VI_letra_interior}</Cell>
+    <Cell>{VI_cp}</Cell>
+    <Cell>{VI_cruce1}</Cell>
+    <Cell>{VI_cruce2}</Cell>
+    <Cell>{VI_referencia}</Cell>
+    <Cell>{VI_estado}</Cell>
+    <Cell>{VI_municipio}</Cell>
+    <Cell>{VI_colonia_localidad}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'escolaridad',
+        value: VI_escolaridad
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'estatus_escolaridad',
+        value: VI_estatus_escolaridad
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'ocupacion',
+        value: VI_ocupacion_de_la_persona
+      })
+    }</Cell>
+    <Cell>{VI_especificar_ocupacion}</Cell>
+    <Cell>{VI_telefono_fijo_casa}</Cell>
+    <Cell>{VI_celular}</Cell>
+    <Cell>{VI_especificar_contacto}</Cell>
+    <Cell>{VI_posesion_de_armas ? 1 : 0}</Cell>
+    <Cell>{VI_especificar_arma}</Cell>
+    <Cell>{VI_consumo_de_drogas ? 1 : 0}</Cell>
+    <CellDrogas data={VI_especificar_el_tipo_de_drogas_que_consume_la_persona_agresora} />
+    <Cell />
+    <Cell>{VI_enfermedad_mental ? 1 : 0}</Cell>
+    <Cell>{VI_toma_algun_tratamiento_psiquiatrico ? 1 : 0}</Cell>
+    <Cell>{VI_especificar_tratamiento}</Cell>
+    <Cell>{VI_farmacodependencia ? 1 : 0}</Cell>
+    <Cell>{VI_pertenece_a_la_policia_o_al_ejercito ? 1 : 0}</Cell>
+    <Cell>{VI_especificar_plicia_ejercito}</Cell>
+    <Cell>{VI_pertenece_o_tiene_enlace_con_el_crimen_organizado ? 1 : 0}</Cell>
+    <Cell>{VI_especificar_crimen_organizado}</Cell>
+    <Cell>{VI_historial_de_antecedentes_penales}</Cell>
+    <Cell>{VI_infidelidad ? 1 : 0}</Cell>
+    <Cell>{VI_estatura_aproximada}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'complexion',
+        value: VI_complexion
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'tez',
+        value:
+          VI_tez
+      })
+    }</Cell>
+    <Cell>{VI_color_cabello}</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'tamanio_de_cabello',
+        value: VI_tamanio_cabello
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'forma_cabello',
+        value: VI_forma_cabello
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'nariz',
+        value: VI_nariz
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'labios',
+        value: VI_labios
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'ojos',
+        value: VI_color_ojos
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'tamanio_ojos',
+        value: VI_tamanio_ojos
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'forma_ojos',
+        value: VI_forma_ojos
+      })
+    }</Cell>
+    <Cell>{
+      getCatalogoIndexSabana({
+        catalogo: 'estado_fisico',
+        value: VI_estado_fisico_aparente
+      })
+    }</Cell>
+    <Cell>{VI_especifique_estado_fisico}</Cell>
+    <Cell>{VI_forma_de_la_cara}</Cell>
+    <Cell>{VI_tipo_de_cejas}</Cell>
+    <Cell>{VI_bigote ? 1 : 0}</Cell>
+    <Cell>{VI_especifique_bigote}</Cell>
+    <Cell>{VI_barba ? 1 : 0}</Cell>
+    <Cell>{VI_especifique_barba}</Cell>
+    <Cell>{VI_senias_particulares ? 1 : 0}</Cell>
+    <Cell>{VI_especificar_senias}</Cell>
+    <Cell>{VI_tatuajes ? 1 : 0}</Cell>
+    <Cell>{VI_especifique_tatuajes}</Cell>
+    <Cell>{VI_lunares ? 1 : 0}</Cell>
+    <Cell>{VI_especifique_lunares}</Cell>
+    <Cell>{VI_lesiones ? 1 : 0}</Cell>
+    <Cell>{VI_especifique_lesiones}</Cell>
+    <Cell>{VI_cicatrices ? 1 : 0}</Cell>
+    <Cell>{VI_especifique_cicatrices}</Cell>
   </tr>
 }
 
@@ -735,5 +1186,57 @@ const CellDiscapacidad = ({ data }) => {
     <Cell>{intelectual}</Cell>
     <Cell>{psicosocial}</Cell>
     <Cell>{otra}</Cell>
+  </>
+}
+const CellDrogas = ({ data }) => {
+  const alcohol = data === 'alcohol' ? 1 : 0
+  const marihuana = data === 'marihuana' ? 1 : 0
+  const depresores_del_sistema_nervioso_central_benzos = data === 'depresores_del_sistema_nervioso_central_benzos' ? 1 : 0
+  const cocaina_crack_ghb = data === 'cocaina_crack_ghb' ? 1 : 0
+  const alucinogenos = data === 'alucinogenos' ? 1 : 0
+  const heroina = data === 'heroina' ? 1 : 0
+  const inhalantes = data === 'inhalantes' ? 1 : 0
+  const ketamina = data === 'ketamina' ? 1 : 0
+  const lsd_acidos = data === 'lsd_acidos' ? 1 : 0
+  const tabaco = data === 'tabaco' ? 1 : 0
+  const pcp_angel_dust = data === 'pcp_angel_dust' ? 1 : 0
+  const mdma_extasis = data === 'mdma_extasis' ? 1 : 0
+  const mescalina_peyote = data === 'mescalina_peyote' ? 1 : 0
+  const metanfetamina_cristal_meth = data === 'metanfetamina_cristal_meth' ? 1 : 0
+  const dextrometorfano_dxm = data === 'dextrometorfano_dxm' ? 1 : 0
+  const medicamentos_de_venta_libre = data === 'medicamentos_de_venta_libre' ? 1 : 0
+  const loperamida = data === 'loperamida' ? 1 : 0
+  const opioides_con_receta_medica_oxy_percs = data === 'opioides_con_receta_medica_oxy_percs' ? 1 : 0
+  const estimulantes_con_receta_medica = data === 'estimulantes_con_receta_medica' ? 1 : 0
+  const esteroides_anabolicos = data === 'esteroides_anabolicos' ? 1 : 0
+  const cannabinoides_sinteticos_k_spice = data === 'cannabinoides_sinteticos_k_spice' ? 1 : 0
+  const catinonas_sinteticas = data === 'catinonas_sinteticas' ? 1 : 0
+  const fentanilo = data === 'fentanilo' ? 1 : 0
+  return <>
+    <Cell>{alcohol}</Cell>
+    <Cell>{marihuana}</Cell>
+    <Cell>{depresores_del_sistema_nervioso_central_benzos}</Cell>
+    <Cell>{cocaina_crack_ghb}</Cell>
+    <Cell>{alucinogenos}</Cell>
+    <Cell>{heroina}</Cell>
+    <Cell>{inhalantes}</Cell>
+    <Cell>{ketamina}</Cell>
+    <Cell>{lsd_acidos}</Cell>
+    <Cell>{tabaco}</Cell>
+    <Cell>{pcp_angel_dust}</Cell>
+    <Cell>{mdma_extasis}</Cell>
+    <Cell>{mescalina_peyote}</Cell>
+    <Cell>{metanfetamina_cristal_meth}</Cell>
+    <Cell>{dextrometorfano_dxm}</Cell>
+    <Cell>{medicamentos_de_venta_libre}</Cell>
+    <Cell>{loperamida}</Cell>
+    <Cell>{opioides_con_receta_medica_oxy_percs}</Cell>
+    <Cell>{estimulantes_con_receta_medica}</Cell>
+    <Cell>{esteroides_anabolicos}</Cell>
+    <Cell>{cannabinoides_sinteticos_k_spice}</Cell>
+    <Cell>{catinonas_sinteticas}</Cell>
+    <Cell>{fentanilo}</Cell>
+    <Cell />
+    <Cell />
   </>
 }

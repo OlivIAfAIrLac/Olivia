@@ -37,7 +37,7 @@ const AudioRecorder = ({
                 alert(err.message);
             }
         } else {
-            alert("The MediaRecorder API is not supported in your browser.");
+            alert("La grabación de audio no esta soportada en su navegador");
         }
     };
 
@@ -88,7 +88,7 @@ const AudioRecorder = ({
         try {
             const formData = new FormData()
             const audioBlob = new Blob(audioChunks, { type: mimeType });
-            formData.append('audios', audioBlob,"audio-test.wav")
+            formData.append('audios', audioBlob, `audio_${id}.wav`)
             formData.append("expediente", id)
             const res = await axios.post(apiRoutes.AUDIO, formData, {
                 headers: {
@@ -98,7 +98,7 @@ const AudioRecorder = ({
             if (res.status === 200) {
                 setOpenRecordedAudioModal(false)
                 setAudioChunks([])
-                setRefresh(true)                
+                setRefresh(true)
             }
         } catch (error) {
             /* TODO:Handle error notification */
@@ -127,11 +127,11 @@ const AudioRecorder = ({
     }
 
     return (
-        <div className="p-3 ml-auto">
+        <div className="p-3 ml-auto mr-5">
             <AudioRecordedModal />
             {!permission ? (
                 <button onClick={getMicrophonePermission} type="button">
-                    Get Microphone
+                    Permisos Microfono
                 </button>
             ) : null}
             {permission && recordingStatus === "inactive" ? (
@@ -140,10 +140,12 @@ const AudioRecorder = ({
                 </IconButton>
             ) : null}
             {recordingStatus === "recording" ? (
-               
-                <IconButton onClick={stopRecording} className="mr-2 animate-pulse">
-                    <BsFillRecordFill size={40} />
-                </IconButton>
+                <>
+                    Grabando....
+                    <IconButton onClick={stopRecording} className="mr-2 animate-pulse">
+                        <BsFillRecordFill size={40} />
+                    </IconButton>
+                </>
             ) : null}
             {/* {audio ? (
                 <IconButton onClick={downLoadFile} className="mr-2">

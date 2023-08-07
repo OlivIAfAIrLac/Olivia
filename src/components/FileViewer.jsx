@@ -30,7 +30,7 @@ export const FileViewer = ({
 
                     }
                     <CloseBtn
-                        onClick={onRemove}
+                        onClose={onRemove}
                         size={25}
                     />
                 </div>

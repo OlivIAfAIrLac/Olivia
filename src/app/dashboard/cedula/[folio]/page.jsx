@@ -9,6 +9,7 @@ import { cedulaData } from "@/mock/apiResponse";
 import Components from "@/components/dynamicComponents";
 import axios from 'axios';
 import { apiRoutes } from '@/helpers/apiRoutes';
+import { area_que_atiende } from '@/helpers/catalogos';
 
 
 
@@ -70,6 +71,7 @@ const data = [
                     { indexSabana: 9, value: 'otra', description: 'Otra ' },
                 ]
             },
+        
             {
                 _uid: "subheadline-modalidad-asesoria",
                 component: "subheadline",
@@ -754,6 +756,7 @@ const data = [
                     { value: 'trunca', description: 'Trunca' },
                 ]
             },
+
             {
                 _uid: "subheadline-aporta-mayor-ingreso",
                 component: "subheadline",
@@ -1735,10 +1738,10 @@ const data = [
 
         ]
     },
-   
- 
-    
-    
+
+
+
+
 
 
 

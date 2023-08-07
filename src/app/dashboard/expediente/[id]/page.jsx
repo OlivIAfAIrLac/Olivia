@@ -2,7 +2,6 @@
 import AudioPlayer from "@/components/AudioPlayer";
 import AudioRecorder from "@/components/AudioRecording";
 import ButtonGroupCedulaExpediente from "@/components/ButtonGroupCedulaExpediente";
-import CloseBtn from "@/components/CloseBtn";
 import Container from "@/components/Container";
 import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import { FileViewer } from "@/components/FileViewer";
@@ -15,8 +14,6 @@ import { routes } from "@/helpers/routes";
 import axios from "axios";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { BiSolidMicrophone } from "react-icons/bi";
-import { FaRegEye } from "react-icons/fa6";
 import { TbUpload } from "react-icons/tb";
 
 
@@ -25,12 +22,15 @@ const HomeFolio = ({ params }) => {
     const { id } = params;
     const [expedienteData, setExpedienteData] = useState()
     const [openModalAudio, setOpenModalAudio] = useState(false)
+    const [openModalRemoveAudio, setOpenModalRemoveAudio] = useState(false)
     const [openModalDocument, setOpenModalDocument] = useState(false)
     const [openModalPlayer, setOpenModalPlayer] = useState(false)
     const [selectedAudios, setSelectedAudios] = useState([])
     const [selectedFiles, setSelectedFiles] = useState([])
     const [playerUrl, setPlayerUrl] = useState()
     const [refresh, setRefresh] = useState(false)
+    const [selectedFile2Remove, setSelectedFile2Remove] = useState('')
+    const [selectedTypeFile2Remove, setSelectedTypeFile2Remove] = useState('')
 
     const handleOpenModalAudio = (ev) => {
         setOpenModalAudio(true)
@@ -89,6 +89,27 @@ const HomeFolio = ({ params }) => {
                 setSelectedAudios([])
             }
         } catch (error) {
+            console.error(error);
+        }
+    }
+    const handleSelected2RemoveFile = async ({ filename, type }) => {
+        setSelectedFile2Remove(filename)
+        setSelectedTypeFile2Remove(type)
+        setOpenModalRemoveAudio(true)
+    }
+    const handleRemoveFile = async () => {
+        try {
+            const apiRoute = {
+                audio: apiRoutes.AUDIO,
+                documento: apiRoutes.DOCUMENTO
+            }
+            setOpenModalRemoveAudio(false)
+            const res = await axios.delete(`${apiRoute[selectedTypeFile2Remove]}/${id}?filename=${selectedFile2Remove}`)
+            if (res.status === 200) {
+                setRefresh(true)
+            }
+        } catch (error) {
+            // TODO: Handle errors 
             console.error(error);
         }
     }
@@ -206,6 +227,30 @@ const HomeFolio = ({ params }) => {
         </Modal>
     }
 
+    const RemoveAudioModal = () => {
+        return <Modal
+            open={openModalRemoveAudio}
+            setOpen={setOpenModalRemoveAudio}
+        >
+            <div className="mt-9 flex flex-col justify-center items-center">
+                <span>¿Deseas <span className="font-bold">eliminar</span> el {selectedTypeFile2Remove} &quot;{selectedFile2Remove}&quot;</span>
+                <div className="mt-6 grid grid-flow-col gap-6 text-center">
+                    <button className="px-8 font-bold navbar-bg capitalize py-3 mt-5"
+                        onClick={handleRemoveFile}
+                    >
+                        Eliminar
+                    </button>
+                    <button className="px-8 font-bold navbar-bg capitalize py-3 mt-5"
+                        onClick={() => setOpenModalRemoveAudio(false)}
+                    >
+                        Cancelar
+                    </button>
+
+                </div>
+            </div>
+        </Modal>
+    }
+
     useEffect(() => {
         getData()
     }, [getData])
@@ -220,6 +265,7 @@ const HomeFolio = ({ params }) => {
         <div className="login-bg py-12 pl-14">
             <AudioModal />
             <DocumentModal />
+            <RemoveAudioModal />
             <AudioPlayerModal />
             {!expedienteData ? <LoaderSkeleton />
                 : <Container>
@@ -243,6 +289,7 @@ const HomeFolio = ({ params }) => {
                                     onView={() => handleAudioPlayer(item.url)}
                                     key={item.descripcion + index}
                                     url={item.url}
+                                    onRemove={() => handleSelected2RemoveFile({ filename: item.descripcion, type: 'audio' })}
                                     descripcion={item.descripcion}
                                 />)}
                             </div>
@@ -260,6 +307,7 @@ const HomeFolio = ({ params }) => {
                                 expedienteData.documentos.map((item, index) => <FileViewer
                                     key={item.descripcion + index}
                                     url={item.url}
+                                    onRemove={() => handleSelected2RemoveFile({ filename: item.descripcion, type: 'documento' })}
                                     descripcion={item.descripcion}
                                 />)
                             }

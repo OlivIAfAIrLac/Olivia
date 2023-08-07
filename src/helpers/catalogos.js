@@ -31,6 +31,7 @@ export const getCatalogoDescription = ({ catalogo = '', value = 'description' })
         area_que_atiende: area_que_atiende.filter(item => item.value === value),
         modalidad_asesora: modalidad_asesora.filter(item => item.value === value),
         discapacidad: discapacidad.filter(item => item.value === value),
+        labios: discapacidad.filter(item => item.value === value),
     }
     console.log(catalogo, value);
     return allCatalogos[catalogo][0]?.description;
@@ -68,6 +69,7 @@ export const getCatalogoIndexSabana = ({ catalogo = '', value = 'indexSabana' })
         area_que_atiende: area_que_atiende.filter(item => item.value === value),
         modalidad_asesora: modalidad_asesora.filter(item => item.value === value),
         discapacidad: discapacidad.filter(item => item.value === value),
+        labios: labios.filter(item => item.value === value),
     }
     return allCatalogos[catalogo][0]?.indexSabana;
 }
@@ -109,9 +111,9 @@ export const escolaridad = [
     { value: 'ninguno', description: 'Ninguno', indexSabana: 9 },
 ];
 export const estatus_escolaridad = [
-    { value: 'en_curso', description: 'en Curso' },
-    { value: 'terminada', description: 'Terminada' },
-    { value: 'trunca', description: 'Trunca' },
+    {indexSabana:1, value: 'en_curso', description: 'en Curso' },
+    {indexSabana:2, value: 'terminada', description: 'Terminada' },
+    {indexSabana:3, value: 'trunca', description: 'Trunca' },
 ];
 export const tipo_de_relaciones = [
     { indexSabana: 1, value: 'madre', description: 'Madre' },
@@ -334,4 +336,9 @@ export const discapacidad = [
     { indexSabana: 4, value: 'intelectual', description: 'Intelectual' },
     { indexSabana: 5, value: 'psicosocial', description: 'Psicosocial' },
     { indexSabana: 6, value: 'otra ', description: 'Otra' },
+]
+export const labios = [
+    { indexSabana: 1, description: 'Gruesos', value: 'gruesos' },
+    { indexSabana: 2, description: 'Regulares', value: 'regulares' },
+    { indexSabana: 3, description: 'Delgados', value: 'delgados' }
 ]

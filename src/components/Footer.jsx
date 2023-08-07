@@ -16,7 +16,7 @@ const Footer = ({
                 <div className="inline-flex ml-auto mt-0 justify-end">
                     <button className="no-bg-btn ">
                         <span>
-                            Trasparencia
+                            Transparencia
                         </span>
                     </button>
                 </div>
