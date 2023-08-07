@@ -19,12 +19,21 @@ const HomeAdminUsers = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false)
     const [refresh, setRefresh] = useState(false)
+    const [search, setSearch] = useState('')
+    const [isOnSearching, setIsOnSearching] = useState(false)
+
+
+    const handleOnSearch = (ev) => {
+        ev.preventDefault()
+        setSearch(ev.target.value)
+        setIsOnSearching(true)
+    }
 
     const getData = useCallback(
         async () => {
             try {
                 setLoading(true)
-                const res = await axios.get(apiRoutes.USUARIO);
+                const res = await axios.get(`${apiRoutes.USUARIO}?search=${search}`);
                 if (res.status === 200) {
                     setLoading(false)
                     setData(res.data)
@@ -36,7 +45,7 @@ const HomeAdminUsers = () => {
                 setLoading(false)
             }
         },
-        [],
+        [search, isOnSearching],
     )
 
     useEffect(() => {
@@ -114,7 +123,10 @@ const HomeAdminUsers = () => {
             </div>
             {/* Search Button */}
             <div className="flex flex-col justify-center mx-6 items-center">
-                <SearchButton />
+                <SearchButton
+                    placeholder="Buscar por nombre"
+                    onChange={handleOnSearch}
+                />
             </div>
             {/* Users Grid */}
             <div className="">

@@ -11,7 +11,7 @@ const SearchButton = ({
                 <FaSearch className="" size={30} />
             </div>
             <input
-                accessKey="b"
+                accessKey="k"
                 onChange={onChange}
                 name="search"
                 type="search"
