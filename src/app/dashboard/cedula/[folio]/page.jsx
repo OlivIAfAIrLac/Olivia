@@ -9,7 +9,7 @@ import { cedulaData } from "@/mock/apiResponse";
 import Components from "@/components/dynamicComponents";
 import axios from 'axios';
 import { apiRoutes } from '@/helpers/apiRoutes';
-import { area_que_atiende } from '@/helpers/catalogos';
+import { area_que_atiende, complexion, emergencia, escolaridad, estado_fisico, estatus_escolaridad, forma_cabello, forma_ojos, frecuencia_violencia, genero, nariz, ocupacion, ojos, parentesco, requerimiento_especifico, sexo, tamanio_de_cabello, tamanio_ojos, tez, tipo_de_droga } from '@/helpers/catalogos';
 
 
 
@@ -59,19 +59,9 @@ const data = [
                 _uid: "area_que_atiende",
                 component: "multipleoptionsgroup",
                 field: "area_que_atiende",
-                options: [
-                    { indexSabana: 1, value: 'psicologia', description: 'Psicología' },
-                    { indexSabana: 2, value: 'psicologia_nna', description: 'Psicología NNA' },
-                    { indexSabana: 3, value: 'juridica', description: 'Jurídica' },
-                    { indexSabana: 4, value: 'trabajo_social', description: 'Trabajo Social' },
-                    { indexSabana: 5, value: 'ministerial', description: 'Ministerial' },
-                    { indexSabana: 6, value: 'pericial', description: 'Pericial' },
-                    { indexSabana: 7, value: 'medica', description: 'Médica' },
-                    { indexSabana: 8, value: 'psiquiatrica', description: 'Psiquiátrica' },
-                    { indexSabana: 9, value: 'otra', description: 'Otra ' },
-                ]
+                options: area_que_atiende
             },
-        
+
             {
                 _uid: "subheadline-modalidad-asesoria",
                 component: "subheadline",
@@ -81,52 +71,48 @@ const data = [
                 _uid: "modalidad_de_asesoria",
                 component: "optionsgroup",
                 field: "escolaridad",
-                options: [
-                    { indexSabana: 1, value: 'presencial', description: 'Presencial' },
-                    { indexSabana: 2, value: 'telefonica', description: 'Telefónica' },
-                    { indexSabana: 3, value: 'otra', description: 'Otra' },
-                ]
-            },    
+                options: escolaridad
+            },
             {
                 _uid: "otra_falta",
                 component: "input",
-            },  
+            },
             {
                 _uid: "subheadline-institucion-que-atiende",
                 component: "subheadline",
                 text: "Institución que atiende"
-            }, 
+            },
             {
                 _uid: "institucion_que_atiende",
                 component: "input",
-            },  
+            },
             {
                 _uid: "subheadline-area-de-adscripcion",
                 component: "subheadline",
                 text: "Área de adscripción"
-            }, 
+            },
             {
                 _uid: "area_falta",
                 component: "input",
-            },  
+            },
             {
                 _uid: "subheadline-nombre-persona-atiende",
                 component: "subheadline",
                 text: "Nombre(s) de la(s) persona(s) que atiende(n)"
-            }, 
+            },
             {
                 _uid: "nombres_de_las_personas_que_atienden",
                 component: "input",
-            },  
+            },
             {
                 _uid: "subheadline-cargo-persona-atiende",
                 component: "subheadline",
                 text: "Cargo de la(s) persona(s) que atiende(n)"
-            }, 
+            },
             {
                 _uid: "cargo_falta",
                 component: "input",
-            },  
+            },
             {
                 _uid: "subheadline-expediente-banavim",
                 component: "subheadline",
@@ -165,9 +151,8 @@ const data = [
                 component: "optionsgroup",
                 field: "persona_conocida",
                 options: [
-
-                    { value: 'si', description: 'Si' },
-                    { value: 'no', description: 'No' },
+                    { value: true, description: 'Si' },
+                    { value: false, description: 'No' },
                 ]
             },
             {
@@ -189,22 +174,15 @@ const data = [
                 component: "optionsgroup",
                 field: "persona_conocida",
                 options: [
-
-                    { value: 'si', description: 'Si' },
-                    { value: 'no', description: 'No' },
+                    { value: true, description: 'Si' },
+                    { value: false, description: 'No' },
                 ]
             },
             {
                 _uid: "I_requerimiento_cual",
                 component: "optionsgroup",
                 field: "persona_conocida",
-                options: [
-                    { value: 'lengua_de_senias_mexicana_lsm', description: 'Lengua de Señas Mexicana (LSM)' },
-                    { value: 'lengua_indigena', description: 'Lengua Indígena' },
-                    { value: 'lengua_extranjera', description: 'Lengua Extranjera' },
-                    { value: 'discapacidades', description: 'Discapacidad(es)' },
-                    { value: 'otra', description: 'Otra' }
-                ]
+                options: requerimiento_especifico
             },
             {
                 _uid: "subheadline-requerimiento-especificar",
@@ -225,9 +203,8 @@ const data = [
                 component: "optionsgroup",
                 field: "persona_conocida",
                 options: [
-
-                    { value: 'si', description: 'Si' },
-                    { value: 'no', description: 'No' },
+                    { value: true, description: 'Si' },
+                    { value: false, description: 'No' },
                 ]
             },
             {
@@ -239,13 +216,7 @@ const data = [
                 _uid: "I_emergencia_cual",
                 component: "optionsgroup",
                 field: "I_emergencia_cual",
-                options: [
-                    { value: 'atencion_medica_de_emergencia_por_lesiones', description: 'Atención médica de emergencia por lesiones' },
-                    { value: 'crisis_nerviosa', description: 'Crisis nerviosa' },
-                    { value: 'dictamen_ginecologico_por_agresion_sexual', description: 'Dictamen ginecológico por agresión sexual' },
-                    { value: 'atencion_medica_por_agresion_sexual', description: 'Atención médica por agresión sexual' },
-                    { value: 'otras', description: 'Otras' }
-                ]
+                options: emergencia
             },
             {
                 _uid: "subheadline-periodo-gestacion",
@@ -257,9 +228,8 @@ const data = [
                 component: "optionsgroup",
                 field: "persona_conocida",
                 options: [
-
-                    { value: 'si', description: 'Si' },
-                    { value: 'no', description: 'No' },
+                    { value: true, description: 'Si' },
+                    { value: false, description: 'No' },
                 ]
             },
             {
@@ -330,16 +300,7 @@ const data = [
                 _uid: "II_genero",
                 component: "optionsgroup",
                 field: "escolaridad",
-                options: [
-                    { indexSabana: 1, value: 'cisgenero', description: 'Cisgénero', indexSabana: 1 },
-                    { indexSabana: 2, value: 'transgenero', description: 'Transgénero', indexSabana: 2 },
-                    { indexSabana: 3, value: 'transexual', description: 'Transexual', indexSabana: 3 },
-                    { indexSabana: 4, value: 'genero_fluido', description: 'Género fluido', indexSabana: 4 },
-                    { indexSabana: 5, value: 'agenero', description: 'Ágenero', indexSabana: 5 },
-                    { indexSabana: 6, value: 'persona_no_binaria', description: 'Persona no binaria', indexSabana: 6 },
-                    { indexSabana: 7, value: 'prefiero_no_decirlo', description: 'Prefiero no decirlo', indexSabana: 7 },
-                    { indexSabana: 8, value: 'otro', description: 'Otro', indexSabana: 8 }
-                ]
+                options: genero
             },
             {
                 _uid: "subheadline-especificar-genero",
@@ -728,17 +689,7 @@ const data = [
                 _uid: "III_escolaridad",
                 component: "optionsgroup",
                 field: "escolaridad",
-                options: [
-                    { value: 'kinder_o_preescolar', description: 'Kínder o preescolar' },
-                    { value: 'primaria', description: 'Primaria' },
-                    { value: 'secundaria', description: 'Secundaria' },
-                    { value: 'preparatoria_o_bachillerato', description: 'Preparatoria o bachillerato' },
-                    { value: 'normal', description: 'Normal' },
-                    { value: 'carrera_tecnica_o_comercial', description: 'Carrera técnica o comercial' },
-                    { value: 'licenciatura_o_superior', description: 'Licenciatura o superior' },
-                    { value: 'posgrado', description: 'Posgrado (maestría o doctorado)' },
-                    { value: 'ninguno', description: 'Ninguno' },
-                ]
+                options: escolaridad
             },
             {
                 _uid: "subheadline-status-escolaridad-v",
@@ -750,11 +701,7 @@ const data = [
                 _uid: "III_su_escolaridad_esta_en",
                 component: "optionsgroup",
                 field: "estatus_escolaridad",
-                options: [
-                    { value: 'en_curso', description: 'En Curso' },
-                    { value: 'terminada', description: 'Terminada' },
-                    { value: 'trunca', description: 'Trunca' },
-                ]
+                options: estatus_escolaridad
             },
 
             {
@@ -975,13 +922,7 @@ const data = [
                 _uid: "IV_ultimo_episodio_de_violencia",
                 component: "optionsgroup",
                 field: "IV_ultimo_episodio_de_violencia",
-                options: [
-                    { value: 'menos_de_1_mes', description: 'Menos de 1 mes' },
-                    { value: 'de_1_mes_a_3_meses', description: 'De 1 mes a 3 meses' },
-                    { value: 'de_3_meses_a_6_meses', description: 'De 3 meses a 6 meses' },
-                    { value: 'de_6_meses_a_un_anio', description: 'De 6 meses a un año' },
-                    { value: 'otra', description: 'Otra' },
-                ]
+                options: frecuencia_violencia
             },
             {
                 _uid: "subheadline-acciones-intentos-solucion",
@@ -1057,7 +998,6 @@ const data = [
                 component: "optionsgroup",
                 field: "persona_conocida",
                 options: [
-
                     { value: true, description: 'Si' },
                     { value: false, description: 'No' },
                 ]
@@ -1081,7 +1021,6 @@ const data = [
                 component: "optionsgroup",
                 field: "persona_conocida",
                 options: [
-
                     { value: true, description: 'Si' },
                     { value: false, description: 'No' },
                 ]
@@ -1110,9 +1049,8 @@ const data = [
                 component: "optionsgroup",
                 field: "persona_conocida",
                 options: [
-
-                    { value: 'si', description: 'Si' },
-                    { value: 'no', description: 'No' },
+                    { value: true, description: 'Si' },
+                    { value: false, description: 'No' },
                 ]
             },
             {
@@ -1169,16 +1107,7 @@ const data = [
                 _uid: "VI_genero",
                 component: "optionsgroup",
                 field: "genero",
-                options: [
-                    { value: 'cisgenero', description: 'Cisgénero' },
-                    { value: 'transgenero', description: 'Transgénero' },
-                    { value: 'transexual', description: 'Transexual' },
-                    { value: 'genero_fluido', description: 'Género fluido' },
-                    { value: 'genero', description: 'Ágenero' },
-                    { value: 'persona_no_binaria', description: 'Persona no binaria' },
-                    { value: 'prefiero_no_decirlo', description: 'Prefiero no decirlo' },
-                    { value: 'otro', description: 'Otro' }
-                ]
+                options: genero
             },
             {
                 _uid: "sexo-pa",
@@ -1189,11 +1118,7 @@ const data = [
                 _uid: "VI_sexo",
                 component: "optionsgroup",
                 field: "sexo_pa",
-                options: [
-                    { value: 'mujer', description: 'Mujer' },
-                    { value: 'hombre', description: 'Hombre' },
-                    { value: 'intersexual', description: 'Intersexual' }
-                ]
+                options: sexo
             },
             {
                 _uid: "nacionalidad_pa",
@@ -1213,20 +1138,7 @@ const data = [
                 _uid: "VI_relacion_con_la_persona_agresora",
                 component: "optionsgroup",
                 field: "VI_relacion_con_la_persona_agresora",
-                options: [
-                    { value: 'madre', description: 'Madre' },
-                    { value: 'padre', description: 'Padre' },
-                    { value: 'hija', description: 'Hija' },
-                    { value: 'hijo', description: 'Hijo' },
-                    { value: 'pareja', description: 'Pareja' },
-                    { value: 'expareja', description: 'Expareja' },
-                    { value: 'c_nyuge', description: 'Cónyuge' },
-                    { value: 'suegra', description: 'Suegra' },
-                    { value: 'suegro', description: 'Suegro' },
-                    { value: 'cuniada', description: 'Cuñada' },
-                    { value: 'cuniado', description: 'Cuñado' },
-                    { value: 'otro', description: 'Otro' }
-                ]
+                options: parentesco
             },
             {
                 _uid: "subheadline-tiempo-convivencia_-a",
@@ -1381,17 +1293,7 @@ const data = [
                 _uid: "VI_escolaridad",
                 component: "optionsgroup",
                 field: "escolaridad",
-                options: [
-                    { value: 'kinder_o_preescolar', description: 'Kínder o preescolar' },
-                    { value: 'primaria', description: 'Primaria' },
-                    { value: 'secundaria', description: 'Secundaria' },
-                    { value: 'preparatoria_o_bachillerato', description: 'Preparatoria o bachillerato' },
-                    { value: 'normal', description: 'Normal' },
-                    { value: 'carrera_tecnica_o_comercial', description: 'Carrera técnica o comercial' },
-                    { value: 'licenciatura_o_superior', description: 'Licenciatura o superior' },
-                    { value: 'posgrado', description: 'Posgrado (maestría o doctorado)' },
-                    { value: 'ninguno', description: 'Ninguno' },
-                ]
+                options: escolaridad
             },
             {
                 _uid: "d9jf",
@@ -1403,11 +1305,7 @@ const data = [
                 _uid: "VI_estatus_escolaridad",
                 component: "optionsgroup",
                 field: "estatus_escolaridad",
-                options: [
-                    { value: 'en_curso', description: 'En Curso' },
-                    { value: 'terminada', description: 'Terminada' },
-                    { value: 'trunca', description: 'Trunca' },
-                ]
+                options: estatus_escolaridad
             },
             {
                 _uid: "ds``kjnnbf",
@@ -1418,17 +1316,7 @@ const data = [
                 _uid: "VI_especificar_ocupacion",
                 component: "optionsgroup",
                 field: "ocupacion",
-                options: [
-                    { value: 'jornalera_o_albaniil', description: 'Jornalera(o)/albañil' },
-                    { value: 'empleada_o_obrera_o', description: 'Empleada(o)/Obrera(o)' },
-                    { value: 'labores_del_hogar', description: 'Labores del hogar' },
-                    { value: 'estudios', description: 'Estudios' },
-                    { value: 'negocio_propio', description: 'Negocio propio' },
-                    { value: 'deporte', description: 'Deporte' },
-                    { value: 'jubilado_pensionado', description: 'Jubilada(o)/pensionada(o)' },
-                    { value: 'ninguna', description: 'Ninguna' },
-                    { value: 'otra', description: 'Otra' }
-                ]
+                options: ocupacion
             },
             {
                 _uid: "subheadline-teléfono",
@@ -1472,31 +1360,7 @@ const data = [
                 _uid: "1gkk",
                 component: "optionsgroup",
                 field: "tipo_de_droga",
-                options: [
-                    { value: 'alcohol', description: 'Alcohol' },
-                    { value: 'marihuana', description: 'Marihuana' },
-                    { value: 'depresores_del_sistema_nervioso_central_benzos', description: 'Depresores del sistema nervioso central(benzos)' },
-                    { value: 'cocaina_crack_ghb', description: 'Cocaína (crack) 5) GHB' },
-                    { value: 'alucinogenos', description: 'Alucinógenos' },
-                    { value: 'heroina', description: 'Heroína' },
-                    { value: 'inhalantes', description: 'Inhalantes' },
-                    { value: 'ketamina', description: 'Ketamina' },
-                    { value: 'lsd_acidos', description: 'LSD (ácidos)' },
-                    { value: 'tabaco', description: 'Tabaco' },
-                    { value: 'pcp_angel_dust', description: 'PCP (ángel dust)' },
-                    { value: 'mdma_extasis', description: 'MDMA (éxtasis)' },
-                    { value: 'mescalina_peyote', description: 'Mescalina (peyote)' },
-                    { value: 'metanfetamina_cristal_meth', description: 'Metanfetamina (cristal/meth)' },
-                    { value: 'dextrometorfano_dxm', description: 'Dextrometorfano (DXM)' },
-                    { value: 'medicamentos_de_venta_libre', description: 'Medicamentos de venta libre' },
-                    { value: 'loperamida', description: 'Loperamida' },
-                    { value: 'opioides_con_receta_medica_oxy_percs', description: 'Opioides con receta médica (oxy/percs) ' },
-                    { value: 'estimulantes_con_receta_medica', description: 'Estimulantes con receta médica' },
-                    { value: 'esteroides_anabolicos', description: 'Esteroides (anabólicos)' },
-                    { value: 'cannabinoides_sinteticos_k_spice', description: 'Cannabinoides sintéticos (K2/spice)' },
-                    { value: 'catinonas_sinteticas_fentanilo', description: 'Catinonas sintéticas' },
-                    { value: 'fentanilo', description: 'Fentanilo' }
-                ]
+                options: tipo_de_droga
             },
 
 
@@ -1511,13 +1375,7 @@ const data = [
                 _uid: "VI_complexion",
                 component: "optionsgroup",
                 field: "complexion",
-                options: [
-                    { value: 'delgada', description: 'Delgada' },
-                    { value: 'mediana', description: 'Mediana' },
-                    { value: 'atletica', description: 'Atlética' },
-                    { value: 'robusta', description: 'Robusta' },
-                    { value: 'obesa', description: 'Obesa' }
-                ]
+                options: complexion
             },
             {
                 _uid: "subheadline-tez",
@@ -1528,13 +1386,7 @@ const data = [
                 _uid: "VI_tez",
                 component: "optionsgroup",
                 field: "tez",
-                options: [
-                    { value: 'blanca', description: 'Blanca' },
-                    { value: 'morena_clara', description: 'Morena clara' },
-                    { value: 'morena', description: 'Morena' },
-                    { value: 'morena_obscura', description: 'Morena obscura' },
-                    { value: 'otra', description: 'Otra' }
-                ]
+                options: tez
             },
             {
                 _uid: "subheadline-color-cabello",
@@ -1554,11 +1406,7 @@ const data = [
                 _uid: "VI_tamanio_cabello",
                 component: "optionsgroup",
                 field: "tamañio_de_cabello",
-                options: [
-                    { value: 'largo', description: 'Largo' },
-                    { value: 'mediano', description: 'Mediano' },
-                    { value: 'corto', description: 'Corto' }
-                ]
+                options: tamanio_de_cabello
             },
             {
                 _uid: "subheadline-forma-de-cabello",
@@ -1569,11 +1417,7 @@ const data = [
                 _uid: "VI_forma_cabello",
                 component: "optionsgroup",
                 field: "forma_de_cabello",
-                options: [
-                    { value: 'ondulado', description: 'Ondulado' },
-                    { value: 'rizado', description: 'Rizado' },
-                    { value: 'liso', description: 'Liso' }
-                ]
+                options: forma_cabello
             },
             {
                 _uid: "subheadline-nariz",
@@ -1584,11 +1428,7 @@ const data = [
                 _uid: "VI_nariz",
                 component: "optionsgroup",
                 field: "nariz",
-                options: [
-                    { value: 'recta', description: 'Recta' },
-                    { value: 'aplanada', description: 'Aplanada' },
-                    { value: 'ancho', description: 'Ancho' }
-                ]
+                options: nariz
             },
             {
                 _uid: "subheadline-ojos",
@@ -1599,13 +1439,7 @@ const data = [
                 _uid: "VI_color_ojos",
                 component: "optionsgroup",
                 field: "ojos",
-                options: [
-                    { value: 'cafe_claro', description: 'Café claro' },
-                    { value: 'cafe', description: 'Café' },
-                    { value: 'verdes', description: 'Verdes' },
-                    { value: 'azul', description: 'Azul' },
-                    { value: 'gris', description: 'Gris' }
-                ]
+                options: ojos
             },
             {
                 _uid: "VI_tamanio_ojos",
@@ -1616,11 +1450,7 @@ const data = [
                 _uid: "tamanio_ojos",
                 component: "optionsgroup",
                 field: "tamanio_ojos",
-                options: [
-                    { value: 'pequenios', description: 'Pequeños' },
-                    { value: 'medianos', description: 'Medianos' },
-                    { value: 'grandes', description: 'Grandes' }
-                ]
+                options: tamanio_ojos
             },
             {
                 _uid: "subheadline-forma-ojos",
@@ -1631,13 +1461,7 @@ const data = [
                 _uid: "VI_forma_ojos",
                 component: "optionsgroup",
                 field: "forma_ojos",
-                options: [
-                    { value: 'saltones', description: 'Saltones' },
-                    { value: 'redondos', description: 'redondos' },
-                    { value: 'alargados', description: 'Alargados' },
-                    { value: 'oblicuos', description: 'oblicuos' },
-                    { value: 'hundidos', description: 'hundidos' }
-                ]
+                options: forma_ojos
             },
             {
                 _uid: "subheadline-estado-físico",
@@ -1648,11 +1472,7 @@ const data = [
                 _uid: "VI_estado_fisico_aparente",
                 component: "optionsgroup",
                 field: "estado_fisico",
-                options: [
-                    { value: 'bueno', description: 'Bueno' },
-                    { value: 'malo', description: 'Malo' },
-                    { value: 'regular', description: 'Regular' }
-                ]
+                options: estado_fisico
             },
             {
                 _uid: "subheadline-estado-físico-descripcion",
@@ -1738,13 +1558,6 @@ const data = [
 
         ]
     },
-
-
-
-
-
-
-
 ]
 
 
