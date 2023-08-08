@@ -5,13 +5,14 @@ import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import PrimaryLinkButton from "@/components/PrimaryLinkButton";
 import { routes } from "@/helpers/routes";
 
-import { DynamicComponent } from "@/components/DynamicComponents";
+
 import axios from 'axios';
 import { apiRoutes } from '@/helpers/apiRoutes';
 import LoaderSkeleton from '@/components/LoaderSkeleton';
 
 import formFields from '@/helpers/formFields';
 import { CedulaContext } from '@/app/CedulaProvider';
+import { DynamicComponent } from '@/components/dynamicComponents';
 
 
 const data = formFields;
