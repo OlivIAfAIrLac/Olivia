@@ -3,11 +3,12 @@ import { useState } from "react"
 export default function OptionsGroup(props) {
 
     const [userValue, setUserValue] = useState(props.block.options[0])
+   
     
     const handleChange = (e, id) => {
         const find = props.block.options.find(item => item.value === e.target.value)
         setUserValue(find)
-        console.log(id, e.target.value)
+        props.onChange(e, id)
     }
 
     return (
