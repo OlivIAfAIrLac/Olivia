@@ -1,6 +1,6 @@
-/* eslint-disable react/display-name */
-/* eslint-disable import/no-anonymous-default-export */
-import React from "react";
+
+
+import React, { createElement, useContext } from "react";
 import Checkbox from "@/components/dynamic-components/Checkbox";
 import Headline from "@/components/dynamic-components/Headline";
 import SubHeadline from "@/components/dynamic-components/SubHeadline";
@@ -11,10 +11,9 @@ import Break from "@/components/dynamic-components/Break";
 import Textarea from "@/components/dynamic-components/Textarea";
 import OptionsGroup from "@/components/dynamic-components/OptionsGroup";
 import MultipleOptionsGroup from "@/components/dynamic-components/MultipleOptionsGroup";
+import { CedulaContext } from "@/app/CedulaProvider";
 
-import { updateCedula } from "@/helpers/updateCedula";
 
- 
 const Components = {
   checkbox: Checkbox,
   headline: Headline,
@@ -28,45 +27,18 @@ const Components = {
   multipleoptionsgroup: MultipleOptionsGroup
 };
 
- 
-const changed = (e, id) => {
-  alert("changed")
-  const newValue = updateCedula(id, e.target.value)
-  const cedula = JSON.parse(localStorage.getItem("cedula"))
-  const newCedula = {...cedula.cedula, ...newValue}
-  cedula.cedula = newCedula
-  localStorage.setItem("cedula", JSON.stringify(cedula))
-}
-
-const changedGroup = (e, id) => {
-  const newValue = updateCedula(id, e.target.value)
-  console.log(newValue)
-  console.log(JSON.parse(localStorage.getItem("cedula")))
-
-}
-
-const multipleChangedGroup = (e, id) => {
-  const newValue = updateCedula(id, e.target.value)
-  console.log(JSON.parse(localStorage.getItem("cedula")))
-
-  
-}
-
-export default block => {
-  // component does exist
-  if (typeof Components[block.component] !== "undefined") {
-    return React.createElement(Components[block.component], {
+export const DynamicComponent = block => {
+  return createElement(
+    CedulaContext.Consumer,
+    null,
+    context => createElement(Components[block.component], {
+      context,
       key: block._uid,
-      block: block, 
-      onClick: () => {clicked()},
-      onChange: (e, id) => {changed(e, id)},
-      onChangeGroup: (e, id) => {changedGroup(e, id)},
-      onChangedMultiple: (e, id) => (multipleChangedGroup(e, id))
-    });
-  }
-  // component doesn't exist yet
-  return React.createElement(
-    () => <div>The component {block.component} has not been created yet.</div>,
-    { key: block._uid }
+      block: block,
+      onClick: () => { context.clicked() },
+      onChange: (e, id) => { context.changed(e, id) },
+      onChangeGroup: (e, id) => { context.changedGroup(e, id) },
+      onChangedMultiple: (e, id) => (context.multipleChangedGroup(e, id))
+    })
   );
 }

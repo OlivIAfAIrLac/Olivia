@@ -1,16 +1,17 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import Container from "@/components/Container";
 import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import PrimaryLinkButton from "@/components/PrimaryLinkButton";
 import { routes } from "@/helpers/routes";
 
-import Components from "@/components/dynamicComponents";
+import Components, { DynamicComponent } from "@/components/dynamicComponents";
 import axios from 'axios';
 import { apiRoutes } from '@/helpers/apiRoutes';
 import LoaderSkeleton from '@/components/LoaderSkeleton';
 
 import formFields from '@/helpers/formFields';
+import CedulaProvider, { CedulaContext } from '@/app/CedulaProvider';
 
 
 const data = formFields;
@@ -37,10 +38,10 @@ const HomeCedula = ({ params, searchParams }) => {
     const [sidebarOptions, setSidebarOptions] = useState(menuOptions)
     const [activeData, setActiveData] = useState(searchParams.activeSection ?? 0)
 
-    const renderingButtonOption = (item) => {
+    const renderingButtonOption = (item, index) => {
         const { active, label } = sidebarOptions[item];
         return <button
-            key={item}
+            key={item + index}
             className={`${active && 'main-bg'} border-x-2 border-t-2 last:border-b-2 border-color-primary px-4 py-2 text-left font-bold capitalize h-16`}
             onClick={() => setActiveOption(item)}
         >
@@ -124,15 +125,15 @@ const HomeCedula = ({ params, searchParams }) => {
                     {
                         loading
                             ? <LoaderSkeleton />
-                            : <>
+                            : <CedulaProvider>
                                 <div className="flex flex-col primary-btn w-1/4">
                                     {Object.keys(sidebarOptions).map(renderingButtonOption)}
                                 </div>
                                 {/* Forms */}
-                                    <section className="main-bg w-3/4 p-3">
-                                        {data[activeData].content.map(block => Components(block))}
-                                    </section>
-                            </>
+                                <section className="main-bg w-3/4 p-3">
+                                    {data[activeData].content.map(block => DynamicComponent(block))}
+                                </section>
+                            </CedulaProvider>
                     }
                     {/* SIDEBAR */}
 
