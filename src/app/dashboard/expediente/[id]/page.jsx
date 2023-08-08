@@ -68,7 +68,7 @@ const HomeFolio = ({ params }) => {
                 setSelectedFiles([])
             }
         } catch (error) {
-            
+
             alert(error)
             console.error(error);
         }
@@ -92,7 +92,7 @@ const HomeFolio = ({ params }) => {
                 setSelectedAudios([])
             }
         } catch (error) {
-            
+
             console.error(error);
         }
     }
@@ -113,7 +113,7 @@ const HomeFolio = ({ params }) => {
                 setRefresh(true)
             }
         } catch (error) {
-            
+
             // TODO: Handle errors 
             console.error(error);
         }
@@ -127,7 +127,7 @@ const HomeFolio = ({ params }) => {
                 setRefresh(false)
             }
         } catch (error) {
-            
+            setError(error)
             /* TODO: Handle error messages */
             console.error(error);
         }
@@ -269,9 +269,9 @@ const HomeFolio = ({ params }) => {
 
     return (
         <div className="login-bg py-12 pl-14">
-            <pre>
-                {error}
-            </pre>
+            <label>
+                {JSON.stringify(error)}
+            </label>
             <AudioModal />
             <DocumentModal />
             <RemoveAudioModal />
