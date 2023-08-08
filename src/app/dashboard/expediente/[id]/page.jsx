@@ -67,6 +67,7 @@ const HomeFolio = ({ params }) => {
                 setSelectedFiles([])
             }
         } catch (error) {
+            alert(error)
             console.error(error);
         }
     }
