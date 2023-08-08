@@ -48,7 +48,6 @@ const LoginForm = ({
                     redirect: false
                 });
                 if (resAuth.ok) {
-                    console.log("OKA!");
                     setIsLoading(false)
                     router.push(routes.dashboard.main)
                 }
