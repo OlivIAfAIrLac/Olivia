@@ -10,11 +10,11 @@ const DropdownUser = () => {
 
     const handleSingOut = async () => {
         localStorage.removeItem('olivia-auth')
-        const data = await signOut({
+        await signOut({
             redirect: false,
-            callbackUrl: routes.login.signIn
+            callbackUrl: 'https://www.olivia-fairlac.org/login'
         })
-        router.push(data.url)
+        router.push(routes.dashboard.main)
     }
 
     return (
