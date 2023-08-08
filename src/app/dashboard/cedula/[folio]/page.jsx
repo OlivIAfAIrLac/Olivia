@@ -4,7 +4,6 @@ import Container from "@/components/Container";
 import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import PrimaryLinkButton from "@/components/PrimaryLinkButton";
 import { routes } from "@/helpers/routes";
-import { cedulaData } from "@/mock/apiResponse";
 
 import Components from "@/components/dynamicComponents";
 import axios from 'axios';
@@ -33,11 +32,7 @@ const HomeCedula = ({ params, searchParams }) => {
     const [dataCedula, setDataCedula] = useState()
     const [loading, setLoading] = useState(true)
     const { folio } = params;
-    /* TODO:REOMVE MOCKUP AFTER MAP */
-    const {
-        expediente,
-        cedula
-    } = cedulaData;
+
 
     const [sidebarOptions, setSidebarOptions] = useState(menuOptions)
     const [activeData, setActiveData] = useState(searchParams.activeSection ?? 0)
