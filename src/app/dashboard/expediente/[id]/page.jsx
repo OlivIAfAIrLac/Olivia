@@ -68,7 +68,7 @@ const HomeFolio = ({ params }) => {
                 setSelectedFiles([])
             }
         } catch (error) {
-            setError(error)
+            
             alert(error)
             console.error(error);
         }
@@ -92,7 +92,7 @@ const HomeFolio = ({ params }) => {
                 setSelectedAudios([])
             }
         } catch (error) {
-            setError(error)
+            
             console.error(error);
         }
     }
@@ -113,7 +113,7 @@ const HomeFolio = ({ params }) => {
                 setRefresh(true)
             }
         } catch (error) {
-            setError(error)
+            
             // TODO: Handle errors 
             console.error(error);
         }
@@ -127,7 +127,7 @@ const HomeFolio = ({ params }) => {
                 setRefresh(false)
             }
         } catch (error) {
-            setError(error)
+            
             /* TODO: Handle error messages */
             console.error(error);
         }
