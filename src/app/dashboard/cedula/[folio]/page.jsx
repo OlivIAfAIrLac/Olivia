@@ -5,13 +5,13 @@ import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import PrimaryLinkButton from "@/components/PrimaryLinkButton";
 import { routes } from "@/helpers/routes";
 
-import Components, { DynamicComponent } from "@/components/dynamicComponents";
+import { DynamicComponent } from "@/components/DynamicComponents";
 import axios from 'axios';
 import { apiRoutes } from '@/helpers/apiRoutes';
 import LoaderSkeleton from '@/components/LoaderSkeleton';
 
 import formFields from '@/helpers/formFields';
-import CedulaProvider, { CedulaContext } from '@/app/CedulaProvider';
+import { CedulaContext } from '@/app/CedulaProvider';
 
 
 const data = formFields;
@@ -30,9 +30,13 @@ const menuOptions = {
 
 const HomeCedula = ({ params, searchParams }) => {
     /* FOLIO => EXPEDIENTE_ID */
-    const [dataCedula, setDataCedula] = useState()
-    const [loading, setLoading] = useState(true)
     const { folio } = params;
+    const {
+        loading,
+        dataCedula,
+        setLoading,
+        setDataCedula
+    } = useContext(CedulaContext)
 
 
     const [sidebarOptions, setSidebarOptions] = useState(menuOptions)
@@ -59,7 +63,6 @@ const HomeCedula = ({ params, searchParams }) => {
 
     }
 
-
     const getDataCedula = useCallback(
         async () => {
             try {
@@ -78,10 +81,6 @@ const HomeCedula = ({ params, searchParams }) => {
         },
         [folio],
     )
-
-    const sendDataCedula = () => {
-        console.log(JSON.parse(localStorage.getItem("cedula")))
-    }
 
     useEffect(() => {
         getDataCedula()
@@ -125,7 +124,7 @@ const HomeCedula = ({ params, searchParams }) => {
                     {
                         loading
                             ? <LoaderSkeleton />
-                            : <CedulaProvider>
+                            : <>
                                 <div className="flex flex-col primary-btn w-1/4">
                                     {Object.keys(sidebarOptions).map(renderingButtonOption)}
                                 </div>
@@ -133,13 +132,12 @@ const HomeCedula = ({ params, searchParams }) => {
                                 <section className="main-bg w-3/4 p-3">
                                     {data[activeData].content.map(block => DynamicComponent(block))}
                                 </section>
-                            </CedulaProvider>
+                            </>
                     }
                     {/* SIDEBAR */}
 
                 </div>
             </Container>
-            <button className="mt-3 m-auto block primary-btn px-3 py-1" onClick={sendDataCedula}>SUBMIT</button>
         </div>
     );
 

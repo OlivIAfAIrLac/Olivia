@@ -1,5 +1,27 @@
 
-import { area_que_atiende, modalidad_asesora, complexion, emergencia, escolaridad, estado_fisico, estatus_escolaridad, forma_cabello, forma_ojos, frecuencia_violencia, genero, nariz, ocupacion, ojos, parentesco, requerimiento_especifico, sexo, tamanio_de_cabello, tamanio_ojos, tez, tipo_de_droga } from "./catalogos";
+import {
+    area_que_atiende,
+    modalidad_asesora,
+    complexion,
+    emergencia,
+    escolaridad,
+    estado_fisico,
+    estatus_escolaridad,
+    forma_cabello,
+    forma_ojos,
+    frecuencia_violencia,
+    genero,
+    nariz,
+    ocupacion,
+    ojos,
+    parentesco,
+    requerimiento_especifico,
+    sexo,
+    tamanio_de_cabello,
+    tamanio_ojos,
+    tez,
+    tipo_de_droga
+} from "./catalogos";
 
 const formFields = [
     {
@@ -450,7 +472,7 @@ const formFields = [
             {
                 _uid: "subheadline-calle",
                 component: "subheadline",
-                text: "Calle",    
+                text: "Calle",
             },
             {
                 _uid: "II_direccion_calle",
@@ -1604,7 +1626,7 @@ const formFields = [
             {
                 _uid: "VI_especificar_senias",
                 component: "input",
-                
+
             },
             {
                 _uid: "subheadline-tatuajes",
@@ -1622,7 +1644,7 @@ const formFields = [
             {
                 _uid: "VI_especifique_tatuajes",
                 component: "input",
-              
+
             },
             {
                 _uid: "subheadline-lunares",
@@ -1640,7 +1662,7 @@ const formFields = [
             {
                 _uid: "VI_especifique_lunares",
                 component: "input",
-                
+
             },
             {
                 _uid: "subheadline-barba",

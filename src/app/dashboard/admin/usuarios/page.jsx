@@ -20,13 +20,11 @@ const HomeAdminUsers = () => {
     const [loading, setLoading] = useState(false)
     const [refresh, setRefresh] = useState(false)
     const [search, setSearch] = useState('')
-    const [isOnSearching, setIsOnSearching] = useState(false)
 
 
     const handleOnSearch = (ev) => {
         ev.preventDefault()
         setSearch(ev.target.value)
-        setIsOnSearching(true)
     }
 
     const getData = useCallback(
@@ -45,7 +43,7 @@ const HomeAdminUsers = () => {
                 setLoading(false)
             }
         },
-        [search, isOnSearching],
+        [search],
     )
 
     useEffect(() => {

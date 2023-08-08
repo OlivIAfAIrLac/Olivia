@@ -31,6 +31,7 @@ const HomeFolio = ({ params }) => {
     const [refresh, setRefresh] = useState(false)
     const [selectedFile2Remove, setSelectedFile2Remove] = useState('')
     const [selectedTypeFile2Remove, setSelectedTypeFile2Remove] = useState('')
+    const [error, setError] = useState()
 
     const handleOpenModalAudio = (ev) => {
         setOpenModalAudio(true)
@@ -67,6 +68,7 @@ const HomeFolio = ({ params }) => {
                 setSelectedFiles([])
             }
         } catch (error) {
+            setError(error)
             alert(error)
             console.error(error);
         }
@@ -90,6 +92,7 @@ const HomeFolio = ({ params }) => {
                 setSelectedAudios([])
             }
         } catch (error) {
+            setError(error)
             console.error(error);
         }
     }
@@ -110,6 +113,7 @@ const HomeFolio = ({ params }) => {
                 setRefresh(true)
             }
         } catch (error) {
+            setError(error)
             // TODO: Handle errors 
             console.error(error);
         }
@@ -123,6 +127,7 @@ const HomeFolio = ({ params }) => {
                 setRefresh(false)
             }
         } catch (error) {
+            setError(error)
             /* TODO: Handle error messages */
             console.error(error);
         }
@@ -264,6 +269,9 @@ const HomeFolio = ({ params }) => {
 
     return (
         <div className="login-bg py-12 pl-14">
+            <pre>
+                {error}
+            </pre>
             <AudioModal />
             <DocumentModal />
             <RemoveAudioModal />

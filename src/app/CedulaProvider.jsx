@@ -1,9 +1,14 @@
 import { updateCedula } from "@/helpers/updateCedula";
-import { createContext } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
+import axios from 'axios';
+import { apiRoutes } from '@/helpers/apiRoutes';
 
 export const CedulaContext = createContext();
 
 const CedulaProvider = ({ children }) => {
+    const [dataCedula, setDataCedula] = useState()
+    const [loading, setLoading] = useState(true)
+
 
     const changed = (e, id) => {
         // alert("changed")
@@ -12,22 +17,17 @@ const CedulaProvider = ({ children }) => {
         const newCedula = { ...cedula.cedula, ...newValue }
         cedula.cedula = newCedula
         console.log(newValue)
-        // localStorage.setItem("cedula", JSON.stringify(cedula))
     }
 
     const changedGroup = (e, id) => {
         const newValue = updateCedula(id, e.target.value)
-        console.log(newValue)
-        // console.log(JSON.parse(localStorage.getItem("cedula")))
+        console.log("changedGroup", newValue)
 
     }
 
     const multipleChangedGroup = (e, id) => {
         const newValue = updateCedula(id, e.target.value)
-        console.log(newValue)
-        // console.log(JSON.parse(localStorage.getItem("cedula")))
-
-
+        console.log("multipleChangedGroup", newValue)
     }
 
 
@@ -43,9 +43,15 @@ const CedulaProvider = ({ children }) => {
         }
     }
 
+
+
     return (
         <CedulaContext.Provider value={{
             handleOnChange,
+            dataCedula,
+            setDataCedula,
+            loading,
+            setLoading,
             changed,
             changedGroup,
             multipleChangedGroup,
