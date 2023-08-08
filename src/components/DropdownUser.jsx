@@ -1,9 +1,9 @@
 'use-client'
 import { routes } from "@/helpers/routes";
+import { signOut } from 'next-auth/react';
 import Link from "next/link";
-import { BiUserCircle } from "react-icons/bi";
-import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from "next/navigation";
+import { BiUserCircle } from "react-icons/bi";
 
 const DropdownUser = () => {
     const router = useRouter()
@@ -14,7 +14,7 @@ const DropdownUser = () => {
             redirect: false,
             callbackUrl: 'https://www.olivia-fairlac.org/login'
         })
-        router.push(routes.dashboard.main)
+        router.push(routes.login.signIn)
     }
 
     return (
