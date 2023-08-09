@@ -49,7 +49,6 @@ export default function AdminUsersModal({
                                 {/* Button Group */}
                                 <div className="grid grid-flow-col gap-6 text-center">
                                     <button className="font-bold navbar-bg capitalize py-3 w-full mt-5" onClick={handleRemove}>
-                                        {/* TODO: handle remove */}
                                         eliminar
                                     </button>
                                     <button className="font-bold navbar-bg capitalize py-3 w-full mt-5"

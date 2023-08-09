@@ -1,18 +1,19 @@
 'use client'
-import { useCallback, useContext, useEffect, useState } from 'react'
 import Container from "@/components/Container";
 import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import PrimaryLinkButton from "@/components/PrimaryLinkButton";
 import { routes } from "@/helpers/routes";
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 
-import axios from 'axios';
-import { apiRoutes } from '@/helpers/apiRoutes';
 import LoaderSkeleton from '@/components/LoaderSkeleton';
+import { apiRoutes } from '@/helpers/apiRoutes';
+import axios from 'axios';
 
-import formFields from '@/helpers/formFields';
 import { CedulaContext } from '@/app/CedulaProvider';
+import { NotificationContext } from '@/app/NotificationProvider';
 import { DynamicComponent } from '@/components/dynamicComponents';
+import formFields from '@/helpers/formFields';
 
 
 const data = formFields;
@@ -39,6 +40,7 @@ const HomeCedula = ({ params, searchParams }) => {
         setDataCedula
     } = useContext(CedulaContext)
 
+    const notificationCtx = useContext(NotificationContext)
 
     const [sidebarOptions, setSidebarOptions] = useState(menuOptions)
     const [activeData, setActiveData] = useState(searchParams.activeSection ?? 0)
@@ -69,14 +71,14 @@ const HomeCedula = ({ params, searchParams }) => {
             try {
                 const res = await axios.get(`${apiRoutes.CEDULA}/${folio}`);
                 if (res.status === 200) {
-                    /* TODO: add to some DATA State */
                     setLoading(false)
                     setDataCedula(res.data)
-                    localStorage.setItem("cedula", JSON.stringify(res.data));
+                    // localStorage.setItem("cedula", JSON.stringify(res.data));
                 }
 
             } catch (error) {
-                /* TODO: Hanlde error message */
+                notificationCtx.setError(error)
+                notificationCtx.setShowErrorNotification(true)
                 console.error(error);
             }
         },

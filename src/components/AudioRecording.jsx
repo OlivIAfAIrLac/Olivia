@@ -1,13 +1,14 @@
 
-import { useState, useRef, useEffect } from "react";
-import IconButton from "./IconButton";
+import { NotificationContext } from "@/app/NotificationProvider";
+import { apiRoutes } from "@/helpers/apiRoutes";
+import axios from "axios";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BiSolidMicrophone } from "react-icons/bi";
-import { TbUpload } from "react-icons/tb";
-import Modal from "./Modal";
 import { BsFillRecordFill } from "react-icons/bs";
 import { FaFileAudio } from "react-icons/fa6";
-import axios from "axios";
-import { apiRoutes } from "@/helpers/apiRoutes";
+import { TbUpload } from "react-icons/tb";
+import IconButton from "./IconButton";
+import Modal from "./Modal";
 
 const mimeType = "audio/x-wav";
 
@@ -16,6 +17,7 @@ const AudioRecorder = ({
     setRefresh,
     id,
 }) => {
+    const notificationCtx = useContext(NotificationContext)
     const [permission, setPermission] = useState(false);
     const mediaRecorder = useRef(null);
     const [recordingStatus, setRecordingStatus] = useState("inactive");
@@ -101,7 +103,8 @@ const AudioRecorder = ({
                 setRefresh(true)
             }
         } catch (error) {
-            /* TODO:Handle error notification */
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
             console.error(error);
         }
     }

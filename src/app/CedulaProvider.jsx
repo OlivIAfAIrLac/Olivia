@@ -1,11 +1,11 @@
 import { updateCedula } from "@/helpers/updateCedula";
-import { createContext, useCallback, useEffect, useState } from "react";
-import axios from 'axios';
-import { apiRoutes } from '@/helpers/apiRoutes';
+import { createContext, useContext, useState } from "react";
+import { NotificationContext } from "./NotificationProvider";
 
 export const CedulaContext = createContext();
 
 const CedulaProvider = ({ children }) => {
+    const notificationCtx = useContext(NotificationContext)
     const [dataCedula, setDataCedula] = useState()
     const [loading, setLoading] = useState(true)
 
@@ -39,7 +39,8 @@ const CedulaProvider = ({ children }) => {
         try {
 
         } catch (error) {
-            /* TODO:  */
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
         }
     }
 

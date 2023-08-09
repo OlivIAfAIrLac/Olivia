@@ -1,14 +1,15 @@
 'use client'
 import { getCatalogoIndexSabana } from "@/helpers/catalogos";
 // import { sabanaData } from "@/mock/apiResponse";
+import { NotificationContext } from "@/app/NotificationProvider";
 import { apiRoutes } from "@/helpers/apiRoutes";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { DownloadTableExcel } from 'react-export-table-to-excel';
-import LoaderSkeleton from "./LoaderSkeleton";
-import axios from "axios";
-import { RiFileExcel2Fill } from 'react-icons/ri'
-import { useRouter } from "next/navigation";
 import { routes } from "@/helpers/routes";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { DownloadTableExcel } from 'react-export-table-to-excel';
+import { RiFileExcel2Fill } from 'react-icons/ri';
+import LoaderSkeleton from "./LoaderSkeleton";
 
 
 const cabecerasSabana = [
@@ -347,6 +348,7 @@ const cabecerasSabana = [
 const Cell = ({ children }) => <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{children}</td>;
 
 export default function SabanaTable() {
+  const notificationCtx = useContext(NotificationContext)
   const tableRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true)
   const [sabanaData, setSabanaData] = useState([])
@@ -362,10 +364,12 @@ export default function SabanaTable() {
           setIsLoading(false)
         }
       } catch (error) {
-        /* TODO: Handle errors */
+        notificationCtx.setError(error)
+        notificationCtx.setShowErrorNotification(true)
       }
 
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [initDate, lastDate],
   )
 

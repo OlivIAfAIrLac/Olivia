@@ -1,4 +1,5 @@
 'use client'
+import { NotificationContext } from "@/app/NotificationProvider";
 import AdminUsersModal from "@/components/AdminUsersModal";
 import Container from "@/components/Container";
 import IconButton from "@/components/IconButton";
@@ -11,11 +12,12 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { FaUserEdit, FaUserTimes } from "react-icons/fa";
 import { FaRegEye, FaUserPlus } from "react-icons/fa6";
 
 const HomeAdminUsers = () => {
+    const notificationCtx = useContext(NotificationContext)
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false)
     const [refresh, setRefresh] = useState(false)
@@ -39,7 +41,8 @@ const HomeAdminUsers = () => {
                 }
             } catch (error) {
                 console.error(error);
-                /* TODO: Handle error messages */
+                notificationCtx.setError(error)
+                notificationCtx.setShowErrorNotification(true)
                 setLoading(false)
             }
         },
@@ -72,7 +75,8 @@ const HomeAdminUsers = () => {
                     setRefresh(true)
                 }
             } catch (error) {
-                /* TODO: Handle error messages */
+                notificationCtx.setError(error)
+                notificationCtx.setShowErrorNotification(true)
                 console.error(error);
             }
             setOpenRemoveModal(false)

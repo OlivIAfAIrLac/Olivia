@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from "next/navigation";
 import CloseBtn from "./CloseBtn";
 import Input from "./Input";
-import { useState } from 'react';
+import {  useState } from 'react';
 import ErrorNotification from './ErrorNotification';
 
 
@@ -53,7 +53,6 @@ const LoginForm = ({
                 }
             }
         } catch (error) {
-            /* TODO: Handle error messages */
 
             setError({ message: 'No se encontró usuario' })
             setShow(true)

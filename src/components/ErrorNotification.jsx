@@ -9,11 +9,8 @@ export default function ErrorNotification({
     error = { message: '' },
     show = false,
     setShow,
-    
 }) {
-    // const [show, setShow] = useState()
-
-    return (
+        return (
         <>
             {/* Global notification live region, render this permanently at the end of the document */}
             <div

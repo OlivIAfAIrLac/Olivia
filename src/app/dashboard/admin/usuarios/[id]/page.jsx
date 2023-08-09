@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
+import { NotificationContext } from '@/app/NotificationProvider'
 import AdminUsersButton from '@/components/AdminUsersButton'
 import AdminUsersModal from '@/components/AdminUsersModal'
 import Container from '@/components/Container'
@@ -8,15 +9,15 @@ import IconButton from '@/components/IconButton'
 import LoaderSkeleton from '@/components/LoaderSkeleton'
 import { UserCreatedScreen } from '@/components/UserCreatedScreen'
 import UserProfile from '@/components/UserProfile'
-import UserStadistics from '@/components/UserStadistics'
 import { apiRoutes } from '@/helpers/apiRoutes'
 import { routes } from '@/helpers/routes'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { FaUserEdit, FaUserTimes } from 'react-icons/fa'
 
 const UserByID = ({ params, searchParams }) => {
+    const notificationCtx = useContext(NotificationContext)
     const router = useRouter()
     const { id } = params;
     const { edit } = searchParams;
@@ -59,7 +60,8 @@ const UserByID = ({ params, searchParams }) => {
                 setUserData({ ...body })
             }
         } catch (error) {
-            /* TODO: Handle error messages */
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
             console.error(error);
         }
     }
@@ -88,7 +90,8 @@ const UserByID = ({ params, searchParams }) => {
                 router.push(routes.dashboard.admin.adminUsuarios)
             }
         } catch (error) {
-            /* TODO: Handle error messages */
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
             console.error(error);
         }
         setOpenRemoveModal(false)

@@ -1,4 +1,5 @@
 'use client'
+import { NotificationContext } from "@/app/NotificationProvider";
 import DateTimeDisplayer from "@/components/DateTimeDisplayer";
 import Input from "@/components/Input";
 import PrimaryLinkButton from "@/components/PrimaryLinkButton";
@@ -6,13 +7,14 @@ import { apiRoutes } from "@/helpers/apiRoutes";
 import { routes } from "@/helpers/routes";
 import { dataExpedientes } from "@/mock/apiResponse";
 import axios from "axios";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 const newExpediente = {
     nombre: '',
     curp: ''
 }
 
 const HomeNuevoExpediente = () => {
+    const notificationCtx = useContext(NotificationContext)
     const [expedienteData, setExpedienteData] = useState(newExpediente)
     const [expedienteIsCreated, setExpedienteIsCreated] = useState(false)
     const [expedienteCreated, setExpedienteCreated] = useState()
@@ -25,7 +27,8 @@ const HomeNuevoExpediente = () => {
                 setExpedienteIsCreated(true)
             }
         } catch (error) {
-            /* TODO: Handle error messages */
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
             console.error(error);
         }
     }
@@ -95,7 +98,6 @@ const HomeNuevoExpediente = () => {
                                         </h1>
                                     </div>
                                     <div className="grid grid-flow-col gap-3 text-center">
-                                        {/* TODO: add folio after created */}
                                         <PrimaryLinkButton
                                             href={`${routes.dashboard.expediente}/${expedienteCreated.expediente._id}`}
                                         >

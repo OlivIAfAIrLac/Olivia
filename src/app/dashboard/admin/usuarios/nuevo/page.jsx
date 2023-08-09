@@ -1,4 +1,5 @@
 'use client'
+import { NotificationContext } from "@/app/NotificationProvider";
 import Container from "@/components/Container";
 import { FormCreateUser } from "@/components/FormCreateUser";
 import { UserCreatedScreen } from "@/components/UserCreatedScreen";
@@ -6,11 +7,12 @@ import { apiRoutes } from "@/helpers/apiRoutes";
 
 import axios from "axios";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 
 
 const NewUserHome = () => {
+    const notificationCtx = useContext(NotificationContext)
     const [userCreated, setUserCreated] = useState(false)
     const [userData, setUserData] = useState({})
 
@@ -45,7 +47,8 @@ const NewUserHome = () => {
                 setUserData({ ...res.data })
             }
         } catch (error) {
-            /* TODO: Handle error messages */
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
             console.error(error);
         }
 

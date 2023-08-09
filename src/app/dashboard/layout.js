@@ -4,6 +4,7 @@ import Navigation from "@/components/Navigation";
 import "../../styles/globals.css";
 import { Providers } from "../Providers";
 import CedulaProvider from "../CedulaProvider";
+import NotificationProvider from "../NotificationProvider";
 
 
 export default function RootLayout({ children }) {
@@ -11,13 +12,15 @@ export default function RootLayout({ children }) {
     return (
         <html lang="es-MX">
             <body className="main-bg outfit-font">
-                <Providers>
-                    <Navigation />
-                    <CedulaProvider>
-                        {children}
-                    </CedulaProvider>
-                    <Footer />
-                </Providers>
+                <NotificationProvider>
+                    <Providers>
+                        <Navigation />
+                        <CedulaProvider>
+                            {children}
+                        </CedulaProvider>
+                        <Footer />
+                    </Providers>
+                </NotificationProvider>
             </body>
         </html>
     )

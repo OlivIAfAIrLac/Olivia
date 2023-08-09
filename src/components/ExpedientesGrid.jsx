@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { NotificationContext } from "@/app/NotificationProvider";
 import { apiRoutes } from "@/helpers/apiRoutes";
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import CardRecord from "./CardRecord";
 import Container from "./Container";
@@ -10,6 +11,7 @@ import LoaderSkeleton from "./LoaderSkeleton";
 import SearchButton from "./SearchButton";
 
 const ExpedientesGrid = () => {
+    const notificationCtx = useContext(NotificationContext)
     const [dataExpedientes, setDataExpedientes] = useState([])
     const [expedientesLoading, setExpedientesLoading] = useState(true);
     const [hasNextPage, setHasNextPage] = useState(false)
@@ -31,7 +33,8 @@ const ExpedientesGrid = () => {
             }
 
         } catch (error) {
-            /* TODO: Handle error messages */
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
             console.error(error);
         }
     },

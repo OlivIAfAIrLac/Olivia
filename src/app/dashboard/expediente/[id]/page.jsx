@@ -1,4 +1,5 @@
 'use client'
+import { NotificationContext } from "@/app/NotificationProvider";
 import AudioPlayer from "@/components/AudioPlayer";
 import AudioRecorder from "@/components/AudioRecording";
 import ButtonGroupCedulaExpediente from "@/components/ButtonGroupCedulaExpediente";
@@ -13,12 +14,13 @@ import { apiRoutes } from "@/helpers/apiRoutes";
 import { routes } from "@/helpers/routes";
 import axios from "axios";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { TbUpload } from "react-icons/tb";
 
 
 
 const HomeFolio = ({ params }) => {
+    const notificationCtx = useContext(NotificationContext)
     const { id } = params;
     const [expedienteData, setExpedienteData] = useState()
     const [openModalAudio, setOpenModalAudio] = useState(false)
@@ -119,8 +121,8 @@ const HomeFolio = ({ params }) => {
                 setRefresh(true)
             }
         } catch (error) {
-
-            // TODO: Handle errors 
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
             console.error(error);
         }
     }
@@ -134,7 +136,8 @@ const HomeFolio = ({ params }) => {
             }
         } catch (error) {
             setError(error)
-            /* TODO: Handle error messages */
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
             console.error(error);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
