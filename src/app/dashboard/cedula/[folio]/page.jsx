@@ -12,7 +12,7 @@ import axios from 'axios';
 
 import { CedulaContext } from '@/app/CedulaProvider';
 import { NotificationContext } from '@/app/NotificationProvider';
-import { DynamicComponent } from '@/components/dynamicComponents';
+import { DynamicComponent } from '@/components/DynamicComponents';
 import formFields from '@/helpers/formFields';
 
 

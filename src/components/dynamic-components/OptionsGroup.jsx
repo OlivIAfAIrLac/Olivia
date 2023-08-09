@@ -1,13 +1,9 @@
 import { useState } from "react"
 
 export default function OptionsGroup(props) {
-
-    const [userValue, setUserValue] = useState(props.block.options[0])
-
-
+    const [selected, setSelected] = useState(props.defaultValue)
     const handleChange = (e, id) => {
-        const find = props.block.options.find(item => item.value === e.target.value)
-        setUserValue(find)
+        setSelected(e.target.value)
         props.onChange(e, id)
     }
 
@@ -22,8 +18,9 @@ export default function OptionsGroup(props) {
                                 type="radio"
                                 value={item.value}
                                 onBlur={() => props.onBlur()}
-                                name={props.block._uid} onChange={(e) => { handleChange(e, props.block._uid) }}
-                                checked={item.value === userValue.value}
+                                name={props.block._uid}
+                                onChange={(e) => { handleChange(e, props.block._uid) }}
+                                checked={selected === item.value}
                             />
                             <span className="mx-1.5 whitespace-nowrap">{item.description}</span>
                         </label>

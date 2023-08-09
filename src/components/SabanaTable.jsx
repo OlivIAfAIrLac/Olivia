@@ -688,7 +688,7 @@ const RowTable = (item, index) => {
     // onDoubleClick={() => console.log(`dobleCLic ${_id}`)}
     onTouchStart={() => tapHandler(expediente)}
   >
-    <Cell>{fecha}</Cell>
+       <Cell>{fecha}</Cell>
     <Cell>{hora_de_inicio}</Cell>
     <Cell>No. {index + 1}</Cell>
     <Cell>{ }</Cell>
@@ -704,15 +704,15 @@ const RowTable = (item, index) => {
     <Cell />
     <Cell>{numero_de_expediente_banavim}</Cell>
     <Cell>{horario_de_termino_de_atencion}</Cell>
-    <Cell>{I_la_persona_presenta_alguna_enfermedad_y_o_lesion_que_requiera_ser_atendida_con_inmediatez ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(I_la_persona_presenta_alguna_enfermedad_y_o_lesion_que_requiera_ser_atendida_con_inmediatez)}</Cell>
     <Cell>{I_especificar_cual_en_caso_afirmativo}</Cell>
-    <Cell>{I_existe_algun_requerimiento_especifico ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(I_existe_algun_requerimiento_especifico)}</Cell>
     <CellRequerimientoEspecifico data={I_requerimiento_cual} />
     <Cell>{I_especificar}</Cell>
-    <Cell>{I_presenta_alguna_emergencia ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(I_presenta_alguna_emergencia)}</Cell>
     <CellEmergencia data={I_emergencia_cual} />
     <Cell>{I_especificar}</Cell>
-    <Cell>{I_esta_en_periodo_de_gestacion ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(I_esta_en_periodo_de_gestacion)}</Cell>
     <Cell>{I_cuantos_meses}</Cell>
     <Cell>{II_curp}</Cell>
     <Cell>{II_pseudonimo}</Cell>
@@ -740,9 +740,9 @@ const RowTable = (item, index) => {
     <Cell>{II_celular}</Cell>
     <Cell>{II_especificar}</Cell>
 
-    <Cell>{II_autoriza_dar_seguimiento_via_whatsapp ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(II_autoriza_dar_seguimiento_via_whatsapp)}</Cell>
     <Cell>{II_motivo_whatsapp}</Cell>
-    <Cell>{II_autoriza_dar_seguimiento_via_telefonica ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(II_autoriza_dar_seguimiento_via_telefonica)}</Cell>
     <Cell>{II_motivo_telefonica}</Cell>
     <Cell>{II_correo_electronico}</Cell>
     <Cell>{II_direccion_calle}</Cell>
@@ -800,8 +800,8 @@ const RowTable = (item, index) => {
         value: III_su_escolaridad_esta_en
       })
     }</Cell>
-    <Cell>{III_sabe_leer_y_escribir ? 1 : 0}</Cell>
-    <Cell>{III_tiene_seguridad_social ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(III_sabe_leer_y_escribir)}</Cell>
+    <Cell>{BooleanFormat(III_tiene_seguridad_social)}</Cell>
     <Cell>{
       getCatalogoIndexSabana({
         catalogo: 'seguridad_social',
@@ -859,10 +859,10 @@ const RowTable = (item, index) => {
     }</Cell>
     <Cell>{III_genero_habitante_especificar}</Cell>
     <Cell>{III_edad_habitante}</Cell>
-    <Cell>{III_tiene_alguna_discapacidad_habitante ? 1 : 0}</Cell>
-    <Cell>{III_es_dependiente_economico_de_quien_solicita_la_atencion ? 1 : 0}</Cell>
-    <Cell>{III_es_dependiente_de_cuidados_de_quien_solicita_la_atencion ? 1 : 0}</Cell>
-    <Cell>{III_tiene_hijas_hijos_o_hijes ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(III_tiene_alguna_discapacidad_habitante)}</Cell>
+    <Cell>{BooleanFormat(III_es_dependiente_economico_de_quien_solicita_la_atencion)}</Cell>
+    <Cell>{BooleanFormat(III_es_dependiente_de_cuidados_de_quien_solicita_la_atencion)}</Cell>
+    <Cell>{BooleanFormat(III_tiene_hijas_hijos_o_hijes)}</Cell>
     <Cell>{III_cuantos_hijes_tiene}</Cell>
     <Cell>{
       getCatalogoIndexSabana({
@@ -903,28 +903,28 @@ const RowTable = (item, index) => {
       })
     }</Cell>
     <Cell>{III_monto_de_ingreso_mensual_de_su_empleo_principal}</Cell>
-    <Cell>{III_pertenece_a_un_grupo_originario_o_indigena ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(III_pertenece_a_un_grupo_originario_o_indigena)}</Cell>
     <Cell>{III_pertenece_a_un_grupo_originario_o_indigena_especiificar}</Cell>
-    <Cell>{III_es_una_persona_migrante_transmigrante ? 1 : 0}</Cell>
-    <Cell>{III_es_una_persona_en_situacion_de_calle ? 1 : 0}</Cell>
-    <Cell>{III_pertenece_a_la_comunidad_lgbtttiq ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(III_es_una_persona_migrante_transmigrante)}</Cell>
+    <Cell>{BooleanFormat(III_es_una_persona_en_situacion_de_calle)}</Cell>
+    <Cell>{BooleanFormat(III_pertenece_a_la_comunidad_lgbtttiq)}</Cell>
     <Cell>{III_pertenece_a_la_comunidad_lgbtttiq_especificar}</Cell>
-    <Cell>{III_tiene_alguna_discapacidad ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(III_tiene_alguna_discapacidad)}</Cell>
     <CellDiscapacidad data={III_discapacidad} />
     <Cell>{III_especificar_discapacidad}</Cell>
 
-    <Cell>{III_vive_violencia_por_presentar_discapacidad ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(III_vive_violencia_por_presentar_discapacidad)}</Cell>
     <Cell>{III_especificar_violencia}</Cell>
-    <Cell>{III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia)}</Cell>
     <Cell>{III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia_especificar}</Cell>
-    <Cell>{III_tiene_alguna_enfermedad_cronica_degenerativa_que_limite_o_imposibilite_sus_actividades ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(III_tiene_alguna_enfermedad_cronica_degenerativa_que_limite_o_imposibilite_sus_actividades)}</Cell>
     <Cell>{III_especificar_enfermedad_cronica}</Cell>
-    <Cell>{III_consumo_de_drogas ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(III_consumo_de_drogas)}</Cell>
     <CellDrogas data={III_especificar_el_tipo_de_drogas_que_consume_la_prv} />
     <Cell />
     <Cell>{IV_contexto_causa_y_evolucion}</Cell>
-    <Cell>{IV_ha_tenido_que_ser_atendida_en_una_institucion_medica_o_por_personal_medico_como_consecuencia_de_un_evento_de_violencia_con_la_persona_agresora ? 1 : 0}</Cell>
-    <Cell>{IV_ultimo_episodio_de_violencia_reciente ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(IV_ha_tenido_que_ser_atendida_en_una_institucion_medica_o_por_personal_medico_como_consecuencia_de_un_evento_de_violencia_con_la_persona_agresora)}</Cell>
+    <Cell>{BooleanFormat(IV_ultimo_episodio_de_violencia_reciente)}</Cell>
     <Cell>{IV_ultimo_episodio_de_violencia_reciente_especificar}</Cell>
     <Cell>{
       getCatalogoIndexSabana({
@@ -939,12 +939,12 @@ const RowTable = (item, index) => {
     <Cell>{V_acciones_o_intentos_de_solucion_realizados}</Cell>
     <Cell>{V_personas_involucradas_en_la_situacion}</Cell>
     <Cell>{V_redes_de_apoyo_y_tipo_de_apoyo_que_se_proporciono}</Cell>
-    <Cell>{V_recurrio_a_alguna_institucion_para_pedir_apoyo ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(V_recurrio_a_alguna_institucion_para_pedir_apoyo)}</Cell>
     <Cell>{V_recurrio_a_alguna_institucion_especificar}</Cell>
-    <Cell>{V_cuenta_con_expediente_de_atencion ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(V_cuenta_con_expediente_de_atencion)}</Cell>
     <Cell>{V_cuenta_con_expediente_de_atencion_especificar}</Cell>
 
-    <Cell>{VI_persona_conocida_o_desconocida ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_persona_conocida_o_desconocida)}</Cell>
     <Cell>{VI_pseudonimo}</Cell>
     <Cell>{VI_nombre}</Cell>
     <Cell>{VI_primer_apellido}</Cell>
@@ -1006,21 +1006,21 @@ const RowTable = (item, index) => {
     <Cell>{VI_telefono_fijo_casa}</Cell>
     <Cell>{VI_celular}</Cell>
     <Cell>{VI_especificar_contacto}</Cell>
-    <Cell>{VI_posesion_de_armas ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_posesion_de_armas)}</Cell>
     <Cell>{VI_especificar_arma}</Cell>
-    <Cell>{VI_consumo_de_drogas ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_consumo_de_drogas)}</Cell>
     <CellDrogas data={VI_especificar_el_tipo_de_drogas_que_consume_la_persona_agresora} />
     <Cell />
-    <Cell>{VI_enfermedad_mental ? 1 : 0}</Cell>
-    <Cell>{VI_toma_algun_tratamiento_psiquiatrico ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_enfermedad_mental)}</Cell>
+    <Cell>{BooleanFormat(VI_toma_algun_tratamiento_psiquiatrico)}</Cell>
     <Cell>{VI_especificar_tratamiento}</Cell>
-    <Cell>{VI_farmacodependencia ? 1 : 0}</Cell>
-    <Cell>{VI_pertenece_a_la_policia_o_al_ejercito ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_farmacodependencia)}</Cell>
+    <Cell>{BooleanFormat(VI_pertenece_a_la_policia_o_al_ejercito)}</Cell>
     <Cell>{VI_especificar_plicia_ejercito}</Cell>
-    <Cell>{VI_pertenece_o_tiene_enlace_con_el_crimen_organizado ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_pertenece_o_tiene_enlace_con_el_crimen_organizado)}</Cell>
     <Cell>{VI_especificar_crimen_organizado}</Cell>
     <Cell>{VI_historial_de_antecedentes_penales}</Cell>
-    <Cell>{VI_infidelidad ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_infidelidad)}</Cell>
     <Cell>{VI_estatura_aproximada}</Cell>
     <Cell>{
       getCatalogoIndexSabana({
@@ -1087,19 +1087,19 @@ const RowTable = (item, index) => {
     <Cell>{VI_especifique_estado_fisico}</Cell>
     <Cell>{VI_forma_de_la_cara}</Cell>
     <Cell>{VI_tipo_de_cejas}</Cell>
-    <Cell>{VI_bigote ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_bigote)}</Cell>
     <Cell>{VI_especifique_bigote}</Cell>
-    <Cell>{VI_barba ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_barba)}</Cell>
     <Cell>{VI_especifique_barba}</Cell>
-    <Cell>{VI_senias_particulares ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_senias_particulares)}</Cell>
     <Cell>{VI_especificar_senias}</Cell>
-    <Cell>{VI_tatuajes ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_tatuajes)}</Cell>
     <Cell>{VI_especifique_tatuajes}</Cell>
-    <Cell>{VI_lunares ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_lunares)}</Cell>
     <Cell>{VI_especifique_lunares}</Cell>
-    <Cell>{VI_lesiones ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_lesiones)}</Cell>
     <Cell>{VI_especifique_lesiones}</Cell>
-    <Cell>{VI_cicatrices ? 1 : 0}</Cell>
+    <Cell>{BooleanFormat(VI_cicatrices)}</Cell>
     <Cell>{VI_especifique_cicatrices}</Cell>
   </tr>
 }
@@ -1244,3 +1244,4 @@ const CellDrogas = ({ data }) => {
     <Cell />
   </>
 }
+const BooleanFormat = (item) => item === 'true' ? 1 : 0
