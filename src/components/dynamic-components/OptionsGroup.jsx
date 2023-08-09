@@ -21,6 +21,7 @@ export default function OptionsGroup(props) {
                             <input
                                 type="radio"
                                 value={item.value}
+                                onBlur={() => props.onBlur()}
                                 name={props.block._uid} onChange={(e) => { handleChange(e, props.block._uid) }}
                                 checked={item.value === userValue.value}
                             />
