@@ -41,7 +41,7 @@ export const DynamicComponent = block => {
         onChange: (e, id) => { context.changed(e, id) },
         onBlur: () => { context.handleOnSubmit() },
         onChangeGroup: (e, id) => { context.changedGroup(e, id) },
-        onChangedMultiple: (e, id) => (context.multipleChangedGroup(e, id))
+        onChangedMultiple: (id, value) => (context.multipleChangedGroup(id, value))
       })
     }
   );

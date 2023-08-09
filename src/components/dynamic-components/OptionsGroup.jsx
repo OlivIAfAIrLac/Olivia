@@ -2,12 +2,7 @@ import { useState } from "react"
 
 export default function OptionsGroup(props) {
 
-    const [userValue, setUserValue] = useState(props.block.options[0])
-
-
     const handleChange = (e, id) => {
-        const find = props.block.options.find(item => item.value === e.target.value)
-        setUserValue(find)
         props.onChange(e, id)
     }
 
@@ -23,7 +18,7 @@ export default function OptionsGroup(props) {
                                 value={item.value}
                                 onBlur={() => props.onBlur()}
                                 name={props.block._uid} onChange={(e) => { handleChange(e, props.block._uid) }}
-                                checked={item.value === userValue.value}
+                                checked={item.value === props.defaultValue}
                             />
                             <span className="mx-1.5 whitespace-nowrap">{item.description}</span>
                         </label>

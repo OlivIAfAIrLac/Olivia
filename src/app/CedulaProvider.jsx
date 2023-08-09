@@ -24,18 +24,18 @@ const CedulaProvider = ({ children }) => {
 
     const changedGroup = (e, id) => {
         const newValue = updateCedula(id, e.target.value)
-        console.log("changedGroup", newValue)
-
     }
 
-    const multipleChangedGroup = (e, id) => {
-        const newValue = updateCedula(id, e.target.value)
-        console.log("multipleChangedGroup", newValue)
+    const multipleChangedGroup = (name, value) => {
+        setBody({
+            ...body,
+            [name]: value
+        })
     }
 
 
     const handleOnChange = ({ name, value }) => {
-        console.log(name, value);
+       
     }
 
     const handleOnSubmit = async () => {
