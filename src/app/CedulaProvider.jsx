@@ -13,6 +13,7 @@ const CedulaProvider = ({ children }) => {
     const [dataExpediente, setDataExpediente] = useState()
     const [body, setBody] = useState({})
     const [loading, setLoading] = useState(true)
+    const [refresh, setRefresh] = useState(false)
 
 
     const changed = (e, id) => {
@@ -40,6 +41,7 @@ const CedulaProvider = ({ children }) => {
                         ...dataCedula,
                         body
                     })
+                    setRefresh(true)
                     notificationCtx.setShowSuccesNotification(true)
                     setTimeout(() => {
                         notificationCtx.setShowSuccesNotification(false)
@@ -57,6 +59,8 @@ const CedulaProvider = ({ children }) => {
 
     return (
         <CedulaContext.Provider value={{
+            refresh,
+            setRefresh,
             dataCedula,
             setDataCedula,
             dataExpediente,

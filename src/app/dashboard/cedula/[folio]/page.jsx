@@ -34,6 +34,8 @@ const HomeCedula = ({ params, searchParams }) => {
     /* FOLIO => EXPEDIENTE_ID */
     const { folio } = params;
     const {
+        refresh,
+        setRefresh,
         loading,
         dataExpediente,
         setDataExpediente,
@@ -76,6 +78,7 @@ const HomeCedula = ({ params, searchParams }) => {
                     setDataCedula(res.data.cedula)
                     setDataExpediente(res.data.expediente)
                     setLoading(false)
+                    setRefresh(false)
                 }
 
             } catch (error) {
@@ -85,7 +88,7 @@ const HomeCedula = ({ params, searchParams }) => {
             }
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [folio],
+        [folio, refresh],
     )
 
     useEffect(() => {
