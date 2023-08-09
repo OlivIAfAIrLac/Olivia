@@ -1,22 +1,25 @@
 import { updateCedula } from "@/helpers/updateCedula";
 import { createContext, useContext, useState } from "react";
 import { NotificationContext } from "./NotificationProvider";
+import axios from "axios";
+import { apiRoutes } from "@/helpers/apiRoutes";
 
 export const CedulaContext = createContext();
 
 const CedulaProvider = ({ children }) => {
     const notificationCtx = useContext(NotificationContext)
+
     const [dataCedula, setDataCedula] = useState()
+    const [dataExpediente, setDataExpediente] = useState()
+    const [body, setBody] = useState({})
     const [loading, setLoading] = useState(true)
 
 
     const changed = (e, id) => {
-        // alert("changed")
-        const newValue = updateCedula(id, e.target.value)
-        const cedula = JSON.parse(localStorage.getItem("cedula"))
-        const newCedula = { ...cedula.cedula, ...newValue }
-        cedula.cedula = newCedula
-        console.log(newValue)
+        setBody({
+            ...body,
+            [id]: e.target.value
+        })
     }
 
     const changedGroup = (e, id) => {
@@ -35,9 +38,14 @@ const CedulaProvider = ({ children }) => {
         console.log(name, value);
     }
 
-    const handleOnSubmit = () => {
+    const handleOnSubmit = async () => {
+        const {
+            expediente,
+            cedula
+        } = dataCedula
         try {
-
+            console.log(`${apiRoutes.CEDULA}/${cedula._id}?expediente=${expediente._id}`, body);
+            // const resp = await axios.patch(`${apiRoutes.CEDULA}/${dataCedula.cedula._id}`);
         } catch (error) {
             notificationCtx.setError(error)
             notificationCtx.setShowErrorNotification(true)
@@ -51,6 +59,8 @@ const CedulaProvider = ({ children }) => {
             handleOnChange,
             dataCedula,
             setDataCedula,
+            dataExpediente,
+            setDataExpediente,
             loading,
             setLoading,
             changed,

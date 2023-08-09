@@ -35,6 +35,8 @@ const HomeCedula = ({ params, searchParams }) => {
     const { folio } = params;
     const {
         loading,
+        dataExpediente,
+        setDataExpediente,
         dataCedula,
         setLoading,
         setDataCedula
@@ -71,9 +73,10 @@ const HomeCedula = ({ params, searchParams }) => {
             try {
                 const res = await axios.get(`${apiRoutes.CEDULA}/${folio}`);
                 if (res.status === 200) {
-                    setLoading(false)
-                    setDataCedula(res.data)
+                    setDataCedula(res.data.cedula)
+                    setDataExpediente(res.data.expediente)
                     // localStorage.setItem("cedula", JSON.stringify(res.data));
+                    setLoading(false)
                 }
 
             } catch (error) {
@@ -82,6 +85,7 @@ const HomeCedula = ({ params, searchParams }) => {
                 console.error(error);
             }
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [folio],
     )
 
@@ -100,11 +104,11 @@ const HomeCedula = ({ params, searchParams }) => {
                             ? <LoaderSkeleton />
                             : <>
                                 <DateTimeDisplayer
-                                    fecha={dataCedula.expediente.fecha}
-                                    hora={dataCedula.expediente.hora}
+                                    fecha={dataExpediente.createdAt}
+                                    hora={dataExpediente.createdAt}
                                 />
-                                <span className="font-bold">Folio {dataCedula.expediente.folio}</span>
-                                <span className="mb-5">{dataCedula.expediente.nombre}</span>
+                                <span className="font-bold">Folio {dataExpediente.folio}</span>
+                                <span className="mb-5">{dataExpediente.nombre}</span>
                                 {/* Button GRID container */}
                                 <div className="grid grid-flow-col gap-5 text-center">
                                     <PrimaryLinkButton

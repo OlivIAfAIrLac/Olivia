@@ -31,14 +31,17 @@ export const DynamicComponent = block => {
   return createElement(
     CedulaContext.Consumer,
     null,
-    context => createElement(Components[block.component], {
-      context,
-      key: block._uid,
-      block: block,
-      onClick: () => { context.clicked() },
-      onChange: (e, id) => { context.changed(e, id) },
-      onChangeGroup: (e, id) => { context.changedGroup(e, id) },
-      onChangedMultiple: (e, id) => (context.multipleChangedGroup(e, id))
-    })
+    context => {
+      return createElement(Components[block.component], {
+        context,
+        key: block._uid,
+        block: block,
+        defaultValue: context.dataCedula[block._uid],
+        onClick: () => { context.clicked() },
+        onChange: (e, id) => { context.changed(e, id) },
+        onChangeGroup: (e, id) => { context.changedGroup(e, id) },
+        onChangedMultiple: (e, id) => (context.multipleChangedGroup(e, id))
+      })
+    }
   );
 }
