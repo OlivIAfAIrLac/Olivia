@@ -75,7 +75,6 @@ const HomeCedula = ({ params, searchParams }) => {
                 if (res.status === 200) {
                     setDataCedula(res.data.cedula)
                     setDataExpediente(res.data.expediente)
-                    // localStorage.setItem("cedula", JSON.stringify(res.data));
                     setLoading(false)
                 }
 
@@ -86,7 +85,7 @@ const HomeCedula = ({ params, searchParams }) => {
             }
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [folio],
+        [folio, dataCedula],
     )
 
     useEffect(() => {

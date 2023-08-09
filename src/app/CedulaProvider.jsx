@@ -22,20 +22,11 @@ const CedulaProvider = ({ children }) => {
         })
     }
 
-    const changedGroup = (e, id) => {
-        const newValue = updateCedula(id, e.target.value)
-    }
-
     const multipleChangedGroup = (name, value) => {
         setBody({
             ...body,
             [name]: value
         })
-    }
-
-
-    const handleOnChange = ({ name, value }) => {
-       
     }
 
     const handleOnSubmit = async () => {
@@ -45,7 +36,14 @@ const CedulaProvider = ({ children }) => {
                 console.log(`${apiRoutes.CEDULA}/${dataCedula._id}?expediente=${dataExpediente._id}`, body);
                 const res = await axios.patch(`${apiRoutes.CEDULA}/${dataCedula._id}?expediente=${dataExpediente._id}`, body);
                 if (res.status === 200) {
-                    console.log(res.data.msg);
+                    setDataCedula({
+                        ...dataCedula,
+                        body
+                    })
+                    notificationCtx.setShowSuccesNotification(true)
+                    setTimeout(() => {
+                        notificationCtx.setShowSuccesNotification(false)
+                    }, 1_000);
                 }
             }
         } catch (error) {
@@ -59,7 +57,6 @@ const CedulaProvider = ({ children }) => {
 
     return (
         <CedulaContext.Provider value={{
-            handleOnChange,
             dataCedula,
             setDataCedula,
             dataExpediente,
@@ -67,7 +64,6 @@ const CedulaProvider = ({ children }) => {
             loading,
             setLoading,
             changed,
-            changedGroup,
             multipleChangedGroup,
             handleOnSubmit,
         }}>

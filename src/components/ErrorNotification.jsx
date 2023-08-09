@@ -1,7 +1,5 @@
-import { Fragment, useState } from 'react'
+import { Fragment,} from 'react'
 import { Transition } from '@headlessui/react'
-import IconButton from './IconButton'
-import CloseBtn from './CloseBtn'
 import { GrClose } from 'react-icons/gr'
 
 
