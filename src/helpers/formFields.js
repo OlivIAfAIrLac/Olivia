@@ -20,7 +20,8 @@ import {
     tamanio_de_cabello,
     tamanio_ojos,
     tez,
-    tipo_de_droga
+    tipo_de_droga,
+    boolean
 } from "./catalogos";
 
 const formFields = [
@@ -170,10 +171,7 @@ const formFields = [
             {
                 _uid: "I_la_persona_presenta_alguna_enfermedad_y_o_lesion_que_requiera_ser_atendida_con_inmediatez",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline-inmediatez-cual",
@@ -192,10 +190,7 @@ const formFields = [
             {
                 _uid: "I_existe_algun_requerimiento_especifico",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "I_requerimiento_cual",
@@ -219,10 +214,7 @@ const formFields = [
             {
                 _uid: "I_presenta_alguna_emergencia",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "I_emergencia_cual",
@@ -246,10 +238,7 @@ const formFields = [
             {
                 _uid: "I_esta_en_periodo_de_gestacion",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline-cuantos-meses",
@@ -419,10 +408,7 @@ const formFields = [
             {
                 _uid: "II_autoriza_dar_seguimiento_via_whatsapp",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline-motivo-whatsapp",
@@ -441,10 +427,7 @@ const formFields = [
             {
                 _uid: "II_autoriza_dar_seguimiento_via_telefonica",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline-motivo-telefonica",
@@ -887,10 +870,7 @@ const formFields = [
             {
                 _uid: "IV_ha_tenido_que_ser_atendida_en_una_institucion_medica_o_por_personal_medico_como_consecuencia_de_un_evento_de_violencia_con_la_persona_agresora",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline-ultimo-episodio",
@@ -905,10 +885,7 @@ const formFields = [
             {
                 _uid: "IV_ultimo_episodio_de_violencia_reciente",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline-cuando-episodio",
@@ -996,10 +973,7 @@ const formFields = [
             {
                 _uid: "V_recurrio_a_alguna_institucion_para_pedir_apoyo",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline-recurrio-institucion-especificar",
@@ -1018,10 +992,7 @@ const formFields = [
             {
                 _uid: "V_cuenta_con_expediente_de_atencion",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "V_cuenta_con_expediente_de_atencion_especificar",
@@ -1045,10 +1016,7 @@ const formFields = [
             {
                 _uid: "VI_persona_conocida_o_desconocida",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline-pseudonimo",
@@ -1331,10 +1299,7 @@ const formFields = [
             {
                 _uid: "VI_posesion_de_armas",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline-especificar-armas",
@@ -1353,10 +1318,7 @@ const formFields = [
             {
                 _uid: "VI_consumo_de_drogas",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline-especificar-droga",
@@ -1376,10 +1338,7 @@ const formFields = [
             {
                 _uid: "VI_toma_algun_tratamiento_psiquiatrico",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline-especificar-tratamiento-psiquiatrico-pa",
@@ -1398,10 +1357,7 @@ const formFields = [
             {
                 _uid: "VI_farmacodependencia",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline-pertenece-policia-ejercito",
@@ -1411,10 +1367,7 @@ const formFields = [
             {
                 _uid: "VI_pertenece_a_la_policia_o_al_ejercito",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline--especificar-pertenece-policia-ejercito",
@@ -1433,10 +1386,7 @@ const formFields = [
             {
                 _uid: "VI_pertenece_o_tiene_enlace_con_el_crimen_organizado",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "subheadline--especificar-pertenece-crimen-organizado",
@@ -1464,10 +1414,7 @@ const formFields = [
             {
                 _uid: "VI_infidelidad",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "healine-rasgos-fisicos-pa",
@@ -1618,10 +1565,7 @@ const formFields = [
             {
                 _uid: "VI_senias_particulares",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "VI_especificar_senias",
@@ -1636,10 +1580,7 @@ const formFields = [
             {
                 _uid: "VI_tatuajes",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "VI_especifique_tatuajes",
@@ -1654,10 +1595,7 @@ const formFields = [
             {
                 _uid: "VI_lunares",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "VI_especifique_lunares",
@@ -1672,10 +1610,7 @@ const formFields = [
             {
                 _uid: "VI_barba",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "VI_especifique_barba",
@@ -1689,10 +1624,7 @@ const formFields = [
             {
                 _uid: "VI_bigote",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "VI_especifique_bigote",
@@ -1706,10 +1638,7 @@ const formFields = [
             {
                 _uid: "VI_cicatrices",
                 component: "optionsgroup",
-                options: [
-                    { value: true, description: 'Si' },
-                    { value: false, description: 'No' },
-                ]
+                options: boolean
             },
             {
                 _uid: "VI_especifique_cicatrices",

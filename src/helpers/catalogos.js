@@ -1,3 +1,7 @@
+export const boolean = [
+    { value: 'true', description: 'Si' },
+    { value: 'false', description: 'No' },
+]
 export const getCatalogoDescription = ({ catalogo = '', value = 'description' }) => {
     const allCatalogos = {
         userRoles: userRoles.filter(item => item.value === value),
@@ -111,9 +115,9 @@ export const escolaridad = [
     { value: 'ninguno', description: 'Ninguno', indexSabana: 9 },
 ];
 export const estatus_escolaridad = [
-    {indexSabana:1, value: 'en_curso', description: 'en Curso' },
-    {indexSabana:2, value: 'terminada', description: 'Terminada' },
-    {indexSabana:3, value: 'trunca', description: 'Trunca' },
+    { indexSabana: 1, value: 'en_curso', description: 'en Curso' },
+    { indexSabana: 2, value: 'terminada', description: 'Terminada' },
+    { indexSabana: 3, value: 'trunca', description: 'Trunca' },
 ];
 export const tipo_de_relaciones = [
     { indexSabana: 1, value: 'madre', description: 'Madre' },
