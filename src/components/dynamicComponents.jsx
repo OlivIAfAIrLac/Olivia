@@ -39,6 +39,7 @@ export const DynamicComponent = block => {
         defaultValue: context.dataCedula[block._uid],
         onClick: () => { context.clicked() },
         onChange: (e, id) => { context.changed(e, id) },
+        onBlur: () => { context.handleOnSubmit() },
         onChangeGroup: (e, id) => { context.changedGroup(e, id) },
         onChangedMultiple: (e, id) => (context.multipleChangedGroup(e, id))
       })

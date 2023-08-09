@@ -39,14 +39,17 @@ const CedulaProvider = ({ children }) => {
     }
 
     const handleOnSubmit = async () => {
-        const {
-            expediente,
-            cedula
-        } = dataCedula
         try {
-            console.log(`${apiRoutes.CEDULA}/${cedula._id}?expediente=${expediente._id}`, body);
-            // const resp = await axios.patch(`${apiRoutes.CEDULA}/${dataCedula.cedula._id}`);
+            /* IF body has not kyes, not patch */
+            if (Object.keys(body).length !== 0) {
+                console.log(`${apiRoutes.CEDULA}/${dataCedula._id}?expediente=${dataExpediente._id}`, body);
+                const res = await axios.patch(`${apiRoutes.CEDULA}/${dataCedula._id}?expediente=${dataExpediente._id}`, body);
+                if (res.status === 200) {
+                    console.log(res.data.msg);
+                }
+            }
         } catch (error) {
+            console.error(error);
             notificationCtx.setError(error)
             notificationCtx.setShowErrorNotification(true)
         }
@@ -66,6 +69,7 @@ const CedulaProvider = ({ children }) => {
             changed,
             changedGroup,
             multipleChangedGroup,
+            handleOnSubmit,
         }}>
             {children}
         </CedulaContext.Provider>
