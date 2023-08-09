@@ -317,6 +317,7 @@ const cabecerasSabana = [
   'Estatura Aproximada (m. / cm.)',
   'Complexión',
   'Tez',
+  'Especificar Tez',
   'Color de cabello',
   'Tamaño',
   'Forma',
@@ -688,7 +689,7 @@ const RowTable = (item, index) => {
     // onDoubleClick={() => console.log(`dobleCLic ${_id}`)}
     onTouchStart={() => tapHandler(expediente)}
   >
-       <Cell>{fecha}</Cell>
+    <Cell>{fecha}</Cell>
     <Cell>{hora_de_inicio}</Cell>
     <Cell>No. {index + 1}</Cell>
     <Cell>{ }</Cell>
@@ -1035,6 +1036,7 @@ const RowTable = (item, index) => {
           VI_tez
       })
     }</Cell>
+    <Cell />
     <Cell>{VI_color_cabello}</Cell>
     <Cell>{
       getCatalogoIndexSabana({
