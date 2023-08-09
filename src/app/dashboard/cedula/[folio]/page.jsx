@@ -85,7 +85,7 @@ const HomeCedula = ({ params, searchParams }) => {
             }
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [folio, dataCedula],
+        [folio],
     )
 
     useEffect(() => {
