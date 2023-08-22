@@ -76,16 +76,7 @@ const AudioRecorder = ({
             /* Upload Audio File */
         };
     };
-    const downLoadFile = () => {
-        const anchorElement = document.createElement('a');
-        document.body.appendChild(anchorElement);
-        anchorElement.style.display = 'none';
-        anchorElement.href = audio;
-        anchorElement.download = 'audio-record.mp4';
-        anchorElement.click();
-
-        window.URL.revokeObjectURL(audio);
-    }
+  
 
     const handleSaveAudio = async () => {
         try {
