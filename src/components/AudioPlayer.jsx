@@ -2,12 +2,14 @@ const AudioPlayer = ({
     src
 }) => {
     return (
-        <audio controls className="primary-bg" >
-            {/* <source src={src} />
+        <audio controls autoPlay className="primary-bg" >
+            <source src={src} />
             <source src={src} type="audio/x-wav" />
             <source src={src} type="audio/mpeg" />
-        Tu navegador no soporta reproductor de audio */}
+            <source src={src} type="audio/mp3" />
+            <source src={src} type="audio/mp4a" />
             <source src={src} type="audio/m4a" />
+            Tu navegador no soporta reproductor de audio
         </audio>
     );
 }
