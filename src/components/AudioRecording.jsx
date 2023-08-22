@@ -81,7 +81,7 @@ const AudioRecorder = ({
         document.body.appendChild(anchorElement);
         anchorElement.style.display = 'none';
         anchorElement.href = audio;
-        anchorElement.download = 'audio-record.wav';
+        anchorElement.download = 'audio-record.mp4';
         anchorElement.click();
 
         window.URL.revokeObjectURL(audio);
@@ -91,7 +91,7 @@ const AudioRecorder = ({
         try {
             const formData = new FormData()
             const audioBlob = new Blob(audioChunks, { type: mimeType });
-            formData.append('audios', audioBlob, `audio_${id}.wav`)
+            formData.append('audios', audioBlob, `audio_${id}.mp4`)
             formData.append("expediente", id)
             const res = await axios.post(apiRoutes.AUDIO, formData, {
                 headers: {
