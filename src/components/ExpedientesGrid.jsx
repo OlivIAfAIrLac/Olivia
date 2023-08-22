@@ -1,3 +1,4 @@
+'use client'
 /* eslint-disable react-hooks/exhaustive-deps */
 import { NotificationContext } from "@/app/NotificationProvider";
 import { apiRoutes } from "@/helpers/apiRoutes";
