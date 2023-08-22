@@ -10,7 +10,8 @@ import { TbUpload } from "react-icons/tb";
 import IconButton from "./IconButton";
 import Modal from "./Modal";
 
-const mimeType = "audio/x-wav";
+const mimeType = "audio/mp4";
+// const mimeType = "audio/x-wav";
 
 const AudioRecorder = ({
     handleOpenModalAudio,
