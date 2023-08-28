@@ -1,30 +1,42 @@
 
 import {
+    boolean,
+    profesionesCatalog,
+    unidadesCatalog,
+    escolaridad,
+    estatus_escolaridad,
+    tipo_de_relaciones,
+    requerimiento_especifico,
+    emergencia,
+    sexo,
+    ocupacion,
+    seguridad_social,
+    situacion_conyugal,
+    regimen_matrimonial,
+    tipo_de_vivienda,
+    parentesco,
+    turno,
+    tipo_de_droga,
+    complexion,
+    tez,
+    tamanio_de_cabello,
+    forma_cabello,
+    nariz,
+    ojos,
+    tamanio_ojos,
+    forma_ojos,
+    estado_fisico,
+    genero,
+    comparte_vivienda,
+    frecuencia_violencia,
     area_que_atiende,
     modalidad_asesora,
-    complexion,
-    emergencia,
-    escolaridad,
-    estado_fisico,
-    estatus_escolaridad,
-    forma_cabello,
-    forma_ojos,
-    frecuencia_violencia,
-    genero,
-    nariz,
-    ocupacion,
-    ojos,
-    parentesco,
-    requerimiento_especifico,
-    sexo,
-    tamanio_de_cabello,
-    tamanio_ojos,
-    tez,
-    tipo_de_droga,
-    boolean
+    discapacidad,
+    labios,
 } from "./catalogos";
 
 const formFields = [
+    /* seccion 0 */
     {
         section: 0,
         content: [
@@ -155,6 +167,7 @@ const formFields = [
             },
         ]
     },
+    /* seccion 1 */
     {
         section: 1,
         content: [
@@ -251,6 +264,7 @@ const formFields = [
             },
         ]
     },
+    /* seccion 2 */
     {
         section: 2,
         content: [
@@ -675,6 +689,7 @@ const formFields = [
             },
         ]
     },
+    /* seccion 3 */
     {
         section: 3,
         content: [
@@ -703,11 +718,271 @@ const formFields = [
                 component: "optionsgroup",
                 options: estatus_escolaridad
             },
+            {
+                _uid: "subheadline-sabe-leer-escribir",
+                component: "subheadline",
+                text: "¿Sabe leer y escribir?",
+            },
+            {
+                _uid: "III_sabe_leer_y_escribir",
+                component: "optionsgroup",
+                options: boolean,
+            },
+            {
+                _uid: "subheadline-seguridad-social",
+                component: "subheadline",
+                text: "¿Tiene seguridad social?",
+            },
+            {
+                _uid: "III_tiene_seguridad_social",
+                component: "optionsgroup",
+                options: boolean,
+            },
+            {
+                _uid: "subheadline-seguridad-social-cual",
+                component: "subheadline",
+                text: "¿Cual?",
+            },
+            {
+                _uid: "III_cual_seguridad_social",
+                component: "optionsgroup",
+                options: seguridad_social
 
+            },
+            {
+                _uid: "subheadline-III_ocupacion_de_la_persona",
+                component: "subheadline",
+                text: "Ocupación de la persona:",
+            },
+            {
+                _uid: "III_ocupacion_de_la_persona",
+                component: "optionsgroup",
+                options: ocupacion
+
+            },
+            {
+                _uid: "subheadline-III_especificar_ocupacion_de_la_persona",
+                component: "subheadline",
+                text: "Especificar:",
+            },
+            {
+                _uid: "III_especificar_ocupacion_de_la_persona",
+                component: "input",
+
+
+            },
+            {
+                _uid: "subheadline-III_situacion_conyugal",
+                component: "subheadline",
+                text: "Situación conyugal",
+            },
+            {
+                _uid: "III_situacion_conyugal",
+                component: "optionsgroup",
+                options: situacion_conyugal
+
+            },
+            {
+                _uid: "subheadline-III_regimen_matrimonial",
+                component: "subheadline",
+                text: "Régimen matrimonial",
+            },
+            {
+                _uid: "III_regimen_matrimonial",
+                component: "optionsgroup",
+                options: regimen_matrimonial
+
+            },
+            {
+                _uid: "subheadline-vivienda",
+                component: "subheadline",
+                text: "Tipo de vivienda",
+            },
+            {
+                _uid: "III_tipo_de_vivienda",
+                component: 'optionsgroup',
+                options: tipo_de_vivienda
+            },
+            {
+                _uid: "III_especificar_tipo_de_vivienda",
+                component: "input"
+            },
+
+
+            {
+                _uid: "subheadline-comparte",
+                component: "subheadline",
+                text: "Compartida con otras personas",
+            },
+            {
+                _uid: "III_compartida_con_otras_personas",
+                component: "optionsgroup",
+                options: comparte_vivienda
+            },
+            {
+                _uid: "III_compartida_especificar",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-comparte",
+                component: "subheadline",
+                text: "¿Cuantas personas habitan en su vivienda?",
+            },
+            {
+                _uid: "III_cuantas_personas_habitan_en_su_vivienda",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-paretesco-compartida",
+                component: "subheadline",
+                text: "Parentesco",
+            },
+            {
+                _uid: "III_parentesco_habitante",
+                component: "optionsgroup",
+                options: parentesco
+            },
+            {
+                _uid: "III_especificar_habitante",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-sexo-habitante",
+                component: "subheadline",
+                text: "Sexo",
+
+            },
+            {
+                _uid: "III_sexo_habitante",
+                component: "optionsgroup",
+                options: sexo
+            },
+            {
+                _uid: "subheadline-genero-habitante",
+                component: "subheadline",
+                text: "Género",
+
+            },
+            {
+                _uid: "III_genero_habitante",
+                component: "optionsgroup",
+                options: genero
+            },
+            {
+                _uid: "III_genero_habitante_especificar",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-edad-habitante",
+                component: "subheadline",
+                text: "Edad",
+
+            },
+            {
+                _uid: "III_edad_habitante",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-tiene_alguna_discapacidad_habitante",
+                component: "subheadline",
+                text: "Tiene alguna discapacidad?",
+            },
+            {
+                _uid: "III_tiene_alguna_discapacidad_habitante",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "subheadline-es_dependiente_economico_de_quien_solicita_la_atencion",
+                component: "subheadline",
+                text: "¿Es dependiente económico de quien solicita la atención?",
+            },
+            {
+                _uid: "III_es_dependiente_economico_de_quien_solicita_la_atencion",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "subheadline-es_dependiente_de_cuidados_de_quien_solicita_la_atencion",
+                component: "subheadline",
+                text: "¿Es dependiente de cuidados de quien solicita la atención?",
+
+            },
+            {
+                _uid: "III_es_dependiente_de_cuidados_de_quien_solicita_la_atencion",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "subheadline-tiene_hijas_hijos_o_hijes",
+                component: "subheadline",
+                text: "¿Tiene hijas, hijos o hijes?",
+            },
+            {
+                _uid: "III_tiene_hijas_hijos_o_hijes",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "subheadline-cuanto-hijes",
+                component: "subheadline",
+                text: "¿Cuántos hijes tiene?",
+            },
+            {
+                _uid: "III_cuantos_hijes_tiene",
+                component: "input"
+            },
+            /* Hijes */
+            {
+                _uid: "subheadline-nombre_completo_de_sus_hijes",
+                component: "subheadline",
+                text: "Nombre completo de su hije",
+            },
+            {
+                _uid: "III_nombre_completo_de_sus_hijes",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-sexo-hije",
+                component: "subheadline",
+                text: "Sexo",
+            },
+            {
+                _uid: "III_sexo",
+                component: "optionsgroup",
+                options: sexo
+            },
+            {
+                _uid: "III_especificar_sexo",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-edad_anios_cumplidos",
+                component: "subheadline",
+                text: "Edad",
+            },
+            {
+                _uid: "III_edad_anios_cumplidos",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-escolaridad_hijes",
+                component: "subheadline",
+                text: "Escolaridad",
+            },
+            {
+                _uid: "III_escolaridad_hijes",
+                component: "optionsgroup",
+                options: escolaridad
+            },
             {
                 _uid: "subheadline-aporta-mayor-ingreso",
                 component: "subheadline",
                 text: "¿Quién aporta el mayor ingreso dentro del hogar?",
+            },
+            {
+                _uid: "III_quien_aporta_el_mayor_ingreso_dentro_del_hogar",
+                component: "input"
             },
             {
                 _uid: "subheadline-aporta-mayor-porcentaje-ingresos",
@@ -715,15 +990,29 @@ const formFields = [
                 text: "¿Quién aporta el mayor porcentaje de ingresos  para la víctima?",
             },
             {
+                _uid: "III_quien_aporta_el_mayor_porcentaje_de_ingresos_para_la_victima",
+                component: "input"
+            },
+            {
                 _uid: "subheadline-aporta-mayor-ingreso-hijes",
                 component: "subheadline",
                 text: "¿Quién aporta el mayor ingreso para sus hijes?",
+            },
+            {
+                _uid: "III_quien_aporta_el_mayor_ingreso_para_sus_hijes",
+                component: "input"
             },
             {
                 _uid: "subheadline-cuánto",
                 component: "subheadline",
                 text: "¿Cuánto?",
             },
+            {
+                _uid: "III_cuanto",
+                component: "input"
+            },
+            /* EMPLEO */
+
             {
                 _uid: "subheadline-empleo-remunerado",
                 component: "subheadline",
@@ -842,9 +1131,174 @@ const formFields = [
                 _uid: "III_colonia_localidad_empleo",
                 component: "input",
             },
+            /* Interseccionalidad */
+            {
+                _uid: "subheadline-que_dias_de_la_semana_trabaja",
+                component: "subheadline",
+                text: "¿Qué días de la semana trabaja?",
+            },
+            {
+                _uid: "III_que_dias_de_la_semana_trabaja",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-turno",
+                component: "subheadline",
+                text: "Turno",
+            },
+            {
+                _uid: "III_turno",
+                component: "optionsgroup",
+                options: turno
+            },
 
+            {
+                _uid: "subheadline-monto",
+                component: "subheadline",
+                text: "Monto",
+            },
+            {
+                _uid: "III_monto_de_ingreso_mensual_de_su_empleo_principal",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-interseccionalidad",
+                component: "subheadline",
+                text: "Interseccionalidad",
+            },
+            {
+                _uid: "subheadline-pertenece_a_un_grupo_originario_o_indigena",
+                component: "subheadline",
+                text: "¿Pertenece a un grupo originario o indígena?",
+            },
+            {
+                _uid: "III_pertenece_a_un_grupo_originario_o_indigena",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "III_pertenece_a_un_grupo_originario_o_indigena_especiificar",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-es_una_persona_migrante_transmigrante",
+                component: "subheadline",
+                text: "¿Es una persona migrante/transmigrante?",
+            },
+            {
+                _uid: "III_es_una_persona_migrante_transmigrante",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "subheadline-es_una_persona_en_situacion_de_calle",
+                component: "subheadline",
+                text: "¿Es una persona en situación de calle?",
+            },
+            {
+                _uid: "III_es_una_persona_en_situacion_de_calle",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "subheadline-pertenece_a_la_comunidad_lgbtttiq",
+                component: "subheadline",
+                text: "¿Pertenece a la comunidad LGBTTTIQ+?",
+            },
+            {
+                _uid: "III_pertenece_a_la_comunidad_lgbtttiq",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "III_pertenece_a_la_comunidad_lgbtttiq_especificar",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-tiene_alguna_discapacidad",
+                component: "subheadline",
+                text: "¿Tiene alguna discapacidad?",
+            },
+            {
+                _uid: "III_tiene_alguna_discapacidad",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "subheadline-discapacidad",
+                component: "subheadline",
+                text: "Tipo de discapacidad",
+            },
+            {
+                _uid: "III_discapacidad",
+                component: "optionsgroup",
+                options: discapacidad
+            },
+            {
+                _uid: "III_especificar_discapacidad",
+                component: "input",
+            },
+            {
+                _uid: "subheadline-vive_violencia_por_presentar_discapacidad",
+                component: "subheadline",
+                text: "¿Vive violencia por presentar discapacidad?",
+            },
+            {
+                _uid: "III_vive_violencia_por_presentar_discapacidad",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "III_especificar_violencia",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-presenta_alguna_discapacidad_a_consecuencia_de_la_violencia",
+                component: "subheadline",
+                text: "¿Presenta alguna discapacidad a consecuencia de la violencia?",
+            },
+            {
+                _uid: "III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "III_presenta_alguna_discapacidad_a_consecuencia_de_la_violencia_especificar",
+                component: "input"
+            },
+            {
+                _uid: "subheadline-tiene_alguna_enfermedad_cronica_degenerativa_que_limite_o_imposibilite_sus_actividades",
+                component: "subheadline",
+                text: "¿Tiene alguna enfermedad crónica degenerativa que limite o imposibilite sus actividades?",
+            },
+            {
+                _uid: "III_tiene_alguna_enfermedad_cronica_degenerativa_que_limite_o_imposibilite_sus_actividades",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "III_especificar_enfermedad_cronica",
+                component: "input"
+            },
+            /* Datos de consumo problemático */
+            {
+                _uid: "subheadline-consumo_de_drogas",
+                component: "subheadline",
+                text: "Consumo de drogas",
+            },
+            {
+                _uid: "III_consumo_de_drogas",
+                component: "optionsgroup",
+                options: boolean
+            },
+            {
+                _uid: "III_especificar_el_tipo_de_drogas_que_consume_la_prv",
+                component: "optionsgroup",
+                options: tipo_de_droga
+            },
         ]
     },
+    /* seccion 4 */
     {
         section: 4,
         content: [
@@ -921,6 +1375,7 @@ const formFields = [
             },
         ]
     },
+    /* seccion 5 */
     {
         section: 5,
         content: [
@@ -1000,6 +1455,7 @@ const formFields = [
             },
         ]
     },
+    /* seccion 6 */
     {
         section: 6,
         content: [
