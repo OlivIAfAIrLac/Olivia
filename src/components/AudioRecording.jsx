@@ -45,22 +45,29 @@ const AudioRecorder = ({
     };
 
     const startRecording = async () => {
-        setRecordingStatus("recording");
-        const media = new MediaRecorder(stream, { type: mimeType });
+        try {
 
-        mediaRecorder.current = media;
+            setRecordingStatus("recording");
+            const media = new MediaRecorder(stream, { type: mimeType });
 
-        mediaRecorder.current.start();
+            mediaRecorder.current = media;
 
-        let localAudioChunks = [];
+            mediaRecorder.current.start();
 
-        mediaRecorder.current.ondataavailable = (event) => {
-            if (typeof event.data === "undefined") return;
-            if (event.data.size === 0) return;
-            localAudioChunks.push(event.data);
-        };
+            let localAudioChunks = [];
 
-        setAudioChunks(localAudioChunks);
+            mediaRecorder.current.ondataavailable = (event) => {
+                if (typeof event.data === "undefined") return;
+                if (event.data.size === 0) return;
+                localAudioChunks.push(event.data);
+            };
+
+            setAudioChunks(localAudioChunks);
+        } catch (error) {
+            console.error(error);
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
+        }
     };
 
     const stopRecording = () => {
@@ -76,7 +83,7 @@ const AudioRecorder = ({
             /* Upload Audio File */
         };
     };
-  
+
 
     const handleSaveAudio = async () => {
         try {
