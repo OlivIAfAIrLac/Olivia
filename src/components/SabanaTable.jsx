@@ -462,6 +462,7 @@ const RowTable = (item, index) => {
   const {
     _id,
     expediente,
+    no_de_expediente,
     fecha,
     hora_de_inicio,
     area_que_atiende,
@@ -691,7 +692,7 @@ const RowTable = (item, index) => {
   >
     <Cell>{fecha}</Cell>
     <Cell>{hora_de_inicio}</Cell>
-    <Cell>No. {expediente}</Cell>
+    <Cell>No. {no_de_expediente}</Cell>
     <Cell>{ }</Cell>
     <CellAreaQueAtiende data={area_que_atiende} />
     <Cell>{especificar}</Cell>
