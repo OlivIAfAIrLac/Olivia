@@ -49,13 +49,12 @@ export const FormCreateUser = ({
                 className='w-1/5'
             />
             {/* correo institucional */}
-            <span className="capitalize mt-2">correo institucional *</span>
+            <span className="capitalize mt-2">usuario *</span>
             <input
                 defaultValue={defaultValues.email}
                 name='email'
                 required
                 className="input p-2"
-                type="email"
             />
             {/* Telefono */}
             <span className="capitalize mt-2">Telefono *</span>
