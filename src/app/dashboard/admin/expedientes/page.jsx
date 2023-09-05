@@ -1,13 +1,5 @@
 import ExpedientesGrid from "@/components/ExpedientesGrid";
 
-const page = () => {
-    return (
-        <>
-            <ExpedientesGrid
-                admin
-            />
-        </>
-    );
-}
+const HomeExpedientes = () => <ExpedientesGrid />
 
-export default page;
+export default HomeExpedientes;

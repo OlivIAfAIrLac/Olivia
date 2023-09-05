@@ -11,7 +11,7 @@ import IconButton from "./IconButton";
 import LoaderSkeleton from "./LoaderSkeleton";
 import SearchButton from "./SearchButton";
 
-const ExpedientesGrid = ({ admin }) => {
+const ExpedientesGrid = () => {
     const notificationCtx = useContext(NotificationContext)
     const [dataExpedientes, setDataExpedientes] = useState([])
     const [expedientesLoading, setExpedientesLoading] = useState(true);
@@ -70,7 +70,7 @@ const ExpedientesGrid = ({ admin }) => {
             <Container key='expedientes'>
                 <div className="-m-1 flex flex-wrap md:-m-2">
                     {
-                        dataExpedientes.map((item, index) => <CardRecord admin={admin} key={index + item._id} data={item} />)
+                        dataExpedientes.map((item, index) => <CardRecord key={index + item._id} data={item} />)
                     }
                 </div>
                 <div className='mt-10 flex flex-col justify-center items-center'>

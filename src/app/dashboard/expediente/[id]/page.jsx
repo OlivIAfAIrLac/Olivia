@@ -21,19 +21,16 @@ import { TbUpload } from "react-icons/tb";
 
 
 
-const HomeFolio = ({ params, searchParams }) => {
+const HomeFolio = ({ params }) => {
     const router = useRouter()
     const session = useSession()
     const [isAdmin, setIsAdmin] = useState(false)
 
-    const checkRole = (role) => {
-        role !== 'admin'
-            ? router.push(routes.dashboard.main)
-            : setIsAdmin(true)
-    }
+    const checkRole = (role) => role === 'admin' && setIsAdmin(true)
+
 
     useEffect(() => {
-        session.status !== 'loading' && checkRole(session.data.user.rol);
+        session.status !== 'loading' && checkRole(session?.data?.user?.rol);
     }, [session.status])
 
     const notificationCtx = useContext(NotificationContext)
@@ -54,6 +51,7 @@ const HomeFolio = ({ params, searchParams }) => {
     const [uploadingAudio, setUploadingAudio] = useState(false)
     const [uploadingDocumento, setUploadingDocumento] = useState(false)
     const [removingExpediente, setRemovingExpediente] = useState(false)
+    const [loadingUpdate, setLoadingUpdate] = useState(false)
 
     const handleOpenModalAudio = (ev) => {
         setOpenModalAudio(true)
@@ -163,6 +161,36 @@ const HomeFolio = ({ params, searchParams }) => {
             console.error(error);
         }
     }
+    const handleUpdateExpediente = async (ev) => {
+        ev.preventDefault()
+        const { nombre, curp } = ev.target
+        try {
+            if (isAdmin) {
+                setLoadingUpdate(true)
+                const res = await axios.put(`${apiRoutes.EXPEDIENTE}/${id}`,
+                    {
+                        nombre: nombre.value,
+                        curp: curp.value
+                    }
+                );
+                if (res.status === 200) {
+                    setRefresh(true)
+                    notificationCtx.setShowSuccesNotification(true)
+                    setTimeout(() => {
+                        notificationCtx.setShowSuccesNotification(false)
+                    }, 1_000);
+
+                    setLoadingUpdate(false)
+                }
+            }
+        } catch (error) {
+            setError(error)
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
+            console.error(error);
+        }
+    }
+
 
     const getData = useCallback(async () => {
         try {
@@ -366,6 +394,50 @@ const HomeFolio = ({ params, searchParams }) => {
         setOpenModalPlayer(true)
     }
 
+    const AdminEditionComponents = () => {
+        return <>
+            <DateTimeDisplayer timeStamp={expedienteData.expediente.createdAt} />
+
+            <span className="font-bold">Folio {expedienteData.expediente.folio}</span>
+            {
+                isAdmin
+                    ? <form onSubmit={handleUpdateExpediente}>
+                        {loadingUpdate
+                            ? <LoaderSkeleton />
+                            : <>
+                                Nombre:
+                                <input
+                                    defaultValue={expedienteData.expediente.nombre}
+                                    type="text"
+                                    name="nombre"
+                                    className="border border-solid border-gray-600 p-2 my-1 w-full"
+                                />
+                                CURP:
+                                <input
+                                    defaultValue={expedienteData.expediente.curp}
+                                    type="text"
+                                    name="curp"
+                                    className="border border-solid border-gray-600 p-2 my-1 w-full mb-5"
+                                />
+                            </>
+                        }
+                        <div className="flex flex-row justify-center items-center">
+                            <button className="font-bold navbar-bg capitalize py-3 w-1/2 mb-5"
+                                type="submit"
+                                disabled={loadingUpdate}
+                            >
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                    : <>
+                        <span className="mb-5 capitalize">{expedienteData.expediente.nombre}</span>
+                    </>
+            }
+
+        </>
+    }
+
 
     return (
         <div className="login-bg py-12 pl-14">
@@ -380,13 +452,9 @@ const HomeFolio = ({ params, searchParams }) => {
 
 
                     <div className="p-6 primary-bg flex flex-col">
-                        <DateTimeDisplayer
-                            timeStamp={expedienteData.expediente.createdAt}
-                        />
-                        <span className="font-bold">Folio {expedienteData.expediente.folio}</span>
-                        <span className="mb-5 capitalize">{expedienteData.expediente.nombre}</span>
+                        <AdminEditionComponents />
                         {/* Audio Container */}
-                        <div className="p-3 login-bg flex flex-col">
+                        <div className="p-3 login-bg flex flex-col mb-3">
                             <span className="font-bold">
                                 Audio
                             </span>
@@ -444,6 +512,9 @@ const HomeFolio = ({ params, searchParams }) => {
         </div>
     );
 }
+
+
+
 
 
 export default HomeFolio;
