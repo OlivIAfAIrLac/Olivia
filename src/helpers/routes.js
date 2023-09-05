@@ -3,7 +3,8 @@ export const routes = {
         admin: {
             adminUsuarios: "/dashboard/admin/usuarios",
             nuevoUsuario: "/dashboard/admin/usuarios/nuevo",
-            usuario: "/dashboard/admin/usuarios/"
+            usuario: "/dashboard/admin/usuarios/",
+            expedientes: "/dashboard/admin/expedientes/",
         },
         main: "/dashboard",
         miCuenta: "/dashboard/mi_cuenta",
