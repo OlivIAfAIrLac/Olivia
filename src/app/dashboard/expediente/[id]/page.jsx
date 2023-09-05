@@ -13,18 +13,35 @@ import Modal from "@/components/Modal";
 import { apiRoutes } from "@/helpers/apiRoutes";
 import { routes } from "@/helpers/routes";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { TbUpload } from "react-icons/tb";
 
 
 
-const HomeFolio = ({ params }) => {
+const HomeFolio = ({ params, searchParams }) => {
+    const router = useRouter()
+    const session = useSession()
+    const [isAdmin, setIsAdmin] = useState(false)
+
+    const checkRole = (role) => {
+        role !== 'admin'
+            ? router.push(routes.dashboard.main)
+            : setIsAdmin(true)
+    }
+
+    useEffect(() => {
+        session.status !== 'loading' && checkRole(session.data.user.rol);
+    }, [session.status])
+
     const notificationCtx = useContext(NotificationContext)
     const { id } = params;
     const [expedienteData, setExpedienteData] = useState()
     const [openModalAudio, setOpenModalAudio] = useState(false)
     const [openModalRemoveAudio, setOpenModalRemoveAudio] = useState(false)
+    const [openModalRemoveExpediente, setOpenModalRemoveExpediente] = useState(false)
     const [openModalDocument, setOpenModalDocument] = useState(false)
     const [openModalPlayer, setOpenModalPlayer] = useState(false)
     const [selectedAudios, setSelectedAudios] = useState([])
@@ -36,6 +53,7 @@ const HomeFolio = ({ params }) => {
     const [error, setError] = useState()
     const [uploadingAudio, setUploadingAudio] = useState(false)
     const [uploadingDocumento, setUploadingDocumento] = useState(false)
+    const [removingExpediente, setRemovingExpediente] = useState(false)
 
     const handleOpenModalAudio = (ev) => {
         setOpenModalAudio(true)
@@ -121,6 +139,25 @@ const HomeFolio = ({ params }) => {
                 setRefresh(true)
             }
         } catch (error) {
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
+            console.error(error);
+        }
+    }
+    const handleRemoveFolio = async () => {
+        setRemovingExpediente(true)
+        try {
+            if (isAdmin) {
+                const res = await axios.delete(`${apiRoutes.EXPEDIENTE}/${id}`)
+                if (res.status === 200) {
+                    setRemovingExpediente(false)
+                    router.push(routes.dashboard.main)
+                }
+            } else {
+                router.push(routes.dashboard.main)
+            }
+        } catch (error) {
+            setError(error)
             notificationCtx.setError(error)
             notificationCtx.setShowErrorNotification(true)
             console.error(error);
@@ -291,6 +328,35 @@ const HomeFolio = ({ params }) => {
         </Modal>
     }
 
+    const RemoveExpedienteModal = () => {
+        return <Modal
+            open={openModalRemoveExpediente}
+            setOpen={setOpenModalRemoveExpediente}
+        >
+            <div className="mt-9 flex flex-col justify-center items-center">
+                <span>¿Deseas <span className="font-bold">eliminar</span> el expediente: &quot;{expedienteData?.expediente?.folio}&quot;</span>
+                <div className="mt-6 grid grid-flow-col gap-6 text-center">
+                    {!removingExpediente
+                        ? <>
+                            <button className="px-8 font-bold navbar-bg capitalize py-3 mt-5"
+                                onClick={handleRemoveFolio}
+                            >
+                                Eliminar
+                            </button>
+                            <button className="px-8 font-bold navbar-bg capitalize py-3 mt-5"
+                                onClick={() => setOpenModalRemoveExpediente(false)}
+                            >
+                                Cancelar
+                            </button>
+                        </>
+                        : <LoaderSkeleton />
+                    }
+
+                </div>
+            </div>
+        </Modal>
+    }
+
     useEffect(() => {
         getData()
     }, [getData])
@@ -307,6 +373,7 @@ const HomeFolio = ({ params }) => {
             <DocumentModal />
             <RemoveAudioModal />
             <AudioPlayerModal />
+            <RemoveExpedienteModal />
             {!expedienteData ? <LoaderSkeleton />
                 : <Container>
                     <span className="text-lg mb-4">Expediente</span>
@@ -361,6 +428,8 @@ const HomeFolio = ({ params }) => {
                         {/* Buttons group */}
                         <ButtonGroupCedulaExpediente
                             folio={id}
+                            admin={isAdmin}
+                            onClick={() => setOpenModalRemoveExpediente(true)}
                         />
                     </div>
                     <div className="flex flex-col text-center justify-center items-center">
