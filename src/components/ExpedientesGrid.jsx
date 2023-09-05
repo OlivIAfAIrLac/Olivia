@@ -56,7 +56,9 @@ const ExpedientesGrid = () => {
     }
 
     return expedientesLoading
-        ? <LoaderSkeleton />
+        ? <Container>
+            <LoaderSkeleton />
+        </Container>
         : <>
             <Container key='search'>
                 <SearchButton
