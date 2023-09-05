@@ -6,6 +6,8 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { FaClipboardUser, FaUsers } from 'react-icons/fa6'
 import { routes } from '../../helpers/routes'
+import Container from '@/components/Container'
+import { BsTable } from 'react-icons/bs'
 
 
 export default function Home() {
@@ -15,7 +17,7 @@ export default function Home() {
     <>
       <div className="flex p-2  mt-12 pb-8 py-2 px-32">
         {/* User name */}
-        <div className="flex-1 ">
+        <div className="flex-1">
           <h1 className="text-3xl font-semibold">¡Buen dia!</h1>
           {
             status === 'loading'
@@ -35,12 +37,22 @@ export default function Home() {
             : <AdminButtons />
           }
         </div>
+
       </div>
       {/* CONTAIER */}
       <div className="flex flex-col bottom-0 login-bg">
+        {/* LINK SABANA  */}
+        <div className='flex flex-row py-2 ml-32 justify-start items-start mt-4'>
+          <Link className='flex flex-row capitalize primary-btn py-4 px-16 font-bold'
+            href={routes.dashboard.sabana}
+          >
+            <BsTable className='mr-3' size={23} />
+            Sábana Informativa
+          </Link>
+        </div>
         {/* cards */}
         <ExpedientesGrid />
-      </div>
+      </div >
     </>
   )
 }
