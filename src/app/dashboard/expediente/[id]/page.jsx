@@ -13,18 +13,32 @@ import Modal from "@/components/Modal";
 import { apiRoutes } from "@/helpers/apiRoutes";
 import { routes } from "@/helpers/routes";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { TbUpload } from "react-icons/tb";
 
 
 
 const HomeFolio = ({ params }) => {
+    const router = useRouter()
+    const session = useSession()
+    const [isAdmin, setIsAdmin] = useState(false)
+
+    const checkRole = (role) => role === 'admin' && setIsAdmin(true)
+
+
+    useEffect(() => {
+        session.status !== 'loading' && checkRole(session?.data?.user?.rol);
+    }, [session.status])
+
     const notificationCtx = useContext(NotificationContext)
     const { id } = params;
     const [expedienteData, setExpedienteData] = useState()
     const [openModalAudio, setOpenModalAudio] = useState(false)
     const [openModalRemoveAudio, setOpenModalRemoveAudio] = useState(false)
+    const [openModalRemoveExpediente, setOpenModalRemoveExpediente] = useState(false)
     const [openModalDocument, setOpenModalDocument] = useState(false)
     const [openModalPlayer, setOpenModalPlayer] = useState(false)
     const [selectedAudios, setSelectedAudios] = useState([])
@@ -36,6 +50,8 @@ const HomeFolio = ({ params }) => {
     const [error, setError] = useState()
     const [uploadingAudio, setUploadingAudio] = useState(false)
     const [uploadingDocumento, setUploadingDocumento] = useState(false)
+    const [removingExpediente, setRemovingExpediente] = useState(false)
+    const [loadingUpdate, setLoadingUpdate] = useState(false)
 
     const handleOpenModalAudio = (ev) => {
         setOpenModalAudio(true)
@@ -126,6 +142,55 @@ const HomeFolio = ({ params }) => {
             console.error(error);
         }
     }
+    const handleRemoveFolio = async () => {
+        setRemovingExpediente(true)
+        try {
+            if (isAdmin) {
+                const res = await axios.delete(`${apiRoutes.EXPEDIENTE}/${id}`)
+                if (res.status === 200) {
+                    setRemovingExpediente(false)
+                    router.push(routes.dashboard.main)
+                }
+            } else {
+                router.push(routes.dashboard.main)
+            }
+        } catch (error) {
+            setError(error)
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
+            console.error(error);
+        }
+    }
+    const handleUpdateExpediente = async (ev) => {
+        ev.preventDefault()
+        const { nombre, curp } = ev.target
+        try {
+            if (isAdmin) {
+                setLoadingUpdate(true)
+                const res = await axios.put(`${apiRoutes.EXPEDIENTE}/${id}`,
+                    {
+                        nombre: nombre.value,
+                        curp: curp.value
+                    }
+                );
+                if (res.status === 200) {
+                    setRefresh(true)
+                    notificationCtx.setShowSuccesNotification(true)
+                    setTimeout(() => {
+                        notificationCtx.setShowSuccesNotification(false)
+                    }, 1_000);
+
+                    setLoadingUpdate(false)
+                }
+            }
+        } catch (error) {
+            setError(error)
+            notificationCtx.setError(error)
+            notificationCtx.setShowErrorNotification(true)
+            console.error(error);
+        }
+    }
+
 
     const getData = useCallback(async () => {
         try {
@@ -291,6 +356,35 @@ const HomeFolio = ({ params }) => {
         </Modal>
     }
 
+    const RemoveExpedienteModal = () => {
+        return <Modal
+            open={openModalRemoveExpediente}
+            setOpen={setOpenModalRemoveExpediente}
+        >
+            <div className="mt-9 flex flex-col justify-center items-center">
+                <span>¿Deseas <span className="font-bold">eliminar</span> el expediente: &quot;{expedienteData?.expediente?.folio}&quot;</span>
+                <div className="mt-6 grid grid-flow-col gap-6 text-center">
+                    {!removingExpediente
+                        ? <>
+                            <button className="px-8 font-bold navbar-bg capitalize py-3 mt-5"
+                                onClick={handleRemoveFolio}
+                            >
+                                Eliminar
+                            </button>
+                            <button className="px-8 font-bold navbar-bg capitalize py-3 mt-5"
+                                onClick={() => setOpenModalRemoveExpediente(false)}
+                            >
+                                Cancelar
+                            </button>
+                        </>
+                        : <LoaderSkeleton />
+                    }
+
+                </div>
+            </div>
+        </Modal>
+    }
+
     useEffect(() => {
         getData()
     }, [getData])
@@ -300,6 +394,50 @@ const HomeFolio = ({ params }) => {
         setOpenModalPlayer(true)
     }
 
+    const AdminEditionComponents = () => {
+        return <>
+            <DateTimeDisplayer timeStamp={expedienteData.expediente.createdAt} />
+
+            <span className="font-bold">Folio {expedienteData.expediente.folio}</span>
+            {
+                isAdmin
+                    ? <form onSubmit={handleUpdateExpediente}>
+                        {loadingUpdate
+                            ? <LoaderSkeleton />
+                            : <>
+                                Nombre:
+                                <input
+                                    defaultValue={expedienteData.expediente.nombre}
+                                    type="text"
+                                    name="nombre"
+                                    className="border border-solid border-gray-600 p-2 my-1 w-full"
+                                />
+                                CURP:
+                                <input
+                                    defaultValue={expedienteData.expediente.curp}
+                                    type="text"
+                                    name="curp"
+                                    className="border border-solid border-gray-600 p-2 my-1 w-full mb-5"
+                                />
+                            </>
+                        }
+                        <div className="flex flex-row justify-center items-center">
+                            <button className="font-bold navbar-bg capitalize py-3 w-1/2 mb-5"
+                                type="submit"
+                                disabled={loadingUpdate}
+                            >
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                    : <>
+                        <span className="mb-5 capitalize">{expedienteData.expediente.nombre}</span>
+                    </>
+            }
+
+        </>
+    }
+
 
     return (
         <div className="login-bg py-12 pl-14">
@@ -307,19 +445,16 @@ const HomeFolio = ({ params }) => {
             <DocumentModal />
             <RemoveAudioModal />
             <AudioPlayerModal />
+            <RemoveExpedienteModal />
             {!expedienteData ? <LoaderSkeleton />
                 : <Container>
                     <span className="text-lg mb-4">Expediente</span>
 
 
                     <div className="p-6 primary-bg flex flex-col">
-                        <DateTimeDisplayer
-                            timeStamp={expedienteData.expediente.createdAt}
-                        />
-                        <span className="font-bold">Folio {expedienteData.expediente.folio}</span>
-                        <span className="mb-5 capitalize">{expedienteData.expediente.nombre}</span>
+                        <AdminEditionComponents />
                         {/* Audio Container */}
-                        <div className="p-3 login-bg flex flex-col">
+                        <div className="p-3 login-bg flex flex-col mb-3">
                             <span className="font-bold">
                                 Audio
                             </span>
@@ -361,6 +496,8 @@ const HomeFolio = ({ params }) => {
                         {/* Buttons group */}
                         <ButtonGroupCedulaExpediente
                             folio={id}
+                            admin={isAdmin}
+                            onClick={() => setOpenModalRemoveExpediente(true)}
                         />
                     </div>
                     <div className="flex flex-col text-center justify-center items-center">
@@ -375,6 +512,9 @@ const HomeFolio = ({ params }) => {
         </div>
     );
 }
+
+
+
 
 
 export default HomeFolio;
