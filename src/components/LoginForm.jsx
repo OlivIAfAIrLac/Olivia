@@ -3,10 +3,10 @@ import { routes } from "@/helpers/routes";
 import axios from 'axios';
 import { signIn } from 'next-auth/react';
 import { useRouter } from "next/navigation";
+import { useState } from 'react';
 import CloseBtn from "./CloseBtn";
-import Input from "./Input";
-import {  useState } from 'react';
 import ErrorNotification from './ErrorNotification';
+import Input from "./Input";
 
 
 const LoginForm = ({
@@ -68,7 +68,7 @@ const LoginForm = ({
                 <form className="mt-4 mb-2 w-96" onSubmit={handleOnSubmit}>
                     <div className="mb-4 flex flex-col">
                         <h1 className="font-bold outfit-font">Usuario o correo</h1>
-                        <Input placeholder="Usuario o correo..." type="email" name="email" required />
+                        <Input placeholder="Usuario o correo..." name="email" required />
                         <h1 className="font-bold outfit-font mt-3">Contraseña</h1>
                         <Input placeholder="Contraseña..." type="password" name="password" required />
                         {/* Add functions to recover pass */}
